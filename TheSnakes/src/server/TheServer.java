@@ -7,9 +7,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 
-import labFour.LoanCalculations;
-import labFour.TheServer;
-
 public class TheServer {
 	
 	private DataInputStream input;
