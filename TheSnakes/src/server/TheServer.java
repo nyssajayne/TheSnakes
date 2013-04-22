@@ -1,30 +1,33 @@
 package server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TheServer {
 	
-	private DataInputStream input;
-	private DataOutputStream output;
+	List<Thread> snakesAlive = new ArrayList<Thread>();
 	
 	public TheServer()
 	{
 		try
 		{
-			ServerSocket serverSocket = new ServerSocket(1985);
-			System.out.println("New Server at " + new Date());
+			ServerSocket s = new ServerSocket(1985);
+			System.out.println("New Snake Server at " + new Date());
 			
-			//This would accept just one snake
-			Socket socket = serverSocket.accept();
+			//i<2 means up to two players.
+			//How many players should we accommodate?
+			for (int i=0; i<2; i++)
+				snakesAlive.add(new Thread(new SnakeRunnable(s.accept())));
 			
-			input = new DataInputStream(socket.getInputStream());
-			output = new DataOutputStream(socket.getOutputStream());
-			
+			//Once this loop is complete and there is enough players
+			//The game can begin
+			//Start each thread in the array.
+			for(Thread t : snakesAlive)
+				t.start();
+
 		}
 		catch (IOException e)
 		{
