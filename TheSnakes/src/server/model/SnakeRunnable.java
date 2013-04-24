@@ -1,4 +1,4 @@
-package server;
+package server.model;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,12 +11,16 @@ public class SnakeRunnable extends Snake implements Runnable {
 	DataInputStream in;
 	DataOutputStream out;
 	
+	final private GameLogic gameLogic;
+	
 	public SnakeRunnable(Socket socket) throws IOException
 	{
 		super();
 		this.socket = socket;
 		in = new DataInputStream(socket.getInputStream());
 		out = new DataOutputStream(socket.getOutputStream());
+		
+		gameLogic = new GameLogic();
 	}
 	
 	public void getMoves()

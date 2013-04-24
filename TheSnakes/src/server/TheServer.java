@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import server.model.SnakeRunnable;
+
 public class TheServer {
 	
 	List<Thread> snakesAlive = new ArrayList<Thread>();
