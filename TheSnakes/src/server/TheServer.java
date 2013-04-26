@@ -6,14 +6,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import server.model.GameLogic;
 import server.model.SnakeRunnable;
 
 public class TheServer {
 	
 	List<Thread> snakesAlive = new ArrayList<Thread>();
+	final private GameLogic gameLogic;
 	
 	public TheServer()
 	{
+		
+		gameLogic = new GameLogic();
+		
 		try
 		{
 			ServerSocket s = new ServerSocket(1985);
@@ -22,7 +27,7 @@ public class TheServer {
 			//i<2 means up to two players.
 			//How many players should we accommodate?
 			for (int i=0; i<2; i++)
-				snakesAlive.add(new Thread(new SnakeRunnable(s.accept())));
+				snakesAlive.add(new Thread(new SnakeRunnable(s.accept(), gameLogic)));
 			
 			//Once this loop is complete and there is enough players
 			//The game can begin

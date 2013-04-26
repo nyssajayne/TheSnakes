@@ -1,5 +1,7 @@
 package server.model;
 
+import java.awt.Color;
+import java.awt.Rectangle;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,17 +12,16 @@ public class SnakeRunnable extends Snake implements Runnable {
 	Socket socket;
 	DataInputStream in;
 	DataOutputStream out;
+	GameLogic gameLogic;
 	
-	final private GameLogic gameLogic;
-	
-	public SnakeRunnable(Socket socket) throws IOException
+	public SnakeRunnable(Socket socket, GameLogic gameLogic, int x, int y, Color color, Rectangle bounds, int intitalSegments) throws IOException
 	{
-		super();
+		super(x, y, color, bounds, intitalSegments);
 		this.socket = socket;
 		in = new DataInputStream(socket.getInputStream());
 		out = new DataOutputStream(socket.getOutputStream());
 		
-		gameLogic = new GameLogic();
+	
 	}
 	
 	public void getMoves()
