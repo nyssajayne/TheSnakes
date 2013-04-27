@@ -19,7 +19,7 @@ public  class SnakeTest {
 	ArrayList<Tile> snake = new ArrayList<Tile>();
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setSize(750,750);
-
+	//needs to get snakes from server, to add them.
 	snake.add(new Tile(0,1));
 	snake.add(new Tile(0,2));
 	snake.add(new Tile(0,3));
