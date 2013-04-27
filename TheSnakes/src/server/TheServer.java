@@ -1,5 +1,6 @@
 package server;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class TheServer {
 			//i<2 means up to two players.
 			//How many players should we accommodate?
 			for (int i=0; i<2; i++)
-				snakesAlive.add(new Thread(new SnakeRunnable(s.accept(), gameLogic)));
+				snakesAlive.add(new Thread(new SnakeRunnable(s.accept(), gameLogic, 10, 10, Color.BLUE, bounds)));
 			
 			//Once this loop is complete and there is enough players
 			//The game can begin
