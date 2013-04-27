@@ -2,11 +2,10 @@ package client;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 
-import javax.swing.JFrame;
 
-
-public class Grid extends JFrame {
+public class Grid extends JPanel {
 	private static int TILE_LENGTH = 10;
 	private static int TILE_WIDTH = 10;
 	private int length;
@@ -56,7 +55,6 @@ public class Grid extends JFrame {
 		  
 		  public void initTiles(int x, int y){
 			  for(int i=0;i < x;i++){
-				  System.out.println("X is " + x + " Y is: " + y);
 				  ArrayList<Tile> a1 = new ArrayList<Tile>();
 				  for(int j=0; j < y;j++){
 					  a1.add(j,new Tile(i,j));

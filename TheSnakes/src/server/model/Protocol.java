@@ -8,7 +8,7 @@ public class Protocol extends Thread implements SnakeInterface{
 
 	/*This class will hopefully be called on each thread.
 	 * (client)
-	 * iterates through all clients
+	 * iterates through all clients.. each thread can use this? or just server
 	 * near-simultaneously sends messages?
 	 * need a broadcast method of sorts?
 	 * goal: get int from clients.

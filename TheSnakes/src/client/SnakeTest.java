@@ -1,17 +1,24 @@
 package client;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JWindow;
 
 
 public  class SnakeTest {
 	
 	public static void main(String args[]){
-	Grid g1 = new Grid(100, 100);
+	JFrame frame = new JFrame();
+	frame.setLayout(new BorderLayout());
+	Grid g1 = new Grid(50, 50);
+	ControlBar cb = new ControlBar();
+
 	ArrayList<Tile> snake = new ArrayList<Tile>();
-	g1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	g1.setSize(1500,1500);
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.setSize(750,750);
 
 	snake.add(new Tile(0,1));
 	snake.add(new Tile(0,2));
@@ -22,8 +29,17 @@ public  class SnakeTest {
 	snake.get(2).setFilled(Color.green);
 	snake.get(3).setFilled(Color.green);
 	g1.setSnake(snake);
-	g1.setVisible(true);
+	frame.add(g1, BorderLayout.CENTER);
+	frame.add(cb,BorderLayout.SOUTH);
+	frame.setVisible(true);
 	
+	//needs a get player, to show this or a simple confirm dialog box.
+	JOptionPane.showConfirmDialog(null,  cb,
+            "Ready? ",
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.PLAIN_MESSAGE);
 	 
+	JOptionPane.showMessageDialog(frame,
+		    "Waiting...","Waiting for other players",JOptionPane.PLAIN_MESSAGE);
 	}
 }
