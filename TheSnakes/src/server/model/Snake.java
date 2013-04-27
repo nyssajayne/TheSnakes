@@ -1,5 +1,6 @@
 package server.model;
 
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -8,25 +9,25 @@ import java.util.LinkedList;
 
 public class Snake {
 	
-	//private static final int START_SEGMENTS = 2;
+	private static final int START_SEGMENTS = 2;
 
-	private LinkedList<SnakeBody> segments;
+	private LinkedList<BodySegment> segments;
 	private Color color;
 	// bounds of the board the snake is on
 	private Rectangle bounds;
 		
-	public Snake(int x, int y, Color color, Rectangle bounds, int intitalSegments)
+	public Snake(int x, int y, Color color, Rectangle bounds)
 	{
-		segments = new LinkedList<SnakeBody>();
-		segments.addFirst(new SnakeBody(x,y));
-		growSnake(intitalSegments);
+		segments = new LinkedList<BodySegment>();
+		segments.addFirst(new BodySegment(x,y));
+		growSnake(START_SEGMENTS - 1);
 		this.color = color;
 		this.bounds = bounds;
 	}
 		
 	public void move(int dx, int dy)
 	{
-		// starting at the last snake, loop through each one 
+		// starting at the last segment, loop through each one 
 		for(int n = segments.size()-1; n >= 1; n--) {
 			// set the pos of the segment to the segment in front of it
 			// ( except for the head)
@@ -51,6 +52,16 @@ public class Snake {
 		}
 		// then move the head segment by the direction 
 		headpos.translate(dx, dy);
+		/*
+		 *  This checks for collisions for the snake to itself, 
+		 *  somehow it needs to tell the calling object that a collision has happened.
+		 *  TODO : adding a boolean to return call or exceptions
+		 */
+		for(int i = segments.size() - 1 ; i >= 1; i++) {
+			if(headpos.equals(segments.get(i).getPos())) {
+				// collision has occured
+			}
+		}
 	}
 	/*
 	 * this grows the snake a certain number of segments
@@ -60,12 +71,12 @@ public class Snake {
 	private void growSnake (int n) {
 		while(n > 0) {
 			// adds a new segment, giving it the position of the last segment
-			segments.add(new SnakeBody(segments.getLast().getPos()));
+			segments.add(new BodySegment(segments.getLast().getPos()));
 	        n--;
 	    }
 	}
 	/*
-	 * just a testing drawing method
+	 * This is only used for testing! 
 	 */
 	public void draw(Graphics g) {
 	    for(int n = 0; n < segments.size(); n++) {
