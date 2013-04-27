@@ -35,8 +35,8 @@ public class TheServer {
 			//Once this loop is complete and there is enough players
 			//The game can begin
 			//Start each thread in the array.
-			for(Thread t : players)
-				t.start();
+			while(players.iterator().hasNext())
+				players.iterator().next().getSnake().start();
 
 		}
 		catch (IOException e)
