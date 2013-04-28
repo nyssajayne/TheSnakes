@@ -98,6 +98,7 @@ public class TheClient extends JFrame
 		private void gameLoop() {
 			/* Need to send gear to the server here
 			 * Something like out.writeInt();
+			 * Would use Rob's balling Protocol/SnakeInterface
 			 * test_player.move(dx, dy);
 			 */
 

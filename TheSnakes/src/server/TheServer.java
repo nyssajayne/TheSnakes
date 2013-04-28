@@ -31,11 +31,16 @@ public class TheServer implements SnakeInterface {
 			//How many players should we accommodate?
 			for (int i=0; i<2; i++){
 				players.add(new Player(new Thread(new SnakeRunnable(s.accept(), gameLogic, 10, 10, Color.BLUE, BOUNDS))));
+
 				players.get(i).setName(Integer.toString(i));
 				System.out.println("New Contestant: ");
 			}
 			//Once this loop is complete and there is enough players
 			//The game can begin
+			
+			//Tell the GameLogic who the players are
+			gameLogic.setPlayers(players);
+			
 			//Start each thread in the array.
 			while(players.iterator().hasNext())
 				players.iterator().next().getSnake().start();
