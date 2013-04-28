@@ -30,7 +30,7 @@ public class TheServer {
 			//How many players should we accommodate?
 			for (int i=0; i<2; i++){
 				SnakeRunnable snake = new SnakeRunnable(s.accept(), gameLogic, 10, 10, Color.BLUE, bounds);
-				players.add(new Player(new Thread(), snake));
+				players.add(new Player(new Thread(snake), snake));
 				players.get(i).setName(Integer.toString(i));
 			}
 			//Once this loop is complete and there is enough players
