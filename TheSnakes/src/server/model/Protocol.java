@@ -2,6 +2,7 @@ package server.model;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -19,10 +20,11 @@ public class Protocol extends Thread implements SnakeInterface{
 
 		   private Socket client;
 		   private DataInputStream fromClient;
-		   private DataOutputStream toClient;
+		   private ObjectOutputStream toClient;
 		   private int player;
 		   private int output[] = {0,0,0,0};
 		   private ArrayList<Snake> snakes = new ArrayList<Snake>();
+		   Packet p1 = new Packet(snakes, player);
 		   public Protocol(Socket client, int player) 
 		   {
 		     this.client = client;
@@ -35,30 +37,42 @@ public class Protocol extends Thread implements SnakeInterface{
 			      try {
 
 			         fromClient = new DataInputStream(client.getInputStream());
-			         toClient = new DataOutputStream(client.getOutputStream());
+			         toClient = new ObjectOutputStream(client.getOutputStream());
 			         		        	 
 			            int move = fromClient.readInt();
-			            
+			            int dx,dy;
 			            switch(move){
 			            case MOVE_NONE:
 			            	System.out.println("No move made ");
-			            	output[player] = MOVE_NONE;
+
 			            	break;
 			            case MOVE_LEFT:
 			            	System.out.println("Left move made ");
-			            	output[player] = MOVE_LEFT;
+
+				    		 dx = -1;
+				    		 dy = 0;
+				    		 snakes.get(player).move(dx, dy);
 			            	break;
 			            case MOVE_RIGHT:
 			            	System.out.println("Right move made ");
+				    		 dx = 1;
+				    		 dy = 0;
 			            	output[player] = MOVE_RIGHT;
+				    		 snakes.get(player).move(dx, dy);
 			            	break;
 			            case MOVE_FASTER:
 			            	System.out.println("Faster move made ");
-			            	output[player] = MOVE_FASTER;
+				    		 dx = 0;
+				    		 dy = -1;
+				    		 snakes.get(player).move(dx, dy);
+
 			            	break;
 			            case MOVE_SLOWER:
 			            	System.out.println("Slower move made ");
-			            	output[player] = MOVE_SLOWER;
+				    		 dx = 0;
+				    		 dy = 1;
+				    		 snakes.get(player).move(dx, dy);
+
 			            	break;	
 			            case MOVE_EXIT:	
 			            	System.out.println("Exit move made ");
@@ -73,7 +87,7 @@ public class Protocol extends Thread implements SnakeInterface{
 			            	//needs to notify other threads.
 			            	break;
 			            }
-
+			            toClient.writeObject(p1);
 			        	 //send snakes. need to implement serializable.
 
 

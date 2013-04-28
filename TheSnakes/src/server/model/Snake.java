@@ -17,6 +17,7 @@ public class Snake {
 	private Color color;
 	// bounds of the board the snake is on
 	private Rectangle bounds;
+	private volatile int a;
 		
 	public Snake(int x, int y, Color color, Rectangle bounds)
 	{

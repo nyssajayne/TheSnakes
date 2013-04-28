@@ -1,5 +1,6 @@
 package client;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -13,9 +14,10 @@ import java.io.IOException;
 import java.net.Socket;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
-public class TheClient extends JFrame implements KeyListener
+public class TheClient extends JFrame
 {
 	
 	/*
@@ -34,17 +36,25 @@ public class TheClient extends JFrame implements KeyListener
 		
 		private DataInputStream in;
 		private DataOutputStream out;
-		
+		Grid g1 = new Grid(50, 50);
+		ControlBar cb = new ControlBar();
 		public TheClient() {
+			this.setLayout(new BorderLayout());
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        this.setSize(windowWidth, windowHeight);
 	        this.setResizable(false);
 	        this.setLocationRelativeTo(null);
+	        g1.addKeyListener(new MoveListener());
+	        this.add(g1,BorderLayout.CENTER);
 	        this.setVisible(true);
+	    	JOptionPane.showConfirmDialog(null,  cb,
+	                "Ready? ",
+	                JOptionPane.OK_CANCEL_OPTION,
+	                JOptionPane.PLAIN_MESSAGE);
 	        // this enables double buffering
 	        // sometime it doesn't like to work and throws an exception :(
 	        this.createBufferStrategy(2);
-	        this.addKeyListener(this);
+
 			initGame();
 		}
 
@@ -90,71 +100,16 @@ public class TheClient extends JFrame implements KeyListener
 			 * Something like out.writeInt();
 			 * test_player.move(dx, dy);
 			 */
-			drawFrame();
+
 		}
 		/*
 		 * I've found this is quite a good drawing loop for swing/awt, it uses double buffering so it looks smooth
 		 */
-		private void drawFrame() {
-			BufferStrategy bf = this.getBufferStrategy();
-	        Graphics g = null;   
-	        try {
-	            g = bf.getDrawGraphics();
-	            g.setColor(Color.GRAY);
-	            g.fillRect(0, 0, windowWidth, windowHeight);
-	           
-	            drawSnake(g);
-	            
-	        } finally {
-	            g.dispose();
-	        }
-	        // this swaps the buffers to display the image
-	        bf.show();
-	        /*
-	         * I'm not entirely sure what this method does, but apparently it's useful for animation, which is kinda what is being done
-	         */
-	        Toolkit.getDefaultToolkit().sync();
+		public static void main(String args[]){
+			TheClient c1 = new TheClient();
 		}
 		
-		 private void drawSnake (Graphics g) {
-		    /* This is where you should receive stuff from the server I imagine.
-		     * so in.readInt(); or what have you.
-		     * test_player.draw(g);
-		     * test_player2.draw(g);
-		     */
-		 }
-		@Override
-		public void keyPressed(KeyEvent e) {
-			 int key = e.getKeyCode();       
-		     switch(key) {
-		    	 case 37:
-		    		 dx = -1;
-		    		 dy = 0;
-		    		 break;
-		    	 case 38:
-		    		 dx = 0;
-		    		 dy = -1;
-		    		 break;
-		    	 case 39:
-		    		 dx = 1;
-		    		 dy = 0;
-		    		 break;
-		    	 case 40:
-		    		 dx = 0;
-		    		 dy = 1;
-		    		 break;
-		     }	 
-		}
 
-		@Override
-		public void keyReleased(KeyEvent arg0) {
-		}
-		@Override
-		public void keyTyped(KeyEvent arg0) {
-		
-		}
-		public static void main(String[] args) {
-		        new TheClient().run();
-		}
+
 
 }
