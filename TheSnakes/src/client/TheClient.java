@@ -11,10 +11,13 @@ import java.awt.image.BufferStrategy;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import server.model.Packet;
 
 @SuppressWarnings("serial")
 public class TheClient extends JFrame
@@ -33,11 +36,12 @@ public class TheClient extends JFrame
 		private int windowHeight = 600;
 		
 		private int dx,dy;
-		
-		private DataInputStream in;
+		private int sendThis;
+		private ObjectInputStream in;
 		private DataOutputStream out;
+		private Packet info;
 		Grid g1 = new Grid(50, 50);
-		ControlBar cb = new ControlBar();
+		InitialPlayerBar cb = new InitialPlayerBar(this);
 		public TheClient() {
 			this.setLayout(new BorderLayout());
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,9 +51,9 @@ public class TheClient extends JFrame
 	        g1.addKeyListener(new MoveListener());
 	        this.add(g1,BorderLayout.CENTER);
 	        this.setVisible(true);
-	    	JOptionPane.showConfirmDialog(null,  cb,
+	    	int option = JOptionPane.showConfirmDialog(null,  cb,
 	                "Ready? ",
-	                JOptionPane.OK_CANCEL_OPTION,
+	                JOptionPane.OK_OPTION,
 	                JOptionPane.PLAIN_MESSAGE);
 	        // this enables double buffering
 	        // sometime it doesn't like to work and throws an exception :(
@@ -66,8 +70,17 @@ public class TheClient extends JFrame
 			{
 				Socket socket = new Socket("localhost", 1985);
 				
-				in = new DataInputStream(socket.getInputStream());
+				in = new ObjectInputStream(socket.getInputStream());
 				out = new DataOutputStream(socket.getOutputStream());
+				
+				try {
+					info = (Packet) in.readObject();
+					out.writeUTF(cb.getPlayerName() + cb.getPlayers());
+				} catch (ClassNotFoundException e) {
+					
+					e.printStackTrace();
+				}
+				
 			}
 			catch (IOException e) 
 			{
@@ -88,6 +101,7 @@ public class TheClient extends JFrame
 			while(true) {
 				gameLoop();
 				try {
+					
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					e.printStackTrace();

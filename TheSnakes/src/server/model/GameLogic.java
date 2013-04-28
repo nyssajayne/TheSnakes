@@ -29,7 +29,7 @@ public class GameLogic {
 	{
 		for(Player p : players)
 		{
-			DataOutputStream out = p.getSnake().getOut();
+			//DataOutputStream out = p.getSnake().getOut();
 			//then something like out.writeSnakeMoves();
 			//or whatever we end up passing.
 		}

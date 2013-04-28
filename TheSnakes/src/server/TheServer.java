@@ -10,7 +10,7 @@ import java.util.List;
 import server.model.GameLogic;
 import server.model.Player;
 import server.model.SnakeInterface;
-import server.model.SnakeRunnable;
+import server.model.ClientListener;
 
 public class TheServer implements SnakeInterface {
 	
@@ -30,7 +30,7 @@ public class TheServer implements SnakeInterface {
 			//i<2 means up to two players.
 			//How many players should we accommodate?
 			for (int i=0; i<2; i++){
-				players.add(new Player(new Thread(new SnakeRunnable(s.accept(), gameLogic, 10, 10, Color.BLUE, BOUNDS))));
+				players.add(new Player(new Thread(new ClientListener(s.accept(), gameLogic, 10, 10, Color.BLUE, BOUNDS))));
 
 				players.get(i).setName(Integer.toString(i));
 				System.out.println("New Contestant: ");

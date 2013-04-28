@@ -8,14 +8,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class SnakeRunnable extends Snake implements Runnable {
+public class ClientListener extends Snake implements Runnable {
 	
 	Socket socket;
 	DataInputStream in;
 	DataOutputStream out;
 	GameLogic gameLogic;
 	
-	public SnakeRunnable(Socket socket, GameLogic gameLogic, int x, int y, Color color, Rectangle bounds) throws IOException
+	public ClientListener(Socket socket, GameLogic gameLogic, int x, int y, Color color, Rectangle bounds) throws IOException
 	{
 		super(x, y, color, bounds);
 		this.socket = socket;
