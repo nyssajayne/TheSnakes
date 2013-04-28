@@ -32,14 +32,14 @@ public class SnakeRunnable extends Snake implements Runnable {
 			while(true)
 			{
 				//read in from client.
-				//This is where we would receive Stephen's snake maneuvers.
+				//This is where we would receive Stephen's snake maneuvers
+				//And the ID of the snake
 				//if there is a message, break loop.
 				//and update the snake moves.
-				//The following code receives a string, but we might send something else.
-				String message = in.readUTF();
+				int moves = in.readInt();
 				//Then move Snake with information in message.
 				
-				moveSnake(message);
+				moveSnake(moves);
 			}
 		}
 		catch(IOException e)
@@ -48,24 +48,21 @@ public class SnakeRunnable extends Snake implements Runnable {
 		}
 	}
 	
-	public void moveSnake(String message)
+	public void moveSnake(int moves)
 	{
 		//This is the method that would check the proposed Snake position
-		//with the rest of the game logic.
-		//like a gameLogic.checkPosition(message); kind of deal
+		//with the rest of the game logic.  Like a
+		gameLogic.checkPosition(moves);
+		//kind of deal
 		//Depending on the result
 		//The snake will move, die, eat an apple
 		//And we will send that back to the client.
-		
-		try
-		{
-			//The result being sent back to the client.
-			out.writeUTF(message);
-		}
-		catch(IOException e)
-		{
-			System.out.println(e.getMessage());
-		}
+		//The GameLogic will then tell all the snakes where everyone is at.	
+	}
+	
+	public DataOutputStream getOut()
+	{
+		return out;
 	}
 
 	@Override
