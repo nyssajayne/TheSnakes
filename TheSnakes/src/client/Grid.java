@@ -3,7 +3,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import javax.swing.JPanel;
+
+import server.model.Snake;
 
 
 public class Grid extends JPanel {
@@ -58,10 +62,10 @@ public class Grid extends JPanel {
 			  		}
 		  }
 	  
-		  public void setSnake(ArrayList<Tile> snake){
+		  public void setSnake(LinkedList<Tile> linkedList){
 			  int x;
 			  int y;
-			  for(Tile piece: snake){
+			  for(Tile piece: linkedList){
 				  x = piece.getX();
 				  y = piece.getY();
 				  tiles.get(x).get(y).setFilled(piece.getFilled());

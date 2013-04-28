@@ -7,19 +7,21 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import client.Tile;
+
 public class Snake {
 	
 	private static final int START_SEGMENTS = 2;
 
-	private LinkedList<BodySegment> segments;
+	private LinkedList<Tile> segments;
 	private Color color;
 	// bounds of the board the snake is on
 	private Rectangle bounds;
 		
 	public Snake(int x, int y, Color color, Rectangle bounds)
 	{
-		segments = new LinkedList<BodySegment>();
-		segments.addFirst(new BodySegment(x,y));
+		segments = new LinkedList<Tile>();
+		segments.addFirst(new Tile(x,y));
 		growSnake(START_SEGMENTS - 1);
 		this.color = color;
 		this.bounds = bounds;
@@ -31,7 +33,7 @@ public class Snake {
 		for(int n = segments.size()-1; n >= 1; n--) {
 			// set the pos of the segment to the segment in front of it
 			// ( except for the head)
-			segments.get(n).setPos(segments.get(n-1).getPos());
+			segments.get(n).setPoint(segments.get(n-1).getPoint());
 		}
 		/*
 		 this is some simple detection for the bounds of the board
@@ -39,7 +41,7 @@ public class Snake {
 		 actually alters the snake's position somewhat
 		 collision detection regarding other snakes would go some where else in the code
 		*/
-		Point headpos = segments.getFirst().getPos();
+		Point headpos = segments.getFirst().getPoint();
 		if(headpos.x < 0) {
 			headpos.x = bounds.width; 
 		} else if(headpos.x >= bounds.width) {
@@ -58,7 +60,7 @@ public class Snake {
 		 *  TODO : adding a boolean to return call or exceptions
 		 */
 		for(int i = segments.size() - 1 ; i >= 1; i++) {
-			if(headpos.equals(segments.get(i).getPos())) {
+			if(headpos.equals(segments.get(i).getPoint())) {
 				// collision has occured
 			}
 		}
@@ -71,7 +73,7 @@ public class Snake {
 	private void growSnake (int n) {
 		while(n > 0) {
 			// adds a new segment, giving it the position of the last segment
-			segments.add(new BodySegment(segments.getLast().getPos()));
+			segments.add(new Tile(segments.getLast().getPoint()));
 	        n--;
 	    }
 	}
@@ -80,13 +82,19 @@ public class Snake {
 	 */
 	public void draw(Graphics g) {
 	    for(int n = 0; n < segments.size(); n++) {
-	           Point p = segments.get(n).getPos();
+	           Point p = segments.get(n).getPoint();
 	           g.setColor(color);
 	           // if you take out the "*15" factor for the x and y you will be able to see the boundary collision detection
-	           g.fillRect(p.x*15, p.y*15, 15, 15);
+	           g.fillRect(p.x, p.y, 10, 10);
 	           g.setColor(Color.BLACK);
 	           // this extra call just gives each square a border, might be useful
 	           g.drawRect(p.x*15, p.y*15, 15, 15);
 	       }
+	    
 	}
+
+	public LinkedList<Tile> getSegments() {
+		return segments;
+	}
+
 }

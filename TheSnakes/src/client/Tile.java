@@ -40,10 +40,6 @@ public class Tile {
 		this.filled = color;
 	}
 
-	@Override
-	public String toString() {
-		return "Tile [x=" + p.x + ", y=" + p.y + "]";
-	}
-	
+
 
 }

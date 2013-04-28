@@ -7,8 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JWindow;
 
+import server.model.Snake;
+import server.model.SnakeInterface;
 
-public  class SnakeTest {
+
+public  class SnakeTest implements SnakeInterface{
 	
 	public static void main(String args[]){
 	JFrame frame = new JFrame();
@@ -16,19 +19,12 @@ public  class SnakeTest {
 	Grid g1 = new Grid(50, 50);
 	ControlBar cb = new ControlBar();
 
-	ArrayList<Tile> snake = new ArrayList<Tile>();
+	Snake snake = new Snake(0,0,Color.YELLOW,BOUNDS);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setSize(750,750);
 	//needs to get snakes from server, to add them.
-	snake.add(new Tile(0,1));
-	snake.add(new Tile(0,2));
-	snake.add(new Tile(0,3));
-	snake.add(new Tile(0,4));
-	snake.get(0).setFilled(Color.green);
-	snake.get(1).setFilled(Color.green);
-	snake.get(2).setFilled(Color.green);
-	snake.get(3).setFilled(Color.green);
-	g1.setSnake(snake);
+
+	g1.setSnake(snake.getSegments());
 	frame.add(g1, BorderLayout.CENTER);
 	frame.add(cb,BorderLayout.SOUTH);
 	frame.setVisible(true);
