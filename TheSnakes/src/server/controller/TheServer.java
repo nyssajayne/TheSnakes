@@ -1,4 +1,4 @@
-package server;
+package server.controller;
 
 import java.awt.Point;
 import java.io.IOException;
@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import server.model.ClientListener;
 import server.model.GameLogic;
 import shared.Player;
 import shared.SnakeInterface;
@@ -65,43 +64,29 @@ public class TheServer implements SnakeInterface {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+	/*
+	 * TODO: need an end condition for this loop
+	 */
 	public void run() {
 		
 		while(true) {
-			/*
-			 * What needs to happen in here is: 
-			 * 
-			 * Get the status from the clients (which is being inputed 
-			 * by the ClientListener threads) into statusMap
-			 * 
-			 * Tell the GameLogic what the clients inputs are (translate them)
-			 * 
-			 * Get the results from the GameLogic on what has happened
-			 * 	- snake movement
-			 * 	- collisions with other snakes or food
-			 */
-			// translate the constants in SnakeInterface into moves
-			
-			
 			// step the game forward one tick
 			gameLogic.step();
 			
-			
 			// retrieve game status 
 			statusMap = gameLogic.getStatusMap();
-			/*
-			 * then use statusMap here to determine what to send to clients
-			 */
 			
 			// send info to clients
-			while(clientRunnables.iterator().hasNext())
-				clientRunnables.iterator().next().sendInfo();
-
+			while(clientRunnables.iterator().hasNext()) {
+				ClientListener client = clientRunnables.iterator().next();
+				client.sendInfo(gameLogic.getPlayers(),statusMap.get(client.getPlayerName()));
+			}
 		}
 	}
-	
-	
+	/*
+	 * This will set the status of the players, 
+	 * this is called from each ClientListener	
+	 */
 	public void setStatus(int status, String playerName) {
 		statusMap.put(playerName,status);
 	}
