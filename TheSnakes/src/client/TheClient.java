@@ -17,6 +17,8 @@ import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import client.controller.MoveListener;
+
 import server.model.Packet;
 
 @SuppressWarnings("serial")
@@ -35,7 +37,6 @@ public class TheClient extends JFrame
 		private int windowWidth = 800;
 		private int windowHeight = 600;
 		
-		private int dx,dy;
 		private int sendThis;
 		private ObjectInputStream in;
 		private DataOutputStream out;
@@ -110,12 +111,22 @@ public class TheClient extends JFrame
 		}
 		
 		private void gameLoop() {
-			/* Need to send gear to the server here
-			 * Something like out.writeInt();
-			 * Would use Rob's balling Protocol/SnakeInterface
-			 * test_player.move(dx, dy);
+			//test_player.move(dx, dy); 
+			
+			try {
+				out.writeInt(sendThis);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public void setSendThis(int move)
+		{
+			/*
+			 * This method is called from the MoveListener
+			 * where "move" is which key was pressed
 			 */
-
+			sendThis = move;
 		}
 		/*
 		 * I've found this is quite a good drawing loop for swing/awt, it uses double buffering so it looks smooth
@@ -123,8 +134,5 @@ public class TheClient extends JFrame
 		public static void main(String args[]){
 			TheClient c1 = new TheClient();
 		}
-		
-
-
 
 }
