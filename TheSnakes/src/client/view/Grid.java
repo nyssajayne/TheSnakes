@@ -27,65 +27,65 @@ public class Grid extends JPanel {
 
 	}
 
-			//note objects cannot be colour black. else will not appear.
-		  public void paint(Graphics g){
-			  super.paint(g);
-		  int x = 30;
-		  int y = 30;
-		  drawBoard(g);
-		  for(int i=0;i < length;i++){
-			  for(int j=0; j < width;j++){
-				 
-			  g.setColor(tiles.get(i).get(j).getFilled());
-			  if(g.getColor() != Color.BLACK)
-		  	  g.fillRect(x,y,TILE_LENGTH, TILE_WIDTH);
-			  
-		  	  
-		  	  
-		  	  
-		  	  x += 10;
-			  }
-			  x=30;
-			  y +=10;
-		  		}
-		  }
-		  public void drawBoard(Graphics g){
+	//note objects cannot be colour black. else will not appear.
+	public void paint(Graphics g){
+		super.paint(g);
+		int x = 30;
+		int y = 30;
+		drawBoard(g);
+		for(int i=0;i < length;i++){
+			for(int j=0; j < width;j++){
 
-			  int x = 30;
-			  int y = 30;
-			  for(int i=0;i < length;i++){
-				  for(int j=0; j < width;j++){
-				  g.setColor(Color.BLACK);  
-				  g.drawRect(x, y, TILE_LENGTH, TILE_WIDTH);
-			  	  
-			  	  
-			  	  x += 10;
-				  }
-				  x=30;
-				  y +=10;
-			  		}
-		  }
-	  
-		  public void setSnake(LinkedList<Tile> linkedList){
-			  int x;
-			  int y;
-			  for(Tile piece: linkedList){
-				  x = piece.getX();
-				  y = piece.getY();
-				  tiles.get(x).get(y).setFilled(piece.getFilled());
-				  this.repaint();
-			  }
-			  
-		  }
-		  
-		  public void initTiles(int x, int y){
-			  for(int i=0;i < x;i++){
-				  ArrayList<Tile> a1 = new ArrayList<Tile>();
-				  for(int j=0; j < y;j++){
-					  a1.add(j,new Tile(i,j));
-					  tiles.add(i,a1);
-				  
-			  }
-	  }
-	 } 
+				g.setColor(tiles.get(i).get(j).getFilled());
+				if(g.getColor() != Color.BLACK)
+					g.fillRect(x,y,TILE_LENGTH, TILE_WIDTH);
+
+
+
+
+				x += 10;
+			}
+			x=30;
+			y +=10;
+		}
+	}
+	public void drawBoard(Graphics g){
+
+		int x = 30;
+		int y = 30;
+		for(int i=0;i < length;i++){
+			for(int j=0; j < width;j++){
+				g.setColor(Color.BLACK);  
+				g.drawRect(x, y, TILE_LENGTH, TILE_WIDTH);
+
+
+				x += 10;
+			}
+			x=30;
+			y +=10;
+		}
+	}
+
+	public void setSnake(LinkedList<Tile> linkedList){
+		int x;
+		int y;
+		for(Tile piece: linkedList){
+			x = piece.getX();
+			y = piece.getY();
+			tiles.get(x).get(y).setFilled(piece.getFilled());
+			this.repaint();
+		}
+
+	}
+
+	public void initTiles(int x, int y){
+		for(int i=0;i < x;i++){
+			ArrayList<Tile> a1 = new ArrayList<Tile>();
+			for(int j=0; j < y;j++){
+				a1.add(j,new Tile(i,j));
+				tiles.add(i,a1);
+
+			}
+		}
+	} 
 }

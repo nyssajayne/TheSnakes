@@ -45,6 +45,13 @@ public class SocketHandler {
 	public Socket getSocket() {
 		return socket;
 	}
-	
+	public boolean isAlive(){
+		return(socket != null);
+			
+	}
+	public void sendName(String name) throws IOException
+	{
+		out.writeUTF(name);
+	}
 	
 }

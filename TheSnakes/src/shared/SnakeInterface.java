@@ -20,6 +20,12 @@ public interface SnakeInterface {
 	public static int STATUS_WIN = 8;
 	public static int STATUS_LOSE = 9;
 	
+	public static int TOP_LEFT = 0;
+	public static int TOP_RIGHT = 1;
+	public static int BOT_LEFT = 2;
+	public static int BOT_RIGHT = 3;
+	public static String POSITIONS[] = {"TOP_LEFT", "TOP_RIGHT", "BOT_LEFT", "BOT_RIGHT"}; 
+	
 	public static Rectangle BOUNDS = new Rectangle(0,0,PIECE_SIZE,PIECE_SIZE);
 
 }
