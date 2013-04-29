@@ -7,10 +7,9 @@ import shared.Player;
 
 public class GameLogic {
 	
+	// may be more appropriate to use a map here
 	List<Player> players;
 	private Point bounds;
-	
-	
 	
 	public GameLogic(Point bounds)
 	{
@@ -21,24 +20,34 @@ public class GameLogic {
 	{
 		this.players = players;
 		// give all players a color and position
+		
+		
+		
+	}
+	// Steps the game forward one "tick" 
+	public void step() {
+		
+		moveSnakes();
+		
+		
 	}
 	
-	private void checkPosition(int moves)
-	{
-		//Check to see if that snake can make that move.
-		//Once the all clear is given
-		moveSnakes(moves);
-	}
-	
-	public void moveSnakes(int moves)
-	{
-		for(Player p : players)
-		{
-			//DataOutputStream out = p.getSnake().getOut();
-			//then something like out.writeSnakeMoves();
-			//or whatever we end up passing.
+	private void moveSnakes() {
+		for(Player p : players) {
+			p.getSnake().move();
 		}
 	}
+	
+	public void setSnakeDirection(String name, int dx, int dy) {
+		// would be more efficent with a map
+		for(Player p: players) {
+			if(p.getName().equals(name)){
+				p.getSnake().setDirection(dx, dy);
+			}
+		}
+		
+	}
+	
 	public List<Player> getPlayers() {
 		return null;
 		

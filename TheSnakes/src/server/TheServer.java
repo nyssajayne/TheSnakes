@@ -68,7 +68,6 @@ public class TheServer implements SnakeInterface {
 	
 	public void run() {
 		
-		
 		while(true) {
 			/*
 			 * What needs to happen in here is: 
@@ -82,7 +81,17 @@ public class TheServer implements SnakeInterface {
 			 * 	- snake movement
 			 * 	- collisions with other snakes or food
 			 */
+			// translate the constants in SnakeInterface into moves
 			
+			
+			// step the game forward one tick
+			gameLogic.step();
+			
+			
+			// retrieve game status 
+			
+			
+			// send info to clients
 			while(clientRunnables.iterator().hasNext())
 				clientRunnables.iterator().next().sendInfo();
 

@@ -18,7 +18,9 @@ public class Snake {
 	// bounds of the board the snake is on
 	private Rectangle bounds;
 	private volatile int a;
-		
+	
+	private int dx, dy;
+	
 	public Snake(int x, int y, Color color, Rectangle bounds)
 	{
 		segments = new LinkedList<Tile>();
@@ -27,8 +29,13 @@ public class Snake {
 		this.color = color;
 		this.bounds = bounds;
 	}
+	
+	public void setDirection(int dx, int dy) {
+		this.dx = dx;
+		this.dy = dy;
+	}
 		
-	public boolean move(int dx, int dy)
+	public boolean move()
 	{
 		// starting at the last segment, loop through each one 
 		for(int n = segments.size()-1; n >= 1; n--) {
