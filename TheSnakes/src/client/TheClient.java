@@ -98,11 +98,10 @@ public class TheClient extends JFrame
 			 * dy = 0;
 			 */
 		}
-		private void run() {
+		public void run() {
 			while(true) {
 				gameLoop();
 				try {
-					
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -112,7 +111,6 @@ public class TheClient extends JFrame
 		
 		private void gameLoop() {
 			//test_player.move(dx, dy); 
-			
 			try {
 				out.writeInt(sendThis);
 			} catch (IOException e) {
@@ -132,7 +130,7 @@ public class TheClient extends JFrame
 		 * I've found this is quite a good drawing loop for swing/awt, it uses double buffering so it looks smooth
 		 */
 		public static void main(String args[]){
-			TheClient c1 = new TheClient();
+			new TheClient().run();
 		}
 
 }

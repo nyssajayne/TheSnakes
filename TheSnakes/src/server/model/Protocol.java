@@ -17,69 +17,53 @@ public class Protocol implements SnakeInterface{
 	 * 		 send type ArrayList<Snake> to all.
 	 * change to inputstreamreader? i.e trivia
 	 */
-
+/*
 		   private Socket client;
 		   private DataInputStream fromClient;
 		   private ObjectOutputStream toClient;
 		   private int player;
 		   private ArrayList<Snake> snakes = new ArrayList<Snake>();
-
-		   public Protocol(Socket client, int player) 
+*/
+		   public Protocol() 
 		   {
-		     this.client = client;
-		     this.player = player;
 		   }
 		   
 		   //need to modify. get input takes int. this converts. 
 		   //client listener always checks if stream != 0(aka no move)
-		   public void getInput(){
-			   try{
-			   fromClient = new DataInputStream(client.getInputStream());
-
-		         		        	 
-		            int move = fromClient.readInt();
+		   public void getInput(int status) {
+			   
+			   try {
 		            int dx,dy;
-		            switch(move){
+		            switch(status){
 		            case MOVE_NONE:
 		            	System.out.println("No move made ");
 
 		            	break;
 		            case MOVE_LEFT:
 		            	System.out.println("Left move made ");
-
 			    		 dx = -1;
 			    		 dy = 0;
-			    		 snakes.get(player).move(dx, dy);
 		            	break;
 		            case MOVE_RIGHT:
 		            	System.out.println("Right move made ");
 			    		 dx = 1;
 			    		 dy = 0;
-			    		 snakes.get(player).move(dx, dy);
 		            	break;
 		            case MOVE_FASTER:
 		            	System.out.println("Faster move made ");
 			    		 dx = 0;
 			    		 dy = -1;
-			    		 snakes.get(player).move(dx, dy);
-
 		            	break;
 		            case MOVE_SLOWER:
 		            	System.out.println("Slower move made ");
 			    		 dx = 0;
 			    		 dy = 1;
-			    		 snakes.get(player).move(dx, dy);
-
 		            	break;	
 		            case MOVE_EXIT:	
 		            	System.out.println("Exit move made ");
-		            	client.close();
-		            	//needs to notify other threads.
 		            	break;	
 		            case MOVE_ERROR:	
 		            	System.out.println("Exit move made ");
-		            	client.close();
-		            	//needs to notify other threads.
 		            	break;
 		            }
 		            
@@ -95,7 +79,7 @@ public class Protocol implements SnakeInterface{
 		         
 		    }
 
-
+/*
 		   public void sendPacket(Packet p1){
 			   
 			   try{
@@ -111,5 +95,6 @@ public class Protocol implements SnakeInterface{
 		  public void setSnakes(ArrayList<Snake> s1){
 			   snakes = s1;
 		   }
-			}
+		   */
+	}
 

@@ -1,11 +1,13 @@
 package server.model;
 
-import java.io.DataOutputStream;
+import java.awt.Rectangle;
 import java.util.List;
 
 public class GameLogic {
 	
 	List<Player> players;
+	private Rectangle bounds;
+	
 	
 	
 	public GameLogic()
@@ -18,7 +20,7 @@ public class GameLogic {
 		this.players = players;
 	}
 	
-	public void checkPosition(int moves)
+	private void checkPosition(int moves)
 	{
 		//Check to see if that snake can make that move.
 		//Once the all clear is given
@@ -34,5 +36,8 @@ public class GameLogic {
 			//or whatever we end up passing.
 		}
 	}
-
+	public List<Player> getPlayers() {
+		return null;
+		
+	}
 }

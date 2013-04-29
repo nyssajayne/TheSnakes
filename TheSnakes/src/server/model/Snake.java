@@ -28,7 +28,7 @@ public class Snake {
 		this.bounds = bounds;
 	}
 		
-	public void move(int dx, int dy)
+	public boolean move(int dx, int dy)
 	{
 		// starting at the last segment, loop through each one 
 		for(int n = segments.size()-1; n >= 1; n--) {
@@ -58,13 +58,13 @@ public class Snake {
 		/*
 		 *  This checks for collisions for the snake to itself, 
 		 *  somehow it needs to tell the calling object that a collision has happened.
-		 *  TODO : adding a boolean to return call or exceptions
 		 */
 		for(int i = segments.size() - 1 ; i >= 1; i++) {
 			if(headpos.equals(segments.get(i).getPoint())) {
-				// collision has occured
+				return false;
 			}
 		}
+		return true;
 	}
 	/*
 	 * this grows the snake a certain number of segments
