@@ -1,4 +1,4 @@
-package server.model;
+package server.controller;
 
 
 import java.io.DataInputStream;
@@ -6,9 +6,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.List;
 
-import server.TheServer;
 import shared.Packet;
 import shared.Player;
 /*
@@ -32,6 +31,10 @@ public class ClientListener implements Runnable {
 		out = new DataOutputStream(socket.getOutputStream());
 	}
 	
+	public String getPlayerName() {
+		return playerName;
+	}
+	
 	public void getMoves()
 	{
 		try
@@ -50,7 +53,7 @@ public class ClientListener implements Runnable {
 		}
 	}
 
-	public void sendInfo(ArrayList<Player> snakes, int gameStatus) {
+	public void sendInfo(List<Player> snakes, int gameStatus) {
 		sendPacket(new Packet(snakes, gameStatus));
 	}
 	private void sendPacket(Packet p1){

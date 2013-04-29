@@ -1,25 +1,25 @@
 package shared;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class Packet implements Serializable {
-	ArrayList<Player> players;
-	int gameStatus;
+	private List<Player> players;
+	private int gameStatus;
 	/**
 	 * This is what will be sent.
 	 */
 	private static final long serialVersionUID = -5967953452268446936L;
-	public Packet(ArrayList<Player> players, int gameStatus){
-		this.players = players;
+	public Packet(List<Player> snakes, int gameStatus){
+		this.players = snakes;
 		this.gameStatus = gameStatus;
 	}
 	
-	public ArrayList<Player> getPlayers() {
+	public List<Player> getPlayers() {
 		return players;
 	}
-	public void setSnakes(ArrayList<Player> snakes) {
+	public void setSnakes(List<Player> snakes) {
 		this.players = snakes;
 	}
 	public int getGameStatus() {
