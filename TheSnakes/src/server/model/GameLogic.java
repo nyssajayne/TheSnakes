@@ -3,6 +3,8 @@ package server.model;
 import java.awt.Point;
 import java.util.List;
 
+import shared.Player;
+
 public class GameLogic {
 	
 	List<Player> players;

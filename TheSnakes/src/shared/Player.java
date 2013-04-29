@@ -1,6 +1,7 @@
-package server.model;
+package shared;
 
 import java.awt.Color;
+
 
 public class Player {
 	

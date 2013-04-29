@@ -1,4 +1,4 @@
-package client;
+package client.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -7,7 +7,8 @@ import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
-import server.model.Snake;
+import shared.Snake;
+import shared.Tile;
 
 
 public class Grid extends JPanel {

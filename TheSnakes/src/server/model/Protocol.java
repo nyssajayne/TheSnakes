@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import shared.SnakeInterface;
+
 public class Protocol implements SnakeInterface{
 
 	/*This class will hopefully be called on each thread.

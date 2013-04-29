@@ -1,7 +1,8 @@
-package server.model;
+package shared;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 
 public class Packet implements Serializable {
 	ArrayList<Player> players;

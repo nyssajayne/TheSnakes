@@ -9,6 +9,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import server.TheServer;
+import shared.Packet;
+import shared.Player;
 /*
  * This class should be in server.controller
  */

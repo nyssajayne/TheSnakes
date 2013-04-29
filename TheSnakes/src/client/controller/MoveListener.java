@@ -3,11 +3,9 @@ package client.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import client.view.TheClient;
 
-import client.SnakeInterface;
-import client.TheClient;
-
-public class MoveListener implements KeyListener, SnakeInterface {
+public class MoveListener implements KeyListener, shared.SnakeInterface {
 
 	@Override
 	public void keyPressed(KeyEvent e) {

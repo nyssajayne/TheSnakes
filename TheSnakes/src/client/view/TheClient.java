@@ -1,4 +1,4 @@
-package client;
+package client.view;
 
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
@@ -6,12 +6,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import javax.swing.JFrame;
-import server.model.Packet;
+
+import shared.Packet;
 import client.controller.MoveListener;
 import client.model.SocketHandler;
 
 @SuppressWarnings("serial")
-public class TheClient extends JFrame implements SnakeInterface
+public class TheClient extends JFrame implements shared.SnakeInterface
 {
 	
 	/*
