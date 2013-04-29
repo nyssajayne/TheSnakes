@@ -1,16 +1,16 @@
 package server.model;
 
-import java.awt.Rectangle;
+import java.awt.Point;
 import java.util.List;
 
 public class GameLogic {
 	
 	List<Player> players;
-	private Rectangle bounds;
+	private Point bounds;
 	
 	
 	
-	public GameLogic()
+	public GameLogic(Point bounds)
 	{
 		
 	}
@@ -18,6 +18,7 @@ public class GameLogic {
 	public void setPlayers(List<Player> players)
 	{
 		this.players = players;
+		// give all players a color and position
 	}
 	
 	private void checkPosition(int moves)

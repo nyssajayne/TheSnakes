@@ -1,12 +1,9 @@
 package client;
 
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -16,7 +13,7 @@ public class InitialPlayerBar extends JPanel{
 	private JTextField name = new JTextField(20);
 	private JLabel lbl3 = new JLabel("Players");
 	private String players[] = {"2","3","4"};
-	private JComboBox<?> dbx = new JComboBox<Object>(players);
+	private JComboBox dbx = new JComboBox(players);
 
 
 

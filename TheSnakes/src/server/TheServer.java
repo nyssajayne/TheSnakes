@@ -1,7 +1,7 @@
 package server;
 
+import java.awt.Point;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +11,6 @@ import java.util.Map;
 
 import server.model.ClientListener;
 import server.model.GameLogic;
-import server.model.Packet;
 import server.model.Player;
 import server.model.SnakeInterface;
 
@@ -26,11 +25,12 @@ public class TheServer implements SnakeInterface {
 	private Map<String,Integer> statusMap = new HashMap<String,Integer>();
 	
 	private int numPlayers;
+	private Point bounds;
 	final private GameLogic gameLogic;
 	
-	public TheServer(int numPlayers)
+	public TheServer(int numPlayers, Point bounds)
 	{
-		gameLogic = new GameLogic();
+		gameLogic = new GameLogic(bounds);
 		this.numPlayers = numPlayers;
 		try
 		{
@@ -70,16 +70,19 @@ public class TheServer implements SnakeInterface {
 		
 		
 		while(true) {
-			// send the status of the players to the game
+			/*
+			 * What needs to happen in here is: 
+			 * 
+			 * Get the status from the clients (which is being inputed 
+			 * by the ClientListener threads) into statusMap
+			 * 
+			 * Tell the GameLogic what the clients inputs are (translate them)
+			 * 
+			 * Get the results from the GameLogic on what has happened
+			 * 	- snake movements
+			 * 	- collisions with other snakes or food
+			 */
 			
-			// get the result of the moves/collisions etc
-			// check if someone has won, if so stop the game
-			
-			
-			
-			
-			
-			// send snake information to each client
 			while(clientRunnables.iterator().hasNext())
 				clientRunnables.iterator().next().sendInfo();
 
@@ -93,7 +96,7 @@ public class TheServer implements SnakeInterface {
 	
 	public static void main(String args[])
 	{
-		new TheServer(4).run();
+		new TheServer(4,new Point(20,20)).run();
 	}
 
 }

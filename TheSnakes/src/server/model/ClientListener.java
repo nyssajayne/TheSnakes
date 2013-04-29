@@ -9,7 +9,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import server.TheServer;
-
+/*
+ * This class should be in server.controller
+ */
 public class ClientListener implements Runnable {
 	
 	private Socket socket;
@@ -46,12 +48,13 @@ public class ClientListener implements Runnable {
 		}
 	}
 
-	public void sendInfo(ArrayList<Snake> snakes, int gameStatus) {
+	public void sendInfo(ArrayList<Player> snakes, int gameStatus) {
 		sendPacket(new Packet(snakes, gameStatus));
 	}
 	private void sendPacket(Packet p1){
 		   try{
 			   new ObjectOutputStream(socket.getOutputStream()).writeObject(p1);
+			   System.out.println(p1);
 		   }catch(Exception e){
 			   System.out.println(e.getStackTrace().toString());
 		   }
