@@ -30,6 +30,9 @@ public class Player {
 	public void setScore(int score) {
 		this.score = score;
 	}
+	public Snake getSnake(){
+		return snake;
+	}
 
 
 

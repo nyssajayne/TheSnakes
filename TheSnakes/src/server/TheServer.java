@@ -79,7 +79,7 @@ public class TheServer implements SnakeInterface {
 			 * Tell the GameLogic what the clients inputs are (translate them)
 			 * 
 			 * Get the results from the GameLogic on what has happened
-			 * 	- snake movements
+			 * 	- snake movement
 			 * 	- collisions with other snakes or food
 			 */
 			
@@ -92,7 +92,7 @@ public class TheServer implements SnakeInterface {
 	
 	public void setStatus(int status, String playerName) {
 		statusMap.put(playerName,status);
-	}z
+	}
 	
 	public static void main(String args[])
 	{

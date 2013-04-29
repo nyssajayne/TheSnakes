@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class InitialPlayerBar extends JPanel{
+public class ControlBox extends JPanel{
 	private TheClient tc;
 	private JLabel lbl1 = new JLabel("Enter Name:");
 	private JTextField name = new JTextField(20);
@@ -17,7 +17,7 @@ public class InitialPlayerBar extends JPanel{
 
 
 
-	public InitialPlayerBar(TheClient theClient){
+	public ControlBox(TheClient theClient){
 		this.tc = theClient;
 		this.setLayout(new FlowLayout());
 		this.add(lbl1);
