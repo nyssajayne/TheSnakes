@@ -34,6 +34,10 @@ public class Snake {
 		this.dx = dx;
 		this.dy = dy;
 	}
+	
+	public Point getHeadPos() {
+		return segments.getFirst().getPoint();
+	}
 		
 	public boolean move()
 	{

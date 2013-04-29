@@ -89,7 +89,10 @@ public class TheServer implements SnakeInterface {
 			
 			
 			// retrieve game status 
-			
+			statusMap = gameLogic.getStatusMap();
+			/*
+			 * then use statusMap here to determine what to send to clients
+			 */
 			
 			// send info to clients
 			while(clientRunnables.iterator().hasNext())

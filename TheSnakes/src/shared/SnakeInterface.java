@@ -3,6 +3,7 @@ package shared;
 import java.awt.Rectangle;
 
 public interface SnakeInterface {
+	
 	public static int MOVE_NONE = 0;
 	public static int MOVE_LEFT = 1;
 	public static int MOVE_UP = 11;
