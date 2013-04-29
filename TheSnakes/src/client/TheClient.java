@@ -10,9 +10,8 @@ import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import client.controller.MoveListener;
-
 import server.model.Packet;
+import client.controller.MoveListener;
 
 @SuppressWarnings("serial")
 public class TheClient extends JFrame
@@ -69,6 +68,7 @@ public class TheClient extends JFrame
 				
 				try {
 					info = (Packet) in.readObject();
+					System.out.println(info);
 					out.writeUTF(cb.getPlayerName() + cb.getPlayers());
 				} catch (ClassNotFoundException e) {
 					
@@ -119,9 +119,7 @@ public class TheClient extends JFrame
 			 */
 			sendThis = move;
 		}
-		/*
-		 * I've found this is quite a good drawing loop for swing/awt, it uses double buffering so it looks smooth
-		 */
+		
 		public static void main(String args[]){
 			new TheClient().run();
 		}

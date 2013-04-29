@@ -1,13 +1,25 @@
 package server.model;
 
+import java.awt.Color;
+
 public class Player {
-		private String name;
-		private int score;
+	
+	private String name;
+	private Snake snake;
+	private int score;
+	private Color color;
+	
 	public Player(String name){
 		this.name = name;
 	}
 	public String getName() {
 		return name;
+	}
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	public Color getColor() {
+		return color;
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -18,13 +30,7 @@ public class Player {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	/*
-	public Thread getSnake() {
-		return thread;
-	}
-	public void setSnake(Thread snake) {
-		this.thread = snake;
-	}
-	*/
+
+
 
 }

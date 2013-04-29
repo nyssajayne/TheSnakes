@@ -79,22 +79,5 @@ public class Protocol implements SnakeInterface{
 		         
 		    }
 
-/*
-		   public void sendPacket(Packet p1){
-			   
-			   try{
-		         toClient = new ObjectOutputStream(client.getOutputStream());
-		         toClient.writeObject(p1);
-			   }catch(Exception e){
-				   System.out.println(e.getStackTrace().toString());
-			   }
-		   }
-
-			        
-		   
-		  public void setSnakes(ArrayList<Snake> s1){
-			   snakes = s1;
-		   }
-		   */
-	}
+}
 
