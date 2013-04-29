@@ -3,14 +3,14 @@ package client.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import client.view.TheClient;
+import client.view.ClientFrame;
 
 public class MoveListener implements KeyListener, shared.SnakeInterface {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		 int key = e.getKeyCode();  
-		 TheClient client = (TheClient) e.getSource();
+		 ClientFrame client = (ClientFrame) e.getSource();
 		 try{
 			 switch(key) {
 			 	case KeyEvent.VK_LEFT:
