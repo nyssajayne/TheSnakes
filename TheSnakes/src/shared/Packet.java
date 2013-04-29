@@ -31,5 +31,13 @@ public class Packet implements Serializable {
 	public String toString() {
 		return "Snakes: " + players + "gamestatus: " + gameStatus;
 	}
+	public String getScores(){
+		String scores = "";
+		for(Player p : players){
+			scores.concat( "Name: " + p.getName() + "Score: " + p.getScore() + "\n"); 
+		}
+		return scores;
+		
+	}
 
 }

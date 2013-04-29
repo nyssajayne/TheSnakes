@@ -16,6 +16,8 @@ public class StatusPanel extends JPanel{
 		private JLabel lbl_amountPlayers = new JLabel("For now.. 1");
 		private JLabel lbl_status = new JLabel("Status: ");
 		private JLabel lbl_curStats = new JLabel("Idling");
+		private JLabel lbl_colour = new JLabel("Colour: ");
+		private JLabel lbl_curColour = new JLabel("none!");
 		private String score = "Name: R Score 100"+"\n"+"Name:S Score 200";
 		private int flags = 4;
 		private JTextArea txtArea = new JTextArea(score, 40, flags);
@@ -28,10 +30,14 @@ public class StatusPanel extends JPanel{
 			this.add(lbl_players);
 			this.add(lbl_amountPlayers);
 			this.add(lbl_status);
+			this.add(lbl_colour);
+			this.add(lbl_curColour);
 			this.add(lbl_curStats);
 			this.add(txtArea);
+			
 			this.setSize(200,650);
-			this.setLayout(new GridLayout(4,2));
+			this.setLayout(new GridLayout(6
+					,2));
 			this.setVisible(true);
 		}
 		public void setLbl_curPlayer(String currentPlayer) {

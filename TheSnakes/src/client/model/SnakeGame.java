@@ -2,10 +2,10 @@ package client.model;
 
 import java.awt.Point;
 import java.io.IOException;
-import client.view.ClientFrame;
-import server.TheServer;
+
 import shared.Packet;
 import shared.SnakeInterface;
+import client.view.ClientFrame;
 
 public class SnakeGame extends Thread implements SnakeInterface{
 
@@ -35,7 +35,7 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			clientFrame.getSockHandler().initConnection("localhost");
 			if(create){
 				Point p = new Point(Integer.parseInt(clientFrame.getCb().getField_len().toString()),Integer.parseInt(clientFrame.getCb().getField_width().toString()));
-				CreateServer(clientFrame.getCb().getCbx_pos().getSelectedIndex()+2,p);
+				CreateServer(clientFrame.getCb().getPlayers(),p);
 
 			}
 			try {
@@ -72,8 +72,8 @@ public class SnakeGame extends Thread implements SnakeInterface{
 
 	}
 
-	public void CreateServer(int position, Point bounds){
-		new TheServer(position, bounds);
+	public void CreateServer(int players, Point bounds){
+		new server.controller.TheServer(players, bounds);
 	}
 	public void run()
 	{
