@@ -9,7 +9,7 @@ public class Tile {
 
 	public Tile(int x, int y){
 		p = new Point(x,y);
-		filled = Color.red;
+		filled = null;
 	}
 	public Tile(Point p1){
 		p = new Point(p1);

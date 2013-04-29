@@ -89,7 +89,7 @@ public class TheServer implements SnakeInterface {
 	
 	public void setStatus(int status, String playerName) {
 		statusMap.put(playerName,status);
-	}
+	}z
 	
 	public static void main(String args[])
 	{

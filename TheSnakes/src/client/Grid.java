@@ -26,17 +26,20 @@ public class Grid extends JPanel {
 
 	}
 
-		  
+			//note objects cannot be colour black. else will not appear.
 		  public void paint(Graphics g){
 			  super.paint(g);
 		  int x = 30;
 		  int y = 30;
+		  drawBoard(g);
 		  for(int i=0;i < length;i++){
 			  for(int j=0; j < width;j++){
-
+				 
 			  g.setColor(tiles.get(i).get(j).getFilled());
+			  if(g.getColor() != Color.BLACK)
 		  	  g.fillRect(x,y,TILE_LENGTH, TILE_WIDTH);
-		  	  drawBoard(g);
+			  
+		  	  
 		  	  
 		  	  
 		  	  x += 10;
