@@ -21,6 +21,9 @@ public class TheServer implements SnakeInterface {
 	private List<Thread> clients = new ArrayList<Thread>();
 	private List<ClientListener> clientRunnables = new ArrayList<ClientListener>();
 	
+	private int numPlayers;
+	private ServerSocket serverSocket;
+	
 	private Map<String,Integer> statusMap = new HashMap<String,Integer>();
 	
 	final private GameLogic gameLogic;
@@ -28,30 +31,10 @@ public class TheServer implements SnakeInterface {
 	public TheServer(int numPlayers, Point bounds)
 	{
 		gameLogic = new GameLogic(bounds);
-		try
-		{
-			ServerSocket s = new ServerSocket(PORT);
+		this.numPlayers = numPlayers;
+		try{
+			serverSocket = new ServerSocket(PORT);
 			System.out.println("New Snake Server at " + new Date());
-			
-			for (int i=0; i<numPlayers; i++) {
-				String name = Integer.toString(i); 
-				ClientListener client = new ClientListener(this,s.accept(),name);
-				clients.add(new Thread(client));
-				clientRunnables.add(client);
-				players.add(new Player(name));
-				statusMap.put(name, STATUS_WAIT);
-				
-				System.out.println("New Contestant: ");
-			}
-			//Once this loop is complete and there is enough players
-			//The game can begin
-					
-			//Start each thread in the array.
-			while(clients.iterator().hasNext())
-				clients.iterator().next().start();
-			
-			//Tell the GameLogic who the players are
-			gameLogic.setPlayers(players);
 		}
 		catch (IOException e)
 		{
@@ -62,6 +45,32 @@ public class TheServer implements SnakeInterface {
 	 * TODO: need an end condition for this loop
 	 */
 	public void run() {
+		
+		for (int i=0; i<numPlayers; i++) {
+			String name = Integer.toString(i); 
+			ClientListener client;
+			try {
+				client = new ClientListener(this,serverSocket.accept(),name);
+				clients.add(new Thread(client));
+				clientRunnables.add(client);
+				players.add(new Player(name));
+				statusMap.put(name, STATUS_WAIT);
+				System.out.println("New Contestant: ");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//Once this loop is complete and there is enough players
+		//The game can begin
+				
+		//Start each thread in the array.
+		while(clients.iterator().hasNext())
+			clients.iterator().next().start();
+		
+		//Tell the GameLogic who the players are
+		gameLogic.setPlayers(players);
+		
 		while(true) {
 			// step the game forward one tick
 			gameLogic.step();
