@@ -42,21 +42,8 @@ public class Snake {
 			// ( except for the head)
 			segments.get(n).setPoint(segments.get(n-1).getPoint());
 		}
-		/*
-		 *this is some simple detection for the bounds of the board
-		 */
 		Point headpos = segments.getFirst().getPoint();
-		if(headpos.x < 0) {
-			headpos.x = bounds.x; 
-		} else if(headpos.x >= bounds.x) {
-			headpos.x = 0;
-		}
-		if(headpos.y < 0) {
-			headpos.y = bounds.y;
-		} else if(headpos.y >= bounds.y) {
-			headpos.y = 0;
-		}
-		// then move the head segment by the direction 
+		checkBounds(headpos);
 		headpos.translate(dx, dy);
 		/*
 		 *  This checks for collisions for the snake to itself, 
@@ -69,12 +56,28 @@ public class Snake {
 		}
 		return true;
 	}
-
+	/*
+	 *this is some simple detection for the bounds of the board
+	 */
+	private void checkBounds(Point p) {
+		if(p.x < 0) {
+			p.x = bounds.x; 
+		} else if(p.x >= bounds.x) {
+			p.x = 0;
+		}
+		if(p.y < 0) {
+			p.y = bounds.y;
+		} else if(p.y >= bounds.y) {
+			p.y = 0;
+		}
+	}
+	
 	private void growSnake(int n) {
 		while(n > 0) {
 			// adds a new segment, growing it in the opposite direction of movement.
 			Point p = new Point(segments.getLast().getPoint());
 			p.translate(-dx,-dy);
+			checkBounds(p);
 			segments.add(new Tile(p));
 	        n--;
 	    }

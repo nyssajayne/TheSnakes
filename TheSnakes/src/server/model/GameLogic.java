@@ -16,7 +16,7 @@ public class GameLogic implements SnakeInterface {
 	private List<Player> players;
 	private Point bounds;
 	
-	private static ArrayList<Color> playerColors = new ArrayList<Color>();
+	private static List<Color> playerColors = new ArrayList<Color>();
 	
 	private Map<String,Integer> statusMap;
 	
@@ -34,6 +34,7 @@ public class GameLogic implements SnakeInterface {
 		// give all players a color, position and direction
 		int dx = 0 , dy = 0;
 		int x = 0, y = 0;
+		int colorIndex = 0;
 		for(Player p : players) {
 			String name = p.getName();
 			switch(statusMap.get(name)){
@@ -59,9 +60,10 @@ public class GameLogic implements SnakeInterface {
 					break;
 			}
 			
-			Snake snake = new Snake(x,y,Color.CYAN,bounds);
+			Snake snake = new Snake(x,y,playerColors.get(colorIndex),bounds);
 			snake.setDirection(dx, dy);
 			p.setSnake(snake);
+			colorIndex++;
 		}
 	}
 	/*
@@ -77,7 +79,6 @@ public class GameLogic implements SnakeInterface {
 		for(Player p: players) {
 			String name = p.getName();
 			switch(statusMap.get(name)){
-			/* Movement cases */
 				case MOVE_UP :
 					setSnakeDirection(name,0,-1);
 					break;
@@ -92,15 +93,13 @@ public class GameLogic implements SnakeInterface {
 					break;
 				case MOVE_NONE:
 					break;
-			/* Speed cases */
 				case MOVE_FASTER:
 					break;
 				case MOVE_SLOWER:
 					break;
 				
 			/*
-			 * TODO: add more cases for slower/faster snake movement
-			 * and removing them from the game
+			 * TODO: add cases for removing from game
 			 */
 			}
 			
