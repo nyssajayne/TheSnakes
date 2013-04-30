@@ -2,7 +2,6 @@ package shared;
 
 import java.awt.Color;
 
-
 public class Player {
 	
 	private String name;
@@ -31,10 +30,11 @@ public class Player {
 	public void setScore(int score) {
 		this.score = score;
 	}
+	public void setSnake(Snake snake) {
+		this.snake = snake;
+	}
 	public Snake getSnake(){
 		return snake;
 	}
-
-
 
 }

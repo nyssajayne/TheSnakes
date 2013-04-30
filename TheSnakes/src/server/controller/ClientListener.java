@@ -2,7 +2,6 @@ package server.controller;
 
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -18,7 +17,7 @@ public class ClientListener implements Runnable {
 	private Socket socket;
 	private TheServer server;
 	private DataInputStream in;
-	private DataOutputStream out;
+	private ObjectOutputStream out;
 	private String playerName;
 	//private GameLogic gameLogic;
 	
@@ -28,7 +27,7 @@ public class ClientListener implements Runnable {
 		this.server = server;
 		this.playerName = playerName;
 		in = new DataInputStream(socket.getInputStream());
-		out = new DataOutputStream(socket.getOutputStream());
+		out = new ObjectOutputStream(socket.getOutputStream());
 	}
 	
 	public String getPlayerName() {
@@ -58,7 +57,7 @@ public class ClientListener implements Runnable {
 	}
 	private void sendPacket(Packet p1){
 		   try{
-			   new ObjectOutputStream(socket.getOutputStream()).writeObject(p1);
+			   out.writeObject(p1);
 			   System.out.println(p1);
 		   }catch(Exception e){
 			   System.out.println(e.getStackTrace().toString());

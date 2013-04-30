@@ -23,21 +23,16 @@ public class TheServer implements SnakeInterface {
 	
 	private Map<String,Integer> statusMap = new HashMap<String,Integer>();
 	
-	private int numPlayers;
-	private Point bounds;
 	final private GameLogic gameLogic;
 	
 	public TheServer(int numPlayers, Point bounds)
 	{
 		gameLogic = new GameLogic(bounds);
-		this.numPlayers = numPlayers;
 		try
 		{
 			ServerSocket s = new ServerSocket(PORT);
 			System.out.println("New Snake Server at " + new Date());
 			
-			//i<2 means up to two players.
-			//How many players should we accommodate?
 			for (int i=0; i<numPlayers; i++) {
 				String name = Integer.toString(i); 
 				ClientListener client = new ClientListener(this,s.accept(),name);
@@ -50,14 +45,13 @@ public class TheServer implements SnakeInterface {
 			}
 			//Once this loop is complete and there is enough players
 			//The game can begin
-			
-			//Tell the GameLogic who the players are
-			gameLogic.setPlayers(players);
-			
+					
 			//Start each thread in the array.
 			while(clients.iterator().hasNext())
 				clients.iterator().next().start();
-
+			
+			//Tell the GameLogic who the players are
+			gameLogic.setPlayers(players);
 		}
 		catch (IOException e)
 		{
@@ -68,7 +62,6 @@ public class TheServer implements SnakeInterface {
 	 * TODO: need an end condition for this loop
 	 */
 	public void run() {
-		
 		while(true) {
 			// step the game forward one tick
 			gameLogic.step();
@@ -80,6 +73,11 @@ public class TheServer implements SnakeInterface {
 			while(clientRunnables.iterator().hasNext()) {
 				ClientListener client = clientRunnables.iterator().next();
 				client.sendInfo(gameLogic.getPlayers(),statusMap.get(client.getPlayerName()));
+			}
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}

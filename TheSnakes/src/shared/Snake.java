@@ -1,13 +1,9 @@
 package shared;
 
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.LinkedList;
-
-
 
 public class Snake {
 	
@@ -15,13 +11,12 @@ public class Snake {
 
 	private LinkedList<Tile> segments;
 	private Color color;
-	// bounds of the board the snake is on
-	private Rectangle bounds;
+	private Point bounds;
 	private volatile int a;
 	
 	private int dx, dy;
 	
-	public Snake(int x, int y, Color color, Rectangle bounds)
+	public Snake(int x, int y, Color color, Point bounds)
 	{
 		segments = new LinkedList<Tile>();
 		segments.addFirst(new Tile(x,y));
@@ -48,20 +43,17 @@ public class Snake {
 			segments.get(n).setPoint(segments.get(n-1).getPoint());
 		}
 		/*
-		 this is some simple detection for the bounds of the board
-		 doesn't fully work atm as the test method i had for drawing
-		 actually alters the snake's position somewhat
-		 collision detection regarding other snakes would go some where else in the code
-		*/
+		 *this is some simple detection for the bounds of the board
+		 */
 		Point headpos = segments.getFirst().getPoint();
 		if(headpos.x < 0) {
-			headpos.x = bounds.width; 
-		} else if(headpos.x >= bounds.width) {
+			headpos.x = bounds.x; 
+		} else if(headpos.x >= bounds.x) {
 			headpos.x = 0;
 		}
 		if(headpos.y < 0) {
-			headpos.y = bounds.height;
-		} else if(headpos.y >= bounds.height) {
+			headpos.y = bounds.y;
+		} else if(headpos.y >= bounds.y) {
 			headpos.y = 0;
 		}
 		// then move the head segment by the direction 
@@ -77,15 +69,13 @@ public class Snake {
 		}
 		return true;
 	}
-	/*
-	 * this grows the snake a certain number of segments
-	 * perhaps make this so it only grows 1 segment at a time instead of all at once
-	 * so each "tick" of the server will only add 1 segment at a time
-	 */
-	private void growSnake (int n) {
+
+	private void growSnake(int n) {
 		while(n > 0) {
-			// adds a new segment, giving it the position of the last segment
-			segments.add(new Tile(segments.getLast().getPoint()));
+			// adds a new segment, growing it in the opposite direction of movement.
+			Point p = new Point(segments.getLast().getPoint());
+			p.translate(-dx,-dy);
+			segments.add(new Tile(p));
 	        n--;
 	    }
 	}
@@ -96,10 +86,8 @@ public class Snake {
 	    for(int n = 0; n < segments.size(); n++) {
 	           Point p = segments.get(n).getPoint();
 	           g.setColor(color);
-	           // if you take out the "*15" factor for the x and y you will be able to see the boundary collision detection
 	           g.fillRect(p.x, p.y, 10, 10);
 	           g.setColor(Color.BLACK);
-	           // this extra call just gives each square a border, might be useful
 	           g.drawRect(p.x*15, p.y*15, 15, 15);
 	       }
 	    
