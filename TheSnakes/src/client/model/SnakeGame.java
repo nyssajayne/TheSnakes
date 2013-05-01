@@ -1,5 +1,6 @@
 package client.model;
 
+import java.awt.Graphics;
 import java.awt.Point;
 import java.io.IOException;
 
@@ -60,10 +61,10 @@ public class SnakeGame extends Thread implements SnakeInterface{
 				while(info.getGameStatus() != STATUS_PLAYING){
 
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
-				System.out.println("Info " +info);
+				
 				
 				}
-				
+				//System.out.println("Snake 0: " + info.getPlayers().get(0).getSnake().getSegments().toString() + " " + info.getPlayers().get(0).getColor().toString() );
 
 //				for(int i = 0; i < info.getPlayers().size(); i++){
 //					if(playerName == info.getPlayers().get(i).getName())
@@ -87,15 +88,15 @@ public class SnakeGame extends Thread implements SnakeInterface{
 	//Constantly run while a game is in progress.
 	public void gameStart() throws IOException, ClassNotFoundException {
 		Packet pack;
-		System.out.println("Made it!");
 		while(gameStatus != STATUS_LOSE && gameStatus != STATUS_WIN) {
 			pack = 	(Packet)clientFrame.getSockHandler().getIn().readObject();
 			System.out.println("working!");
 			for(int i=0; i<pack.getPlayers().size(); i++)
 			{
 				clientFrame.getGrid().setSnake(pack.getPlayers().get(i).getSnake().getSegments());
-				clientFrame.repaint();
+				
 			}
+			clientFrame.repaint();
 			gameStatus = pack.getGameStatus();
 		}
 		//TODO Do something when a game is over (win or lose)
