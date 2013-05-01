@@ -21,17 +21,20 @@ public class ClientListener implements Runnable {
 	private String playerName;
 	//private GameLogic gameLogic;
 	
-	public ClientListener(TheServer server, Socket socket, String playerName) throws IOException
+	public ClientListener(TheServer server, Socket socket) throws IOException
 	{
 		this.socket = socket;
 		this.server = server;
-		this.playerName = playerName;
 		in = new DataInputStream(socket.getInputStream());
 		out = new ObjectOutputStream(socket.getOutputStream());
 	}
 	
 	public String getPlayerName() {
 		return playerName;
+	}
+	
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
 	}
 	
 	public void getMoves()
