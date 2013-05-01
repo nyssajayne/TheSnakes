@@ -24,7 +24,7 @@ public class TheServer implements SnakeInterface, Runnable {
 	
 	private int numPlayers = 2;
 	private ServerSocket serverSocket;
-	private Point bounds = new Point(100,100);
+	private Point bounds = new Point(50,50);
 	
 	private Map<String,Integer> statusMap = new HashMap<String,Integer>();
 	
