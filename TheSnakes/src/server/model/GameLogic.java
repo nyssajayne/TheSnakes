@@ -166,6 +166,6 @@ public class GameLogic implements SnakeInterface {
 	}
 	
 	public List<Player> getPlayers() {
-		return null;
+		return players;
 	}
 }

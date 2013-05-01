@@ -3,18 +3,22 @@ package shared;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Snake {
+public class Snake implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1348350780452014999L;
+
 	private static final int START_SEGMENTS = 2;
 
 	private LinkedList<Tile> segments;
 	private Color color;
 	private Point bounds;
-	private volatile int a;
-	
-	private int dx, dy;
+	private volatile int dx, dy;
 	
 	public Snake(int x, int y, Color color, Point bounds)
 	{

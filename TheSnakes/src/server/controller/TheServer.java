@@ -32,8 +32,8 @@ public class TheServer implements SnakeInterface, Runnable {
 	
 	public TheServer(int numPlayers, Point bounds)
 	{
-		this.bounds = bounds;
-		gameLogic = new GameLogic(bounds);
+		//this.bounds = bounds;
+		gameLogic = new GameLogic(this.bounds);
 		this.numPlayers = numPlayers;
 		try{
 			serverSocket = new ServerSocket(PORT);
@@ -85,7 +85,10 @@ public class TheServer implements SnakeInterface, Runnable {
 		}
 		//Once this loop is complete and there is enough players
 		//The game can begin
-				
+		
+		for(Player p : players)
+            statusMap.put(p.getName(), STATUS_PLAYING);
+		
 		//Start each thread in the array.
 		try{
 			Iterator<Thread> c1 = clients.iterator();
