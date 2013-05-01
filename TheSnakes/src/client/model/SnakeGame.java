@@ -3,6 +3,7 @@ package client.model;
 import java.awt.Point;
 import java.io.IOException;
 
+import server.controller.TheServer;
 import shared.Packet;
 import shared.SnakeInterface;
 import client.view.ClientFrame;
@@ -73,7 +74,8 @@ public class SnakeGame extends Thread implements SnakeInterface{
 	}
 
 	public void CreateServer(int players, Point bounds){
-		new server.controller.TheServer(players, bounds);
+		TheServer server = new TheServer(players, bounds);
+		new Thread(server).start();
 	}
 	public void run()
 	{

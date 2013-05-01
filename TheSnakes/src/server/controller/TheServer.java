@@ -13,7 +13,7 @@ import server.model.GameLogic;
 import shared.Player;
 import shared.SnakeInterface;
 
-public class TheServer implements SnakeInterface {
+public class TheServer implements SnakeInterface, Runnable {
 	
 	private final int PORT = 1985;
 	
