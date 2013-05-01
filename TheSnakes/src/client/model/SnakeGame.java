@@ -59,18 +59,18 @@ public class SnakeGame extends Thread implements SnakeInterface{
 				
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
 				while(info.getGameStatus() != STATUS_PLAYING){
-
+				System.out.println("waiting..");
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
 				
 				
 				}
+				this.run();
 				//System.out.println("Snake 0: " + info.getPlayers().get(0).getSnake().getSegments().toString() + " " + info.getPlayers().get(0).getColor().toString() );
 
 //				for(int i = 0; i < info.getPlayers().size(); i++){
 //					if(playerName == info.getPlayers().get(i).getName())
 //						pId = i;
 //				}
-				gameStart();
 					//clientFrame.getSp().getLbl_curColour().setText(info.getPlayer(pId).getColor().toString());
 					
 			} catch (ClassNotFoundException e) {
@@ -88,19 +88,25 @@ public class SnakeGame extends Thread implements SnakeInterface{
 	//Constantly run while a game is in progress.
 	public void gameStart() throws IOException, ClassNotFoundException {
 		Packet pack;
+
+		System.out.println(gameStatus);
 		while(gameStatus != STATUS_LOSE && gameStatus != STATUS_WIN) {
+			System.out.println("working! ");
 			pack = 	(Packet)clientFrame.getSockHandler().getIn().readObject();
-			System.out.println("working!");
+			System.out.println("Players: " + pack.getPlayers().size());
 			for(int i=0; i<pack.getPlayers().size(); i++)
 			{
-				clientFrame.getGrid().setSnake(pack.getPlayers().get(i).getSnake().getSegments());
+				clientFrame.getGrid().addSnake(pack.getPlayers().get(i).getSnake());
+
 				
 			}
-			clientFrame.repaint();
+			clientFrame.getGrid().repaint();
+
+			//clientFrame.getGrid().repaint();
 			gameStatus = pack.getGameStatus();
 		}
 		//TODO Do something when a game is over (win or lose)
-
+		clientFrame.getGrid().clearSnakes();
 	}
 
 	public void CreateServer(int players, Point bounds){
