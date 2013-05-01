@@ -17,7 +17,6 @@ public class Grid extends JPanel {
 	private int length;
 	private int width;
 	private ArrayList<ArrayList<Tile>> tiles = new ArrayList<ArrayList<Tile>>();
-	private Graphics g;
 	public Grid(int length, int width){
 
 		this.length = length;
