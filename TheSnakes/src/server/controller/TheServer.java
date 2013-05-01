@@ -75,7 +75,7 @@ public class TheServer implements SnakeInterface, Runnable {
 				
 				statusMap.put(name, status);
 				System.out.println("New Contestant: ");
-				client.sendInfo(null, status);
+				client.sendInfo(gameLogic.getPlayers(), status);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -85,8 +85,10 @@ public class TheServer implements SnakeInterface, Runnable {
 		//The game can begin
 				
 		//Start each thread in the array.
-		while(clients.iterator().hasNext())
+		while(clients.iterator().hasNext()) {
+			System.out.println("Weeeee!");
 			clients.iterator().next().start();
+		}
 		
 		//Tell the GameLogic who the players are
 		gameLogic.setPlayers(players);

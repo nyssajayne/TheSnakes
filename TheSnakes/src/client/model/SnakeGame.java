@@ -20,23 +20,41 @@ public class SnakeGame extends Thread implements SnakeInterface{
 	{
 		this.clientFrame = clientFrame;
 
-		while(!clientFrame.isCreate() || clientFrame.isJoin()){
+		while(!clientFrame.isCreate() && !clientFrame.isJoin()){
 			System.out.println("not Ready!!");
 		}
-		if(clientFrame.isCreate())
+		if(clientFrame.isCreate()) {
+			System.out.println("creating..");
+			createGame();
 			create = true;
-		initGame(create);
+		} else {
+			while(!clientFrame.isJoin()) {
+				initGame(create);
+			}
+		}
+	}
+	
+	private void createGame(){
+		try 
+		{
+			System.out.println("starting..");
+
+			if(create){
+				Point p = new Point(Integer.parseInt(clientFrame.getCb().getField_len().getText()),Integer.parseInt(clientFrame.getCb().getField_width().getText()));
+				CreateServer(clientFrame.getCb().getPlayers(),p);
+				System.out.println("created");
+				clientFrame.getSockHandler().initConnection("localhost");
+
+			}
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 
 	//TODO Connect to the host and get ready to start a game.
 	private void initGame(Boolean create) {
 		try 
 		{
-			if(create){
-				Point p = new Point(Integer.parseInt(clientFrame.getCb().getField_len().getText()),Integer.parseInt(clientFrame.getCb().getField_width().getText()));
-				CreateServer(clientFrame.getCb().getPlayers(),p);
-
-			}
 			clientFrame.getSockHandler().initConnection("localhost");
 			try {
 				clientFrame.getSockHandler().getOut().writeUTF(clientFrame.getCb().getPlayerName() + clientFrame.getCb().getPlayers());
@@ -44,6 +62,13 @@ public class SnakeGame extends Thread implements SnakeInterface{
 				//clientFrame.getSockHandler().getOut();
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
 				System.out.println("Info " +info);
+				
+				for(int i = 0; i < info.getPlayers().size(); i++){
+					if(playerName == info.getPlayers().get(i).getName() )
+						pId = i;
+				}
+					//clientFrame.getSp().getLbl_curColour().setText(info.getPlayer(pId).getColor().toString());
+					
 			} catch (ClassNotFoundException e) {
 
 				e.printStackTrace();
