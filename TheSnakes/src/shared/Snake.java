@@ -86,7 +86,7 @@ public class Snake implements Serializable {
 			Point p = new Point(segments.getLast().getPoint());
 			p.translate(-dx,-dy);
 			checkBounds(p);
-			segments.add(new Tile(p));
+			segments.add(new Tile(p,this.color));
 	        n--;
 	    }
 	}

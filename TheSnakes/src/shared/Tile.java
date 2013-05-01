@@ -16,8 +16,9 @@ public class Tile implements Serializable {
 		p = new Point(x,y);
 		this.filled = filled;
 	}
-	public Tile(Point p1){
+	public Tile(Point p1, Color filled){
 		p = new Point(p1);
+		this.filled = filled;
 	}
 	public Point getPoint() {
 		return p;
