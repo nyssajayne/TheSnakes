@@ -46,20 +46,27 @@ public class TheServer implements SnakeInterface {
 	 */
 	public void run() {
 		
-		for (int i=0; i<numPlayers; i++) {
+		for (int i=0; i<2; i++) {
+			
 			String name = Integer.toString(i); 
 			ClientListener client;
-			try {
-				client = new ClientListener(this,serverSocket.accept(),name);
+			try {				
+				client = new ClientListener(this,serverSocket.accept());
 				clients.add(new Thread(client));
 				clientRunnables.add(client);
 				
 				//get position from client
 				String message = client.getIn().readUTF();
+				
+				//Set player's name
+				String playerName = message.substring(0, -1);
+				client.setPlayerName(playerName);
+				
+				//Set player's position
 				int position = Integer.parseInt(message.substring(message.length()-1));
 				int status = setPosition(position);
 				if(status==STATUS_NOT_VALID) {
-					//return status to client?
+					client.sendInfo(null, status);
 				}
 				
 				Player player = new Player(name);
