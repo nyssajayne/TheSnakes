@@ -18,11 +18,11 @@ public class Snake {
 	
 	public Snake(int x, int y, Color color, Point bounds)
 	{
+		this.color = color;
+		this.bounds = bounds;
 		segments = new LinkedList<Tile>();
 		segments.addFirst(new Tile(x,y));
 		growSnake(START_SEGMENTS - 1);
-		this.color = color;
-		this.bounds = bounds;
 	}
 	
 	public void setDirection(int dx, int dy) {
@@ -43,8 +43,8 @@ public class Snake {
 			segments.get(n).setPoint(segments.get(n-1).getPoint());
 		}
 		Point headpos = segments.getFirst().getPoint();
-		checkBounds(headpos);
 		headpos.translate(dx, dy);
+		checkBounds(headpos);
 		/*
 		 *  This checks for collisions for the snake to itself, 
 		 *  somehow it needs to tell the calling object that a collision has happened.
@@ -60,6 +60,9 @@ public class Snake {
 	 *this is some simple detection for the bounds of the board
 	 */
 	private void checkBounds(Point p) {
+		System.out.println(p);
+		System.out.println(bounds);
+		
 		if(p.x < 0) {
 			p.x = bounds.x; 
 		} else if(p.x >= bounds.x) {

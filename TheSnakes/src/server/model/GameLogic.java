@@ -3,7 +3,6 @@ package server.model;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -160,6 +159,10 @@ public class GameLogic implements SnakeInterface {
 	 */
 	public void setStatus(int status, String playerName) {
 		statusMap.put(playerName,status);
+	}
+	
+	public void setStatusMap(Map<String,Integer> statusMap) {
+		this.statusMap = statusMap;
 	}
 	
 	public List<Player> getPlayers() {

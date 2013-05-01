@@ -100,6 +100,7 @@ public class TheServer implements SnakeInterface, Runnable {
 		
 		//Tell the GameLogic who the players are
 		gameLogic.setPlayers(players);
+		gameLogic.setStatusMap(statusMap);
 		
 		while(true) {
 			// step the game forward one tick
