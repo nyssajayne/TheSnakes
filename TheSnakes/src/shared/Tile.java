@@ -12,9 +12,9 @@ public class Tile implements Serializable {
 	private Point p;
 	private Color filled;
 
-	public Tile(int x, int y){
+	public Tile(int x, int y, Color filled){
 		p = new Point(x,y);
-		filled = null;
+		this.filled = filled;
 	}
 	public Tile(Point p1){
 		p = new Point(p1);

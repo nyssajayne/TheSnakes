@@ -82,7 +82,7 @@ public class Grid extends JPanel {
 		for(int i=0;i < x;i++){
 			ArrayList<Tile> a1 = new ArrayList<Tile>();
 			for(int j=0; j < y;j++){
-				a1.add(j,new Tile(i,j));
+				a1.add(j,new Tile(i,j,null));
 				tiles.add(i,a1);
 
 			}

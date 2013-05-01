@@ -25,7 +25,7 @@ public class Snake implements Serializable {
 		this.color = color;
 		this.bounds = bounds;
 		segments = new LinkedList<Tile>();
-		segments.addFirst(new Tile(x,y));
+		segments.addFirst(new Tile(x,y,color));
 		growSnake(START_SEGMENTS - 1);
 	}
 	
