@@ -15,7 +15,6 @@ public class SnakeGame extends Thread implements SnakeInterface{
 	private int gameStatus = STATUS_WAIT;
 	private String playerName;
 	private int pId;
-	private boolean create;
 	public SnakeGame(ClientFrame clientFrame)
 	{
 		this.clientFrame = clientFrame;
@@ -26,35 +25,32 @@ public class SnakeGame extends Thread implements SnakeInterface{
 		if(clientFrame.isCreate()) {
 			System.out.println("creating..");
 			createGame();
-			create = true;
-		} else {
+		}  
 			while(!clientFrame.isJoin()) {
-				initGame(create);
+				System.out.println("join me!");
 			}
-		}
+			initGame();
+		
 	}
 	
 	private void createGame(){
-		try 
-		{
+
 			System.out.println("starting..");
 
-			if(create){
-				Point p = new Point(Integer.parseInt(clientFrame.getCb().getField_len().getText()),Integer.parseInt(clientFrame.getCb().getField_width().getText()));
-				CreateServer(clientFrame.getCb().getPlayers(),p);
+				//Point p = new Point(Integer.parseInt(clientFrame.getCb().getField_len().getText()),Integer.parseInt(clientFrame.getCb().getField_width().getText()));
+				
+				CreateServer(clientFrame.getCb().getPlayers(),null);
 				System.out.println("created");
-				clientFrame.getSockHandler().initConnection("localhost");
 
-			}
-		}catch(IOException e){
-			e.printStackTrace();
-		}
 	}
 
 	//TODO Connect to the host and get ready to start a game.
-	private void initGame(Boolean create) {
+	private void initGame() {
 		try 
 		{
+			
+			System.out.println("Made it!");
+			
 			clientFrame.getSockHandler().initConnection("localhost");
 			try {
 				clientFrame.getSockHandler().getOut().writeUTF(clientFrame.getCb().getPlayerName() + clientFrame.getCb().getPlayers());
