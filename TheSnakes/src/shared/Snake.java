@@ -53,11 +53,15 @@ public class Snake implements Serializable {
 		 *  This checks for collisions for the snake to itself, 
 		 *  somehow it needs to tell the calling object that a collision has happened.
 		 */
+		
+		/*
 		for(int i = segments.size() - 1 ; i >= 1; i++) {
 			if(headpos.equals(segments.get(i).getPoint())) {
 				return false;
 			}
 		}
+		*/
+		
 		return true;
 	}
 	/*

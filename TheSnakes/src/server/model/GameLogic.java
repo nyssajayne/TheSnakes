@@ -111,7 +111,7 @@ public class GameLogic implements SnakeInterface {
 	public void step() {
 		interpretStatus();
 		moveSnakes();
-		checkCollisions();
+		//checkCollisions();
 	}
 	/*
 	 * Moves all the snakes
@@ -120,7 +120,7 @@ public class GameLogic implements SnakeInterface {
 	private void moveSnakes() {
 		for(Player p : players) {
 			if(!p.getSnake().move()) {
-				statusMap.put(p.getName(),STATUS_LOSE);
+				//statusMap.put(p.getName(),STATUS_LOSE);
 			}
 			
 		}
