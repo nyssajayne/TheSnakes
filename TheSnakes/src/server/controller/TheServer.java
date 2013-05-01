@@ -106,6 +106,8 @@ public class TheServer implements SnakeInterface, Runnable {
 		gameLogic.setStatusMap(statusMap);
 		
 		while(true) {
+			
+			System.out.println("Start loop " + new Date());
 			// step the game forward one tick
 			gameLogic.step();
 			
@@ -113,15 +115,18 @@ public class TheServer implements SnakeInterface, Runnable {
 			statusMap = gameLogic.getStatusMap();
 			
 			// send info to clients
-			while(clientRunnables.iterator().hasNext()) {
-				ClientListener client = clientRunnables.iterator().next();
+			for(ClientListener client: clientRunnables) {
+				//System.out.println("Sending client info .... " + new Date());
 				client.sendInfo(gameLogic.getPlayers(),statusMap.get(client.getPlayerName()));
 			}
 			try {
 				Thread.sleep(50);
+				System.out.println("sleeping ");
+				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			System.out.println("end loop " + new Date());
 		}
 	}
 	/*

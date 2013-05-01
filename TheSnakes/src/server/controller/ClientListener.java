@@ -61,9 +61,9 @@ public class ClientListener implements Runnable {
 	private void sendPacket(Packet p1){
 		   try{
 			   out.writeObject(p1);
-			   System.out.println(p1);
+			   //System.out.println(p1);
 		   }catch(Exception e){
-			   System.out.println(e.getStackTrace().toString());
+			   System.out.println(e.getStackTrace());
 		   }
 	   }
 	

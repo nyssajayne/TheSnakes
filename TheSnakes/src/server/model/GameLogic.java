@@ -136,6 +136,7 @@ public class GameLogic implements SnakeInterface {
 				if(p != k){
 					for(Tile t: p.getSnake().getSegments()) {
 						if(t.getPoint().equals(headPos)){
+							System.out.println(headPos);
 							statusMap.put(p.getName(),STATUS_LOSE);
 						}
 					}	

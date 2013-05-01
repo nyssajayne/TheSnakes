@@ -68,9 +68,6 @@ public class Snake implements Serializable {
 	 *this is some simple detection for the bounds of the board
 	 */
 	private void checkBounds(Point p) {
-		System.out.println(p);
-		System.out.println(bounds);
-		
 		if(p.x < 0) {
 			p.x = bounds.x; 
 		} else if(p.x >= bounds.x) {
