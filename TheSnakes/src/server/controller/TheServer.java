@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,9 @@ public class TheServer implements SnakeInterface, Runnable {
 	private List<Thread> clients = new ArrayList<Thread>();
 	private List<ClientListener> clientRunnables = new ArrayList<ClientListener>();
 	
-	private int numPlayers;
+	private int numPlayers = 2;
 	private ServerSocket serverSocket;
+	private Point bounds = new Point(100,100);
 	
 	private Map<String,Integer> statusMap = new HashMap<String,Integer>();
 	
@@ -30,6 +32,7 @@ public class TheServer implements SnakeInterface, Runnable {
 	
 	public TheServer(int numPlayers, Point bounds)
 	{
+		this.bounds = bounds;
 		gameLogic = new GameLogic(bounds);
 		this.numPlayers = numPlayers;
 		try{
@@ -85,9 +88,15 @@ public class TheServer implements SnakeInterface, Runnable {
 		//The game can begin
 				
 		//Start each thread in the array.
-		while(clients.iterator().hasNext()) {
+		try{
+			Iterator<Thread> c1 = clients.iterator();
+		while(c1.hasNext() ) {	
+			c1.next().start();
 			System.out.println("Weeeee!");
-			clients.iterator().next().start();
+		}
+		}catch(IllegalThreadStateException e){
+			System.out.println("He's dead jim!");
+			e.printStackTrace();
 		}
 		
 		//Tell the GameLogic who the players are
@@ -135,7 +144,7 @@ public class TheServer implements SnakeInterface, Runnable {
 	
 	public static void main(String args[])
 	{
-		new TheServer(4,new Point(20,20)).run();
+		new TheServer(2,new Point(100,100)).run();
 	}
 
 }

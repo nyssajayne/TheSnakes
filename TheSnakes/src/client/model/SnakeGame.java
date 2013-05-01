@@ -59,6 +59,7 @@ public class SnakeGame extends Thread implements SnakeInterface{
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
 				System.out.println("Info " +info);
 				
+				if(info.getPlayers() != null)
 				for(int i = 0; i < info.getPlayers().size(); i++){
 					if(playerName == info.getPlayers().get(i).getName() )
 						pId = i;

@@ -33,12 +33,12 @@ public class GameLogic implements SnakeInterface {
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 		// give all players a color, position and direction
+		//took out Map, didn't seem to be needed.
 		int dx = 0 , dy = 0;
 		int x = 0, y = 0;
 		int colorIndex = 0;
 		for(Player p : players) {
-			String name = p.getName();
-			switch(statusMap.get(name)){
+			switch(p.getPosition()){
 				case TOP_LEFT:
 					dx = 1;
 					x = 1;
