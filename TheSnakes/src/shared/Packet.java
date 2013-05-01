@@ -29,7 +29,7 @@ public class Packet implements Serializable {
 		this.gameStatus = gameStatus;
 	}
 	public String toString() {
-		return "Snakes: " + players + "gamestatus: " + gameStatus;
+		return "Snakes: " + players + " gamestatus: " + gameStatus;
 	}
 	public String getScores(){
 		String scores = "";

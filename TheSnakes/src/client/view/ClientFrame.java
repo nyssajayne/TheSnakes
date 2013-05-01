@@ -25,7 +25,7 @@ public class ClientFrame extends JFrame implements shared.SnakeInterface
 		private boolean create = false;
 		private int windowWidth = 1000;
 		private int windowHeight = 650;
-		private SocketHandler sockHandler;
+		private SocketHandler sockHandler = new SocketHandler();
 		private Grid grid = new Grid(50, 50);
 		private String playerName = "none";
 		private ControlBox cb = new ControlBox(this);

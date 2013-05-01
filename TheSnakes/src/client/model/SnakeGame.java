@@ -32,19 +32,18 @@ public class SnakeGame extends Thread implements SnakeInterface{
 	private void initGame(Boolean create) {
 		try 
 		{
-
-			clientFrame.getSockHandler().initConnection("localhost");
 			if(create){
-				Point p = new Point(Integer.parseInt(clientFrame.getCb().getField_len().toString()),Integer.parseInt(clientFrame.getCb().getField_width().toString()));
+				Point p = new Point(Integer.parseInt(clientFrame.getCb().getField_len().getText()),Integer.parseInt(clientFrame.getCb().getField_width().getText()));
 				CreateServer(clientFrame.getCb().getPlayers(),p);
 
 			}
+			clientFrame.getSockHandler().initConnection("localhost");
 			try {
-				clientFrame.getSockHandler().getOut();
-				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
-				System.out.println(info);
-
 				clientFrame.getSockHandler().getOut().writeUTF(clientFrame.getCb().getPlayerName() + clientFrame.getCb().getPlayers());
+				
+				//clientFrame.getSockHandler().getOut();
+				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
+				System.out.println("Info " +info);
 			} catch (ClassNotFoundException e) {
 
 				e.printStackTrace();

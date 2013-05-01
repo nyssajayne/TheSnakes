@@ -68,7 +68,7 @@ public class ControlBox extends JPanel implements SnakeInterface{
 		return name.getText();
 	}
 	public int getPlayers(){
-		return cbx_players.getSelectedIndex();
+		return Integer.parseInt((String)cbx_players.getSelectedItem());
 	}
 	public ClientFrame getClientFrame(){
 		return cf;

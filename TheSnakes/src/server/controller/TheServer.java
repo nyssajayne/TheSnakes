@@ -46,7 +46,7 @@ public class TheServer implements SnakeInterface, Runnable {
 	 */
 	public void run() {
 		
-		for (int i=0; i<2; i++) {
+		for (int i=0; i<numPlayers; i++) {
 			
 			String name = Integer.toString(i); 
 			ClientListener client;
@@ -59,7 +59,7 @@ public class TheServer implements SnakeInterface, Runnable {
 				String message = client.getIn().readUTF();
 				
 				//Set player's name
-				String playerName = message.substring(0, -1);
+				String playerName = message.substring(0, message.length()-1);
 				client.setPlayerName(playerName);
 				
 				//Set player's position
@@ -73,8 +73,9 @@ public class TheServer implements SnakeInterface, Runnable {
 				players.add(player);
 				player.setPosition(position);
 				
-				statusMap.put(name, STATUS_WAIT);
+				statusMap.put(name, status);
 				System.out.println("New Contestant: ");
+				client.sendInfo(null, status);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
