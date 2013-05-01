@@ -6,6 +6,7 @@ public class Player {
 	
 	private String name;
 	private Snake snake;
+	private int position;
 	private int score;
 	private Color color;
 	
@@ -29,6 +30,12 @@ public class Player {
 	}
 	public void setScore(int score) {
 		this.score = score;
+	}
+	public int getPosition() {
+		return position;
+	}
+	public void setPosition(int position) {
+		this.position = position;
 	}
 	public void setSnake(Snake snake) {
 		this.snake = snake;

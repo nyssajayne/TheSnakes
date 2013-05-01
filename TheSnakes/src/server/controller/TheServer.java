@@ -53,7 +53,19 @@ public class TheServer implements SnakeInterface {
 				client = new ClientListener(this,serverSocket.accept(),name);
 				clients.add(new Thread(client));
 				clientRunnables.add(client);
-				players.add(new Player(name));
+				
+				//get position from client
+				String message = client.getIn().readUTF();
+				int position = Integer.parseInt(message.substring(message.length()-1));
+				int status = setPosition(position);
+				if(status==STATUS_NOT_VALID) {
+					//return status to client?
+				}
+				
+				Player player = new Player(name);
+				players.add(player);
+				player.setPosition(position);
+				
 				statusMap.put(name, STATUS_WAIT);
 				System.out.println("New Contestant: ");
 			} catch (IOException e) {
@@ -96,6 +108,19 @@ public class TheServer implements SnakeInterface {
 	 */
 	public void setStatus(int status, String playerName) {
 		statusMap.put(playerName,status);
+	}
+	
+	public int setPosition(int tryPosition)
+	{
+		int status = STATUS_WAIT;
+		
+		for(Player p : players)
+		{
+			if(p.getPosition()==tryPosition)
+				status = STATUS_NOT_VALID;
+		}
+		
+		return status;
 	}
 	
 	public static void main(String args[])

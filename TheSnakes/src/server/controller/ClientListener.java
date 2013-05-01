@@ -64,6 +64,16 @@ public class ClientListener implements Runnable {
 		   }
 	   }
 	
+	public DataInputStream getIn()
+	{
+		return in;
+	}
+	
+	public ObjectOutputStream getOut()
+	{
+		return out;
+	}
+	
 	@Override
 	public void run() {
 		getMoves();		
