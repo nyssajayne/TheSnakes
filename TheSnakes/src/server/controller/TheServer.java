@@ -51,7 +51,6 @@ public class TheServer implements SnakeInterface, Runnable {
 		
 		for (int i=0; i<numPlayers; i++) {
 			
-			String name = Integer.toString(i); 
 			ClientListener client;
 			try {				
 				client = new ClientListener(this,serverSocket.accept());
@@ -72,11 +71,11 @@ public class TheServer implements SnakeInterface, Runnable {
 					client.sendInfo(null, status);
 				}
 				
-				Player player = new Player(name);
+				Player player = new Player(playerName);
 				players.add(player);
 				player.setPosition(position);
 				
-				statusMap.put(name, status);
+				statusMap.put(playerName, status);
 				System.out.println("New Contestant: ");
 				client.sendInfo(gameLogic.getPlayers(), status);
 			} catch (IOException e) {
