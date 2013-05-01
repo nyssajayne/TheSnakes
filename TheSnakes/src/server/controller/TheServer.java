@@ -147,7 +147,7 @@ public class TheServer implements SnakeInterface, Runnable {
 	
 	public static void main(String args[])
 	{
-		new TheServer(2,new Point(100,100)).run();
+		new TheServer(2,new Point(50,50)).run();
 	}
 
 }
