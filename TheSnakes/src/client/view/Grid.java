@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
@@ -34,31 +35,28 @@ public class Grid extends JPanel {
 		int x = 30;
 		int y = 30;
 		drawBoard(g);
-		if(snakes)
-			drawSnake(g);
-//		for(int i=0;i < length;i++){
-//			for(int j=0; j < width;j++){
-//
-//				g.setColor(tiles.get(i).get(j).getFilled());
-//				if(g.getColor() != Color.BLACK)
-//					g.fillRect(x,y,TILE_LENGTH, TILE_WIDTH);
-//				tiles.get(i).get(j).setFilled(null);
-//
-//
-//
-//				x += 10;
-//			}
-//			x=30;
-//			y +=10;
-//		}
+		for(int i=0;i < length;i++){
+			for(int j=0; j < width;j++){
+
+				g.setColor(tiles.get(i).get(j).getFilled());
+				if(g.getColor() != Color.BLACK)
+					g.fillRect(x,y,TILE_LENGTH, TILE_WIDTH);
+
+
+
+
+				x += 10;
+			}
+			x=30;
+			y +=10;
+		}
 
 			}
 	
 	public void drawSnake(Graphics g){
 		
 		System.out.println("Drawin snakes!");
-		int i = 0;
-	//for(int i = 0;i < s.size();i++)
+	for(int i = 0;i < s.size();i++)
     for(int n = 0; n < 2; n++) {
     //	Color color = s.get(i).getSegments().getFirst().getFilled();
 
@@ -102,10 +100,15 @@ public class Grid extends JPanel {
 		}
 	}
 
-	public void addSnake(Snake snake) {
-		s.add(count++,snake);
-		snakes = true;
-		//repaint();
+	public void addSnake(LinkedList<Tile> linkedList) {
+		int x;
+		int y;
+		for(Tile piece: linkedList){
+			x = piece.getX();
+			y = piece.getY();
+			tiles.get(x).get(y).setFilled(piece.getFilled());
+			this.repaint();
+		}
 		
 	} 
 	public void clearSnakes(){

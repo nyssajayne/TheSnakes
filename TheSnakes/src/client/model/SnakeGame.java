@@ -92,21 +92,23 @@ public class SnakeGame extends Thread implements SnakeInterface{
 		System.out.println(gameStatus);
 		while(gameStatus != STATUS_LOSE && gameStatus != STATUS_WIN) {
 			System.out.println("working! ");
-			pack = 	(Packet)clientFrame.getSockHandler().getIn().readObject();
-			System.out.println("Players: " + pack.getPlayers().size());
+			//clientFrame.getSockHandler().getIn
+			pack = 	new Packet((Packet)clientFrame.getSockHandler().getIn().readObject());
+			System.out.println("Players: " + pack.getPlayers().get(1).getSnake().getHeadPos().toString());
 			for(int i=0; i<pack.getPlayers().size(); i++)
 			{
-				clientFrame.getGrid().addSnake(pack.getPlayers().get(i).getSnake());
-
+				clientFrame.getGrid().addSnake(pack.getPlayers().get(i).getSnake().getSegments());
+				clientFrame.repaint();
+				clientFrame.getGrid().repaint();
 				
 			}
 			clientFrame.getGrid().repaint();
-
+			clientFrame.getGrid().clearSnakes();
 			//clientFrame.getGrid().repaint();
 			gameStatus = pack.getGameStatus();
 		}
 		//TODO Do something when a game is over (win or lose)
-		clientFrame.getGrid().clearSnakes();
+
 	}
 
 	public void CreateServer(int players, Point bounds){
