@@ -60,7 +60,7 @@ public class SnakeGame extends Thread implements SnakeInterface{
 				System.out.println("waiting..");
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
 				}
-				this.run();
+				this.start();
 				//System.out.println("Snake 0: " + info.getPlayers().get(0).getSnake().getSegments().toString() + " " + info.getPlayers().get(0).getColor().toString() );
 
 //				for(int i = 0; i < info.getPlayers().size(); i++){

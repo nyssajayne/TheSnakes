@@ -61,6 +61,7 @@ public class ClientListener implements Runnable {
 	}
 	private void sendPacket(Packet p1){
 		   try{
+			   out.reset();
 			   out.writeObject(p1);
 			   //System.out.println(p1);
 		   }catch(Exception e){

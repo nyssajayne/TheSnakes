@@ -73,9 +73,10 @@ public class TheServer implements SnakeInterface, Runnable {
 				}
 				
 				Player player = new Player(playerName);
+				player.setPosition(position);
 				players.add(player);
 				System.out.println("Player position: " + position);
-				player.setPosition(position);
+
 				
 				statusMap.put(playerName, status);
 				System.out.println("New Contestant: ");
