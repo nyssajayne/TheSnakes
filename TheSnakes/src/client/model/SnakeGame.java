@@ -93,7 +93,7 @@ public class SnakeGame extends Thread implements SnakeInterface{
 		while(gameStatus != STATUS_LOSE && gameStatus != STATUS_WIN) {
 			System.out.println("working! ");
 			//clientFrame.getSockHandler().getIn
-			pack = 	new Packet((Packet)clientFrame.getSockHandler().getIn().readObject());
+			pack = 	(Packet)clientFrame.getSockHandler().getIn().readObject();
 			System.out.println("Players: " + pack.getPlayers().get(1).getSnake().getHeadPos().toString());
 			for(int i=0; i<pack.getPlayers().size(); i++)
 			{

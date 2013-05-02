@@ -73,6 +73,7 @@ public class TheServer implements SnakeInterface, Runnable {
 				
 				Player player = new Player(playerName);
 				players.add(player);
+				System.out.println(position);
 				player.setPosition(position);
 				
 				statusMap.put(playerName, status);
@@ -113,9 +114,11 @@ public class TheServer implements SnakeInterface, Runnable {
 			statusMap = gameLogic.getStatusMap();
 			
 			// send info to clients
-			while(clientRunnables.iterator().hasNext()) {
-				ClientListener client = clientRunnables.iterator().next();
+			for(ClientListener client: clientRunnables) {
+				System.out.println("Sending client info .... " + new Date());
+				System.out.println(gameLogic.getPlayers());
 				client.sendInfo(gameLogic.getPlayers(),statusMap.get(client.getPlayerName()));
+			
 			}
 			try {
 				Thread.sleep(50);

@@ -29,6 +29,10 @@ public class Snake implements Serializable {
 		growSnake(START_SEGMENTS - 1);
 	}
 	
+	public String toString() {
+		return segments.toString();
+	}
+	
 	public void setDirection(int dx, int dy) {
 		this.dx = dx;
 		this.dy = dy;

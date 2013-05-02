@@ -12,6 +12,10 @@ public class Tile implements Serializable {
 	private Point p;
 	private Color filled;
 
+	public String toString() {
+		return p.toString();
+	}
+	
 	public Tile(int x, int y, Color filled){
 		p = new Point(x,y);
 		this.filled = filled;
@@ -25,7 +29,7 @@ public class Tile implements Serializable {
 	}
 
 	public void setPoint(Point p1){
-		p = p1;
+		p.setLocation(p1);
 	}
 	
 	public void setPoint(int x,int y){

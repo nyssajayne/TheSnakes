@@ -15,6 +15,10 @@ public class Player implements Serializable {
 	private int score;
 	private Color color;
 	
+	public String toString() {
+		return name + " | " + snake;
+	}
+	
 	public Player(String name){
 		this.name = name;
 	}
