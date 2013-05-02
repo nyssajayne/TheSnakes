@@ -54,7 +54,7 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			
 			clientFrame.getSockHandler().initConnection("localhost");
 			try {
-				clientFrame.getSockHandler().getOut().writeUTF(clientFrame.getCb().getPlayerName() + clientFrame.getCb().getPlayers());
+				clientFrame.getSockHandler().getOut().writeUTF(clientFrame.getCb().getPlayerName() + (clientFrame.getCb().getCbx_players().getSelectedIndex()+2));
 				
 				
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
@@ -98,12 +98,10 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			for(int i=0; i<pack.getPlayers().size(); i++)
 			{
 				clientFrame.getGrid().addSnake(pack.getPlayers().get(i).getSnake().getSegments());
-				clientFrame.repaint();
-				clientFrame.getGrid().repaint();
+
 				
 			}
-			clientFrame.getGrid().repaint();
-			clientFrame.getGrid().clearSnakes();
+			clientFrame.repaint();
 			//clientFrame.getGrid().repaint();
 			gameStatus = pack.getGameStatus();
 		}

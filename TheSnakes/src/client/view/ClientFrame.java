@@ -39,7 +39,7 @@ public class ClientFrame extends JFrame implements shared.SnakeInterface
 	        this.setSize(windowWidth, windowHeight);
 	        this.setResizable(true);
 	        this.setLocationRelativeTo(null);
-	        grid.addKeyListener(new MoveListener());
+	        this.addKeyListener(new MoveListener());
 	        
 	        this.add(grid,BorderLayout.CENTER);
 	        this.add(cb,BorderLayout.SOUTH);

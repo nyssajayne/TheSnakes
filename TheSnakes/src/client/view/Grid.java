@@ -34,14 +34,17 @@ public class Grid extends JPanel {
 		super.paint(g);
 		int x = 30;
 		int y = 30;
+		Color c;
 		drawBoard(g);
 		for(int i=0;i < length;i++){
 			for(int j=0; j < width;j++){
-
-				g.setColor(tiles.get(i).get(j).getFilled());
+				if((c =tiles.get(i).get(j).getFilled()) != Color.black)
+					g.setColor(c);
+					if(c == null)
+						g.setColor(Color.black);
 				if(g.getColor() != Color.BLACK)
 					g.fillRect(x,y,TILE_LENGTH, TILE_WIDTH);
-
+					tiles.get(i).get(j).setFilled( null);
 
 
 
@@ -53,21 +56,21 @@ public class Grid extends JPanel {
 
 			}
 	
-	public void drawSnake(Graphics g){
-		
-		System.out.println("Drawin snakes!");
-	for(int i = 0;i < s.size();i++)
-    for(int n = 0; n < 2; n++) {
-    //	Color color = s.get(i).getSegments().getFirst().getFilled();
-
-           Point p = s.get(i).getSegments().get(n).getPoint();
-           System.out.println(p.toString());
-           
-           g.setColor(Color.blue);
-           g.fillRect(p.x*10 + 30, p.y*10+ 30, 10, 10);
-       }
-	snakes = false;
-	}
+//	public void drawSnake(Graphics g){
+//		
+//		System.out.println("Drawin snakes!");
+//	for(int i = 0;i < s.size();i++)
+//    for(int n = 0; n < 2; n++) {
+//    //	Color color = s.get(i).getSegments().getFirst().getFilled();
+//
+//           Point p = s.get(i).getSegments().get(n).getPoint();
+//           System.out.println(p.toString());
+//           
+//           g.setColor(Color.blue);
+//           g.fillRect(p.x*10 + 30, p.y*10+ 30, 10, 10);
+//       }
+//	snakes = false;
+//	}
 	
 	public void drawBoard(Graphics g){
 
