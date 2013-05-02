@@ -61,11 +61,12 @@ public class TheServer implements SnakeInterface, Runnable {
 				String message = client.getIn().readUTF();
 				
 				//Set player's name
-				String playerName = message.substring(0, message.length()-1);
+				String playerName = message.substring(0, message.length()-2);
+				System.out.println("Player name: " + playerName);
 				client.setPlayerName(playerName);
 				
 				//Set player's position
-				int position = Integer.parseInt(message.substring(message.length()-1));
+				int position = Integer.parseInt(message.substring(message.length()-2));
 				int status = setPosition(position);
 				if(status==STATUS_NOT_VALID) {
 					client.sendInfo(null, status);
@@ -73,7 +74,7 @@ public class TheServer implements SnakeInterface, Runnable {
 				
 				Player player = new Player(playerName);
 				players.add(player);
-				System.out.println(position);
+				System.out.println("Player position: " + position);
 				player.setPosition(position);
 				
 				statusMap.put(playerName, status);

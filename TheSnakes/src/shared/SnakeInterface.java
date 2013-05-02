@@ -26,7 +26,7 @@ public interface SnakeInterface {
 	public static int BOT_LEFT = 42;
 	public static int BOT_RIGHT = 43;
 	
-	public static String POSITIONS[] = {"TOP_LEFT", "TOP_RIGHT", "BOT_LEFT", "BOT_RIGHT"}; 
+	public static Integer POSITIONS[] = {TOP_LEFT, TOP_RIGHT, BOT_LEFT, BOT_RIGHT}; 
 	
 	public static Rectangle BOUNDS = new Rectangle(0,0,PIECE_SIZE,PIECE_SIZE);
 
