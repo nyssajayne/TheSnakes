@@ -60,8 +60,6 @@ public class ClientFrame extends JFrame implements shared.SnakeInterface
 			return sockHandler;
 		}
 		
-
-		
 		public StatusPanel getSp() {
 			return sp;
 		}

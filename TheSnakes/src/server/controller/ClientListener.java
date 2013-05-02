@@ -63,6 +63,7 @@ public class ClientListener implements Runnable {
 		   try{
 			   out.reset();
 			   out.writeObject(p1);
+			   out.flush();
 			   //System.out.println(p1);
 		   }catch(Exception e){
 			   System.out.println(e.getStackTrace());

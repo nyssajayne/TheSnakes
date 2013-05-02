@@ -28,6 +28,7 @@ public class SocketHandler {
 	public void sendMove(int move) throws IOException
 	{
 		out.writeInt(move);
+		out.flush();
 	}
 	
 	public void closeConnection() throws IOException{
