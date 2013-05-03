@@ -13,7 +13,7 @@ public class Snake implements Serializable {
 	 */
 	private static final long serialVersionUID = -1348350780452014999L;
 
-	private static final int START_SEGMENTS = 12;
+	private static final int START_SEGMENTS = 2;
 
 	private LinkedList<Tile> segments;
 	private Color color;

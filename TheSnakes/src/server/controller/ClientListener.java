@@ -5,9 +5,9 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
+import shared.Food;
 import shared.Packet;
 import shared.Player;
 /*
@@ -56,8 +56,8 @@ public class ClientListener implements Runnable {
 		}
 	}
 
-	public void sendInfo(List<Player> list, int gameStatus) {
-		sendPacket(new Packet(list, gameStatus));
+	public void sendInfo(List<Player> list, List<Food> food, int gameStatus) {
+		sendPacket(new Packet(list, food, gameStatus));
 	}
 	private void sendPacket(Packet p1){
 		   try{

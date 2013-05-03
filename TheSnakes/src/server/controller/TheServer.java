@@ -69,7 +69,7 @@ public class TheServer implements SnakeInterface, Runnable {
 				int position = Integer.parseInt(message.substring(message.length()-2));
 				int status = setPosition(position);
 				if(status==STATUS_NOT_VALID) {
-					client.sendInfo(null, status);
+					client.sendInfo(null,null,status);
 				}
 				
 				Player player = new Player(playerName);
@@ -80,7 +80,7 @@ public class TheServer implements SnakeInterface, Runnable {
 				
 				statusMap.put(playerName, status);
 				System.out.println("New Contestant: ");
-				client.sendInfo(gameLogic.getPlayers(), status);
+				client.sendInfo(gameLogic.getPlayers(),null, status);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -113,13 +113,13 @@ public class TheServer implements SnakeInterface, Runnable {
 			gameLogic.step();
 			
 			// retrieve game status 
-			statusMap = gameLogic.getStatusMap();
+			//statusMap = gameLogic.getStatusMap();
 			
 			// send info to clients
 			for(ClientListener client: clientRunnables) {
 				System.out.println("Sending client info .... " + new Date());
 				System.out.println(gameLogic.getPlayers());
-				client.sendInfo(gameLogic.getPlayers(),statusMap.get(client.getPlayerName()));
+				client.sendInfo(gameLogic.getPlayers(), gameLogic.getFood(), statusMap.get(client.getPlayerName()));
 			
 			}
 			try {

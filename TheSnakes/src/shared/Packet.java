@@ -11,7 +11,7 @@ public class Packet implements Serializable {
 	 * This is what will be sent.
 	 */
 	private static final long serialVersionUID = -5967953452268446936L;
-	public Packet(List<Player> snakes, int gameStatus){
+	public Packet(List<Player> snakes, List<Food> food, int gameStatus){
 		this.players = snakes;
 		this.gameStatus = gameStatus;
 	}

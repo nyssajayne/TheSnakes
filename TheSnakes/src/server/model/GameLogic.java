@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import shared.Food;
 import shared.Player;
 import shared.Snake;
 import shared.SnakeInterface;
@@ -14,6 +15,7 @@ import shared.Tile;
 public class GameLogic implements SnakeInterface {
 	
 	private List<Player> players;
+	private List<Food> foodItems;
 	private Point bounds;
 	
 	private static List<Color> playerColors = new ArrayList<Color>();
@@ -27,6 +29,7 @@ public class GameLogic implements SnakeInterface {
 		playerColors.add(Color.BLUE);
 		playerColors.add(Color.GREEN);
 		playerColors.add(Color.DARK_GRAY);
+		foodItems = new ArrayList<Food>();
 	}
 	
 	public void setPlayers(List<Player> players) {
@@ -45,17 +48,17 @@ public class GameLogic implements SnakeInterface {
 					break;
 				case TOP_RIGHT:
 					dx = -1;
-					x = bounds.x - 1;
+					x = bounds.x - 2;
 					y = 1;
 					break;
 				case BOT_LEFT:
 					x = 1;
-					y = bounds.y - 1;
+					y = bounds.y - 2;
 					dx = 1;
 					break;
 				case BOT_RIGHT:
-					x = bounds.x - 1;
-					y = bounds.y - 1;
+					x = bounds.x - 2;
+					y = bounds.y - 2;
 					dx = -1;
 					break;
 			}
@@ -168,5 +171,9 @@ public class GameLogic implements SnakeInterface {
 	
 	public List<Player> getPlayers() {
 		return players;
+	}
+	
+	public List<Food> getFood() {
+		return foodItems;
 	}
 }
