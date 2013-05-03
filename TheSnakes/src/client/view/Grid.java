@@ -94,8 +94,10 @@ public class Grid extends JPanel {
 	public void initTiles(int x, int y){
 
 		for(int i=0;i < x;i++){
+			System.out.println("i:" + i + " + " + "x:" + x);
 			ArrayList<Tile> a1 = new ArrayList<Tile>();
 			for(int j=0; j < y;j++){
+				System.out.println("j:" + j + " + " + "y:" + y);
 				a1.add(j,new Tile(i,j,null));
 				tiles.add(i,a1);
 
@@ -110,11 +112,17 @@ public class Grid extends JPanel {
 			x = piece.getX();
 			y = piece.getY();
 			tiles.get(x).get(y).setFilled(piece.getFilled());
+			System.out.println(piece);
 			this.repaint();
 		}
 		
 	} 
 	public void clearSnakes(){
 		this.s.clear();
+	}
+	
+	public boolean isFocusable()
+	{
+	  return true;
 	}
 }

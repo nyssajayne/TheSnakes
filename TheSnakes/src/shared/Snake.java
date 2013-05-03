@@ -13,7 +13,7 @@ public class Snake implements Serializable {
 	 */
 	private static final long serialVersionUID = -1348350780452014999L;
 
-	private static final int START_SEGMENTS = 2;
+	private static final int START_SEGMENTS = 12;
 
 	private LinkedList<Tile> segments;
 	private Color color;
@@ -73,12 +73,12 @@ public class Snake implements Serializable {
 	 */
 	private void checkBounds(Point p) {
 		if(p.x < 0) {
-			p.x = bounds.x; 
+			p.x = bounds.x-1; 
 		} else if(p.x >= bounds.x) {
 			p.x = 0;
 		}
 		if(p.y < 0) {
-			p.y = bounds.y;
+			p.y = bounds.y-1;
 		} else if(p.y >= bounds.y) {
 			p.y = 0;
 		}

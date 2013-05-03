@@ -1,12 +1,14 @@
 package client.model;
 
 import java.awt.Graphics;
+import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.io.IOException;
 
 import server.controller.TheServer;
 import shared.Packet;
 import shared.SnakeInterface;
+import client.controller.MoveListener;
 import client.view.ClientFrame;
 
 public class SnakeGame extends Thread implements SnakeInterface{
@@ -42,7 +44,6 @@ public class SnakeGame extends Thread implements SnakeInterface{
 				
 				CreateServer(clientFrame.getCb().getPlayers(),null);
 				System.out.println("created");
-
 	}
 
 	//TODO Connect to the host and get ready to start a game.

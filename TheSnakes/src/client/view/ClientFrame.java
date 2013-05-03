@@ -1,6 +1,7 @@
 package client.view;
 
 import java.awt.BorderLayout;
+import java.awt.KeyboardFocusManager;
 import java.awt.Rectangle;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -39,11 +40,14 @@ public class ClientFrame extends JFrame implements shared.SnakeInterface
 	        this.setSize(windowWidth, windowHeight);
 	        this.setResizable(true);
 	        this.setLocationRelativeTo(null);
-	        this.addKeyListener(new MoveListener());
 	        
 	        this.add(grid,BorderLayout.CENTER);
 	        this.add(cb,BorderLayout.SOUTH);
 	        this.add(sp, BorderLayout.EAST);
+	        
+	        //grid.addKeyListener(new MoveListener(this));
+	        
+	        this.getCb().getBtn_join().addKeyListener(new MoveListener(this));
 	        
 	        this.setVisible(true);
 	        // this enables double buffering
