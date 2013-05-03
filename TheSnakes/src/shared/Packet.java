@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Packet implements Serializable {
 	private List<Player> players;
+	private List<Food> food;
 	private int gameStatus;
 	/**
 	 * This is what will be sent.
@@ -18,6 +19,12 @@ public class Packet implements Serializable {
 	
 	public List<Player> getPlayers() {
 		return players;
+	}
+	public List<Food> getFood() {
+		return food;
+	}
+	public void setFood(List<Food> food) {
+		this.food = food;
 	}
 	public void setSnakes(List<Player> snakes) {
 		this.players = snakes;
