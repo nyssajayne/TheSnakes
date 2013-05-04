@@ -44,9 +44,7 @@ public class TheServer implements SnakeInterface, Runnable {
 			System.out.println(e.getMessage());
 		}
 	}
-	/*
-	 * TODO: need an end condition for this loop
-	 */
+	@Override
 	public void run() {
 		
 		for (int i=0; i<numPlayers; i++) {
@@ -108,17 +106,17 @@ public class TheServer implements SnakeInterface, Runnable {
 		gameLogic.setPlayers(players);
 		gameLogic.setStatusMap(statusMap);
 		
+		/*
+		 * TODO: need an end condition for this loop
+		 */
 		while(true) {
 			// step the game forward one tick
 			gameLogic.step();
 			
-			// retrieve game status 
-			//statusMap = gameLogic.getStatusMap();
-			
 			// send info to clients
 			for(ClientListener client: clientRunnables) {
-				System.out.println("Sending client info .... " + new Date());
-				System.out.println(gameLogic.getPlayers());
+				//System.out.println("Sending client info .... " + new Date());
+				//System.out.println(gameLogic.getPlayers());
 				client.sendInfo(gameLogic.getPlayers(), gameLogic.getFood(), statusMap.get(client.getPlayerName()));
 			
 			}

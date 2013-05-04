@@ -14,16 +14,15 @@ import shared.Tile;
 
 public class GameLogic implements SnakeInterface {
 	
+	private static List<Color> playerColors = new ArrayList<Color>();
+	
 	private List<Player> players;
 	private List<Food> foodItems;
 	private Point bounds;
 	
-	private static List<Color> playerColors = new ArrayList<Color>();
-	
 	private Map<String,Integer> statusMap;
 	
-	public GameLogic(Point bounds)
-	{
+	public GameLogic(Point bounds) {
 		this.bounds = bounds;
 		playerColors.add(Color.RED);
 		playerColors.add(Color.BLUE);
@@ -31,11 +30,11 @@ public class GameLogic implements SnakeInterface {
 		playerColors.add(Color.DARK_GRAY);
 		foodItems = new ArrayList<Food>();
 	}
-	
+	/*
+	 * Give all players a position, color and direction
+	 */
 	public void setPlayers(List<Player> players) {
 		this.players = players;
-		// give all players a color, position and direction
-		//took out Map, didn't seem to be needed.
 		int dx = 0 , dy = 0;
 		int x = 0, y = 0;
 		int colorIndex = 0;
@@ -71,6 +70,7 @@ public class GameLogic implements SnakeInterface {
 	}
 	/*
 	 * returns the status of the players
+	 * TODO: remove 
 	 */
 	public Map<String, Integer> getStatusMap() {
 		return statusMap;
@@ -100,6 +100,15 @@ public class GameLogic implements SnakeInterface {
 					break;
 				case MOVE_SLOWER:
 					break;
+				case STATUS_LOSE:
+					/*
+					 * This is done AFTER collision has set the status map,
+					 * so that the server can tell any clients that they have 
+					 * lost before they are removed permanently 
+					 */
+					statusMap.remove(name);
+					players.remove(p);
+					break;
 				
 			/*
 			 * TODO: add cases for removing from game
@@ -114,7 +123,8 @@ public class GameLogic implements SnakeInterface {
 	public void step() {
 		interpretStatus();
 		moveSnakes();
-		//checkCollisions();
+		checkCollisions();
+		spawnFood();
 	}
 	/*
 	 * Moves all the snakes
@@ -123,7 +133,8 @@ public class GameLogic implements SnakeInterface {
 	private void moveSnakes() {
 		for(Player p : players) {
 			if(!p.getSnake().move()) {
-				//statusMap.put(p.getName(),STATUS_LOSE);
+				System.out.println("Collision! " + p);
+				statusMap.put(p.getName(),STATUS_LOSE);
 			}
 			
 		}
@@ -132,14 +143,15 @@ public class GameLogic implements SnakeInterface {
 	 * This checks for collisions with other players
 	 */
 	private void checkCollisions() {
-		
 		for(Player p: players) {
 			Point headPos = p.getSnake().getHeadPos();
 			for(Player k: players) {
 				if(p != k){
-					for(Tile t: p.getSnake().getSegments()) {
+					for(Tile t: k.getSnake().getSegments()) {
 						if(t.getPoint().equals(headPos)){
-							System.out.println(headPos);
+							
+							System.out.println("Collision! " 
+							+ headPos + " | " + t.getPoint());
 							statusMap.put(p.getName(),STATUS_LOSE);
 						}
 					}	
@@ -147,6 +159,16 @@ public class GameLogic implements SnakeInterface {
 			}
 		}
 	}
+	/*
+	 * Spawns food at random locations on the board
+	 * Maxmium number at any one time is Food.MAX_FOOD 
+	 */
+	private void spawnFood() {
+		
+		
+		
+	}
+	
 	/*
 	 * Sets a snakes direction
 	 */
@@ -156,13 +178,6 @@ public class GameLogic implements SnakeInterface {
 				p.getSnake().setDirection(dx, dy);
 			}
 		}
-	}
-	/*
-	 * Sets the status of the players in the game
-	 * called by server class every tick
-	 */
-	public void setStatus(int status, String playerName) {
-		statusMap.put(playerName,status);
 	}
 	
 	public void setStatusMap(Map<String,Integer> statusMap) {

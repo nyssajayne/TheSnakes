@@ -112,7 +112,7 @@ public class Grid extends JPanel {
 			x = piece.getX();
 			y = piece.getY();
 			tiles.get(x).get(y).setFilled(piece.getFilled());
-			System.out.println(piece);
+			//System.out.println(piece);
 			this.repaint();
 		}
 		
