@@ -118,7 +118,6 @@ public class TheServer implements SnakeInterface, Runnable {
 				//System.out.println("Sending client info .... " + new Date());
 				//System.out.println(gameLogic.getPlayers());
 				client.sendInfo(gameLogic.getPlayers(), gameLogic.getFood(), statusMap.get(client.getPlayerName()));
-			
 			}
 			try {
 				Thread.sleep(50);

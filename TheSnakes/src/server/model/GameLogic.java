@@ -15,7 +15,10 @@ import shared.Tile;
 
 public class GameLogic implements SnakeInterface {
 	
-	private static List<Color> playerColors = new ArrayList<Color>();
+	private static Color COLOR_TOP_LEFT = Color.RED;
+	private static Color COLOR_TOP_RIGHT = Color.MAGENTA;
+	private static Color COLOR_BOT_LEFT = Color.BLUE;
+	private static Color COLOR_BOT_RIGHT = Color.GREEN;
 	
 	private List<Player> players;
 	private List<Food> foodItems;
@@ -25,10 +28,6 @@ public class GameLogic implements SnakeInterface {
 	
 	public GameLogic(Point bounds) {
 		this.bounds = bounds;
-		playerColors.add(Color.RED);
-		playerColors.add(Color.BLUE);
-		playerColors.add(Color.GREEN);
-		playerColors.add(Color.DARK_GRAY);
 		foodItems = new ArrayList<Food>();
 	}
 	/*
@@ -38,35 +37,38 @@ public class GameLogic implements SnakeInterface {
 		this.players = players;
 		int dx = 0 , dy = 0;
 		int x = 0, y = 0;
-		int colorIndex = 0;
+		Color c = Color.BLACK;
 		for(Player p : players) {
 			switch(p.getPosition()){
 				case TOP_LEFT:
 					dx = 1;
 					x = 1;
 					y = 1;
+					c = COLOR_TOP_LEFT;
 					break;
 				case TOP_RIGHT:
 					dx = -1;
 					x = bounds.x - 2;
 					y = 1;
+					c = COLOR_TOP_RIGHT;
 					break;
 				case BOT_LEFT:
 					x = 1;
 					y = bounds.y - 2;
 					dx = 1;
+					c = COLOR_BOT_LEFT;
 					break;
 				case BOT_RIGHT:
 					x = bounds.x - 2;
 					y = bounds.y - 2;
 					dx = -1;
+					c = COLOR_BOT_RIGHT;
 					break;
 			}
 			
-			Snake snake = new Snake(x,y,playerColors.get(colorIndex),bounds);
+			Snake snake = new Snake(x,y,c,bounds);
 			snake.setDirection(dx, dy);
 			p.setSnake(snake);
-			colorIndex++;
 		}
 	}
 	/*
@@ -107,8 +109,6 @@ public class GameLogic implements SnakeInterface {
 					 * so that the server can tell any clients that they have 
 					 * lost before they are removed permanently 
 					 */
-					statusMap.remove(name);
-					players.remove(p);
 					break;
 				
 			/*
@@ -150,10 +150,10 @@ public class GameLogic implements SnakeInterface {
 				if(p != k){
 					for(Tile t: k.getSnake().getSegments()) {
 						if(t.getPoint().equals(headPos)){
-							
-							System.out.println("Collision! " 
-							+ headPos + " | " + t.getPoint());
 							statusMap.put(p.getName(),STATUS_LOSE);
+							if(k.getSnake().getHeadPos().equals(headPos)){
+								
+							}
 						}
 					}	
 				}

@@ -13,7 +13,7 @@ public class Snake implements Serializable {
 	 */
 	private static final long serialVersionUID = -1348350780452014999L;
 
-	private static final int START_SEGMENTS = 2;
+	private static final int START_SEGMENTS = 8;
 
 	private LinkedList<Tile> segments;
 	private Color color;
@@ -54,18 +54,14 @@ public class Snake implements Serializable {
 		headpos.translate(dx, dy);
 		checkBounds(headpos);
 		/*
-		 *  This checks for collisions for the snake to itself, 
-		 *  somehow it needs to tell the calling object that a collision has happened.
+		 *  This checks for collisions for the snake to itself
 		 */
-		
-		/*
-		for(int i = segments.size() - 1 ; i >= 1; i++) {
+		for(int i = segments.size() - 1 ; i >= 1; i--) {
+			System.out.println(segments.size()+ " i: " + i);
 			if(headpos.equals(segments.get(i).getPoint())) {
 				return false;
 			}
 		}
-		*/
-		
 		return true;
 	}
 	/*

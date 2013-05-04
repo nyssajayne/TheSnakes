@@ -100,6 +100,11 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			clientFrame.repaint();
 			//clientFrame.getGrid().repaint();
 			gameStatus = pack.getGameStatus();
+			try{
+				Thread.sleep(50);
+			}catch(InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		//TODO Do something when a game is over (win or lose)
 
