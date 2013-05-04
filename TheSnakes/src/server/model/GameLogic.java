@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import shared.Food;
 import shared.Player;
@@ -164,11 +165,31 @@ public class GameLogic implements SnakeInterface {
 	 * Maxmium number at any one time is Food.MAX_FOOD 
 	 */
 	private void spawnFood() {
-		
-		
-		
+		for(int i = foodItems.size(); i < Food.MAX_FOOD ; i++){
+			int x, y;
+			Random r = new Random();
+			do {
+				x = r.nextInt(bounds.x);
+				y = r.nextInt(bounds.y);
+			}while(isTileOccupied(x,y));
+			Food food = new Food(x, y, Food.TYPE_APPLE);		
+			foodItems.add(food);
+		}
 	}
-	
+	/*
+	 * Checks a position to see if it is occupied
+	 * only used for spawning food, not collisions
+	 */
+	private boolean isTileOccupied(int x, int y) {
+		for(Player p : players){
+			for(Tile t : p.getSnake().getSegments()) {
+				if(t.equals(new Point(x,y))){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	/*
 	 * Sets a snakes direction
 	 */

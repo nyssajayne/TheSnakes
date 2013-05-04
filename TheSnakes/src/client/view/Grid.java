@@ -38,13 +38,13 @@ public class Grid extends JPanel {
 		drawBoard(g);
 		for(int i=0;i < length;i++){
 			for(int j=0; j < width;j++){
-				if((c =tiles.get(i).get(j).getFilled()) != Color.black)
+				if((c =tiles.get(j).get(i).getFilled()) != Color.black)
 					g.setColor(c);
 					if(c == null)
 						g.setColor(Color.black);
 				if(g.getColor() != Color.BLACK)
 					g.fillRect(x,y,TILE_LENGTH, TILE_WIDTH);
-					tiles.get(i).get(j).setFilled( null);
+					tiles.get(j).get(i).setFilled( null);
 
 
 

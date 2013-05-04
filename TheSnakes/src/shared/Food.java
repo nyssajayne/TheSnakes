@@ -8,10 +8,10 @@ public class Food implements Serializable {
 	
 	private static final long serialVersionUID = 3698965268892031485L;
 	
-	private static final int TYPE_ORANGE = 1;
-	private static final int TYPE_APPLE = 2;
+	public static final int TYPE_ORANGE = 1;
+	public static final int TYPE_APPLE = 2;
 	
-	private static final int MAX_FOOD = 2;
+	public static final int MAX_FOOD = 2;
 	
 	private static final Color APPLE_COLOR = Color.PINK;
 	private static final Color ORANGE_COLOR = Color.ORANGE;

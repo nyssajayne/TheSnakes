@@ -1,6 +1,5 @@
 package server.controller;
 
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -10,9 +9,7 @@ import java.util.List;
 import shared.Food;
 import shared.Packet;
 import shared.Player;
-/*
- * This class should be in server.controller
- */
+
 public class ClientListener implements Runnable {
 	
 	private Socket socket;
@@ -20,7 +17,6 @@ public class ClientListener implements Runnable {
 	private DataInputStream in;
 	private ObjectOutputStream out;
 	private String playerName;
-	//private GameLogic gameLogic;
 	
 	public ClientListener(TheServer server, Socket socket) throws IOException
 	{
@@ -64,7 +60,6 @@ public class ClientListener implements Runnable {
 			   out.reset();
 			   out.writeObject(p1);
 			   out.flush();
-			   //System.out.println(p1);
 		   }catch(Exception e){
 			   System.out.println(e.getStackTrace());
 		   }
