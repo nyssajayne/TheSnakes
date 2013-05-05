@@ -33,6 +33,10 @@ public class Snake implements Serializable {
 		return segments.toString();
 	}
 	
+	public Point getDirection() {
+		return new Point(dx,dy);
+	}
+	
 	public void setDirection(int dx, int dy) {
 		this.dx = dx;
 		this.dy = dy;
@@ -89,20 +93,9 @@ public class Snake implements Serializable {
 	        n--;
 	    }
 	}
-	/*
-	 * This is only used for testing! 
-	 */
-	public void draw(Graphics g) {
-	    for(int n = 0; n < segments.size(); n++) {
-	           Point p = segments.get(n).getPoint();
-	           g.setColor(color);
-	           g.fillRect(p.x, p.y, 10, 10);
-	           g.setColor(Color.BLACK);
-	           g.drawRect(p.x*15, p.y*15, 15, 15);
-	       }
-	    
+	public int getLength() {
+		return segments.size();
 	}
-
 	public LinkedList<Tile> getSegments() {
 		return segments;
 	}

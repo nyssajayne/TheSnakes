@@ -113,8 +113,7 @@ public class GameLogic implements SnakeInterface {
 					 * so that the server can tell any clients that they have 
 					 * lost before they are removed permanently 
 					 */
-					System.out.println("Player has lost! This should be called" +
-							"after the clientListeners are closed.");
+					System.out.println("Player " + p.getName() + " has died!");
 					statusMap.remove(p.getName());
 					iter.remove();
 					break;
@@ -154,22 +153,91 @@ public class GameLogic implements SnakeInterface {
 	 * This checks for collisions with other players
 	 */
 	private void checkCollisions() {
-		
+		// Loop throught all the players
 		for(Player p: players) {
-			Point headPos = p.getSnake().getHeadPos();
-			
+			// get the head position
+			Point p_headPos = p.getSnake().getHeadPos();
+			// for each other player
 			for(Player k: players) {
-				if(p != k){
-					
+				if(p != k){	
+					Point kDir = k.getSnake().getDirection();
+					Point pDir = p.getSnake().getDirection();
+					// check each segment for collisions
+					Point k_headPos = k.getSnake().getHeadPos();
 					for(Tile t: k.getSnake().getSegments()) {
-					
-					}	
-					
+						if(t.getPoint().equals(p_headPos)) {		
+							// Collision has occured 
+							if(k_headPos.equals(p_headPos)) {
+								//  if Head on collision
+								System.out.println("Direct head on collision!");
+								compareSize(p,k);
+							} else {
+								// otherwise it is a side on collision
+								System.out.println("Not head on collision! Player " 
+										+ p.getName() + " dies.");
+								statusMap.put(p.getName(),STATUS_LOSE);
+							}
+						}
+					}
+					// check for special case of collision
+					if(compareDirections(pDir, kDir)){		
+						if(p_headPos.x == k_headPos.x || p_headPos.y == k_headPos.y) {
+							System.out.println(p_headPos.distance(k_headPos));
+							if(p_headPos.distance(k_headPos) == 1){
+								System.out.println("Special case!");
+								compareSize(p,k);
+							}
+						}			
+					}
 				}
 			}
 		}
 	}
-	
+	/*
+	 * Compares the sizes of two snakes and 
+	 * will set the status of them accordinly
+	 */
+	private void compareSize(Player p, Player k){
+		
+		int p_snake_len = p.getSnake().getLength();
+		int k_snake_len = k.getSnake().getLength();
+		
+		if(p_snake_len == k_snake_len) {
+			// If they are the same size, one of them randomly looses
+			Random r = new Random();
+			switch(r.nextInt(2)) {
+			case 0:
+				System.out.println("P WINS LOL");
+				statusMap.put(k.getName(), STATUS_LOSE);
+				break;
+			case 1:
+				System.out.println("K WINS LOL");
+				statusMap.put(p.getName(), STATUS_LOSE);
+				break;
+			}
+		} else if(p_snake_len > k_snake_len) {
+			// if p is greater than k, p wins
+			statusMap.put(k.getName(), STATUS_LOSE);		
+		} else {
+			// otherwsie k must be larger so k wins
+			statusMap.put(p.getName(), STATUS_LOSE);
+		}
+		
+	}
+	/*
+	 * Compares the directions of two points (treated as velocity vectors)
+	 */
+	private boolean compareDirections(Point p, Point k) {
+		if(p.y == (-1) * k.y){
+			System.out.println("Heading in opposing y directions!");
+			return true;
+		}else if(p.x == (-1) * k.x){
+			System.out.println("Heading in opposing x directions!");
+			return true;
+		}
+		return false;
+	}
+
 	private void checkFood() {
 		for(Player p: players) {
 			Point headPos = p.getSnake().getHeadPos();
