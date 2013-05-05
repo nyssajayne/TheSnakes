@@ -101,12 +101,15 @@ public class GameLogic implements SnakeInterface {
 					statusMap.put(name, MOVE_NONE);
 					break;
 				case MOVE_NONE:
+					//do nothing
 					break;
 				case MOVE_FASTER:
-					
+					s.speedUp();
+					statusMap.put(name, MOVE_NONE);
 					break;
 				case MOVE_SLOWER:
-					
+					statusMap.put(name, MOVE_NONE);
+					s.slowDown();
 					break;
 				case STATUS_LOSE:
 					/*
@@ -144,10 +147,10 @@ public class GameLogic implements SnakeInterface {
 	 * Checks for collisions of the snakes with themselves
 	 */
 	private void moveSnakes() {
-		for(Player p : players) {
+		for(Player p : players) {		
 			if(!p.getSnake().move()) {
 				statusMap.put(p.getName(),STATUS_LOSE);
-			}
+			}		
 		}
 	}
 	/*

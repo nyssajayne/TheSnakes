@@ -1,7 +1,6 @@
 package shared;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -13,17 +12,22 @@ public class Snake implements Serializable {
 	 */
 	private static final long serialVersionUID = -1348350780452014999L;
 
-	private static final int START_SEGMENTS = 8;
+	private static final int START_SEGMENTS = 2;
+	
+	public static final int MAX_SPEED = 2;
+	public static final int MIN_SPEED = 1;
 
 	private LinkedList<Tile> segments;
 	private Color color;
 	private Point bounds;
 	private volatile int dx, dy;
+	private int speed;
 	
 	public Snake(int x, int y, Color color, Point bounds)
 	{
 		this.color = color;
 		this.bounds = bounds;
+		speed = 1;
 		segments = new LinkedList<Tile>();
 		segments.addFirst(new Tile(x,y,color));
 		growSnake(START_SEGMENTS - 1);
@@ -31,6 +35,21 @@ public class Snake implements Serializable {
 	
 	public String toString() {
 		return segments.toString();
+	}
+	
+	public void speedUp() {
+		if(speed < MAX_SPEED){
+			speed++;
+		}
+	}
+	public void slowDown() {
+		if(speed > MIN_SPEED){
+			speed--;
+		}
+	}
+
+	public int getSpeed() { 
+		return speed;
 	}
 	
 	public Point getDirection() {
@@ -46,23 +65,24 @@ public class Snake implements Serializable {
 		return segments.getFirst().getPoint();
 	}
 		
-	public boolean move()
-	{
-		// starting at the last segment, loop through each one 
-		for(int n = segments.size()-1; n >= 1; n--) {
-			// set the pos of the segment to the segment in front of it
-			// ( except for the head)
-			segments.get(n).setPoint(segments.get(n-1).getPoint());
-		}
-		Point headpos = segments.getFirst().getPoint();
-		headpos.translate(dx, dy);
-		checkBounds(headpos);
-		/*
-		 *  This checks for collisions for the snake to itself
-		 */
-		for(int i = segments.size() - 1 ; i >= 1; i--) {
-			if(headpos.equals(segments.get(i).getPoint())) {
-				return false;
+	public boolean move() {
+		for(int k = 0; k < speed; k++) {
+			// starting at the last segment, loop through each one 
+			for(int n = segments.size()-1; n >= 1; n--) {
+				// set the pos of the segment to the segment in front of it
+				// ( except for the head)
+				segments.get(n).setPoint(segments.get(n-1).getPoint());
+			}
+			Point headpos = segments.getFirst().getPoint();
+			headpos.translate(dx, dy);
+			checkBounds(headpos);
+			/*
+			 *  This checks for collisions for the snake to itself
+			 */
+			for(int i = segments.size() - 1 ; i >= 1; i--) {
+				if(headpos.equals(segments.get(i).getPoint())) {
+					return false;
+				}
 			}
 		}
 		return true;

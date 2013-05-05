@@ -47,6 +47,7 @@ public class ClientFrame extends JFrame implements shared.SnakeInterface
 	        //grid.addKeyListener(new MoveListener(this));
 	        
 	        this.getCb().getBtn_join().addKeyListener(new MoveListener(this));
+	        this.getCb().getBtn_create().addKeyListener(new MoveListener(this));
 	        
 	        this.setVisible(true);
 	        // this enables double buffering

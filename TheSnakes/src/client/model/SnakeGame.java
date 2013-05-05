@@ -45,6 +45,7 @@ public class SnakeGame extends Thread implements SnakeInterface{
 				
 				CreateServer(clientFrame.getCb().getPlayers(),p);
 				System.out.println("created");
+				initGame();
 	}
 
 	//TODO Connect to the host and get ready to start a game.

@@ -12,7 +12,7 @@ public class Food implements Serializable {
 	public static final int TYPE_APPLE = 2;
 	public static final int TYPE_BANANA = 3;
 	
-	public static final int MAX_FOOD = 2;
+	public static final int MAX_FOOD = 4;
 	
 	private static final Color APPLE_COLOR = Color.PINK;
 	private static final Color ORANGE_COLOR = Color.ORANGE;
