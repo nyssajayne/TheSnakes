@@ -88,24 +88,25 @@ public class GameLogic implements SnakeInterface {
 		while(iter.hasNext()) {
 			Player p = iter.next();
 			String name = p.getName();
+			Snake s = p.getSnake();
+			Point dir = new Point(p.getSnake().getDirection());
 			switch(statusMap.get(name)){
-				case MOVE_UP :
-					setSnakeDirection(name,0,-1);
-					break;
-				case MOVE_DOWN:
-					setSnakeDirection(name,0,1);
-					break;
+				// change the direction of the snake relative to it's current direction
 				case MOVE_RIGHT:
-					setSnakeDirection(name,1,0);
+					s.setDirection(dir.y  * (-1), dir.x);
+					statusMap.put(name, MOVE_NONE);
 					break;
 				case MOVE_LEFT:
-					setSnakeDirection(name,-1,0);
+					s.setDirection(dir.y, dir.x * (-1));
+					statusMap.put(name, MOVE_NONE);
 					break;
 				case MOVE_NONE:
 					break;
 				case MOVE_FASTER:
+					
 					break;
 				case MOVE_SLOWER:
+					
 					break;
 				case STATUS_LOSE:
 					/*
@@ -241,7 +242,9 @@ public class GameLogic implements SnakeInterface {
 		}
 		return false;
 	}
-
+	/*
+	 * Checks for food collisions 
+	 */
 	private void checkFood() {
 		for(Player p: players) {
 			Point headPos = p.getSnake().getHeadPos();
@@ -302,17 +305,7 @@ public class GameLogic implements SnakeInterface {
 		}
 		return false;
 	}
-	/*
-	 * Sets a snakes direction
-	 */
-	private void setSnakeDirection(String name, int dx, int dy) {
-		for(Player p: players) {
-			if(p.getName().equals(name)){
-				p.getSnake().setDirection(dx, dy);
-			}
-		}
-	}
-	
+
 	public void setStatusMap(Map<String,Integer> statusMap) {
 		this.statusMap = statusMap;
 	}
