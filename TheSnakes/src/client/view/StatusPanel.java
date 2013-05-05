@@ -20,7 +20,7 @@ public class StatusPanel extends JPanel{
 		private JLabel lbl_curColour = new JLabel("none!");
 		private String score = "Name: R Score 100"+"\n"+"Name:S Score 200";
 		private int flags = 4;
-		private JTextArea txtArea = new JTextArea(score, 40, flags);
+		private JTextArea txtArea = new JTextArea(score, 4, 10);
 		public StatusPanel(ClientFrame cf){
 			this.cf = cf;
 			
@@ -43,14 +43,18 @@ public class StatusPanel extends JPanel{
 		public void setLbl_curPlayer(String currentPlayer) {
 			lbl_curPlayer.setText(currentPlayer);
 		}
-		public void setLbl_amountPlayers(JLabel lbl_amountPlayers) {
-			this.lbl_amountPlayers = lbl_amountPlayers;
+		public void setLbl_amountPlayers(String lbl_amountPlayers) {
+			this.lbl_amountPlayers.setText(lbl_amountPlayers);
 		}
 		public void setFlags(int flags) {
 			this.flags = flags;
 		}
 		public void setTxtArea(JTextArea txtArea) {
 			this.txtArea = txtArea;
+		}
+		public void setLbl_Status(String s)
+		{
+			lbl_status.setText(s);
 		}
 		
 		

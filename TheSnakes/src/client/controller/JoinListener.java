@@ -20,7 +20,7 @@ public class JoinListener implements ActionListener{
 		jp.getClientFrame().getLSB().setIp_address(jp.getIp().getText());
 		jp.disableAll();
 		jp.getClientFrame().setJoin(true);
-
+		jp.getClientFrame().getSp().setLbl_curPlayer(jp.getClientFrame().getLSB().getPName());
 			}
 	}
 

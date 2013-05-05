@@ -85,7 +85,6 @@ public class SnakeGame extends Thread implements SnakeInterface{
 	public void gameStart() throws IOException, ClassNotFoundException {
 		Packet pack;
 
-		System.out.println(gameStatus);
 		while(gameStatus != STATUS_LOSE && gameStatus != STATUS_WIN) {
 			pack = 	(Packet)clientFrame.getSockHandler().getIn().readObject();
 			for(int i=0; i<pack.getPlayers().size(); i++)
@@ -95,6 +94,10 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			clientFrame.getGrid().addFood(pack.getFood());
 			clientFrame.repaint();
 			gameStatus = pack.getGameStatus();
+			clientFrame.getSp().setLbl_amountPlayers(Integer.toString(pack.getPlayers().size()));
+			clientFrame.getSp().setLbl_Status(Integer.toString(pack.getGameStatus()));
+			//clientFrame.getSp().setLbl_color(pack.getPlayers())
+			
 			try{
 				Thread.sleep(75);
 			}catch(InterruptedException e) {
