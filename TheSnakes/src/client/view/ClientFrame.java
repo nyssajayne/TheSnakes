@@ -34,8 +34,7 @@ public class ClientFrame extends JFrame implements shared.SnakeInterface
 
 
 		public ClientFrame() {
-			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			//this.addWindowListener(new ExitListener(this)); /could not test socket
+			this.addWindowListener(new ExitListener(this));
 			this.setLayout(new BorderLayout());
 	        this.setSize(windowWidth, windowHeight);
 	        this.setResizable(true);
