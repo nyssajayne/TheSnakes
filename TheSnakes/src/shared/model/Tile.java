@@ -1,13 +1,11 @@
-package shared;
+package shared.model;
+
 import java.awt.Color;
 import java.awt.Point;
 import java.io.Serializable;
 
-
 public class Tile implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -3460295869996439155L;
 	private Point p;
 	private Color filled;
@@ -49,7 +47,5 @@ public class Tile implements Serializable {
 	public void setFilled(Color color){
 		this.filled = color;
 	}
-
-
 
 }

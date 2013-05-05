@@ -9,7 +9,7 @@ import javax.swing.JTextArea;
 @SuppressWarnings("serial")
 public class StatusPanel extends JPanel{
 	
-		private ClientFrame cf;
+
 		private JLabel lbl_player = new JLabel("Player:");
 		private JLabel lbl_curPlayer = new JLabel("none");
 		private JLabel lbl_players = new JLabel("Players:");
@@ -22,8 +22,7 @@ public class StatusPanel extends JPanel{
 		private int flags = 4;
 		private JTextArea txtArea = new JTextArea(score, 40, flags);
 		public StatusPanel(ClientFrame cf){
-			this.cf = cf;
-			
+
 			txtArea.setEditable(false);
 			this.add(lbl_player);
 			this.add(lbl_curPlayer);

@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import shared.Food;
-import shared.Player;
-import shared.Snake;
-import shared.SnakeInterface;
-import shared.Tile;
+import shared.controller.SnakeInterface;
+import shared.model.Food;
+import shared.model.Player;
+import shared.model.Snake;
+import shared.model.Tile;
 
 public class GameLogic implements SnakeInterface {
 	
@@ -73,13 +73,6 @@ public class GameLogic implements SnakeInterface {
 		}
 	}
 	/*
-	 * returns the status of the players
-	 * TODO: remove 
-	 */
-	public Map<String, Integer> getStatusMap() {
-		return statusMap;
-	}
-	/*
 	 * Goes through each status and update the players accordingly
 	 */
 	private void interpretStatus() {
@@ -91,7 +84,6 @@ public class GameLogic implements SnakeInterface {
 			Snake s = p.getSnake();
 			Point dir = new Point(p.getSnake().getDirection());
 			switch(statusMap.get(name)){
-				// change the direction of the snake relative to it's current direction
 				case MOVE_RIGHT:
 					s.setDirection(dir.y  * (-1), dir.x);
 					statusMap.put(name, MOVE_NONE);
@@ -117,17 +109,11 @@ public class GameLogic implements SnakeInterface {
 					 * so that the server can tell any clients that they have 
 					 * lost before they are removed permanently 
 					 */
-					System.out.println("Player " + p.getName() + " has died!");
 					statusMap.remove(p.getName());
 					iter.remove();
 					break;
 				case STATUS_WIN:
-					System.out.println("Player " + p.getName() + " has won!");
 					break;
-				
-			/*
-			 * TODO: add cases for removing from game
-			 */
 			}
 			
 		}
@@ -161,7 +147,10 @@ public class GameLogic implements SnakeInterface {
 		for(Player p: players) {
 			// get the head position
 			Point p_headPos = p.getSnake().getHeadPos();
-			// for each other player
+			/*
+			 * Only check for collisions on the current snake if it hasn't lost
+			 * this stops double checking in a collision 
+			 */
 			if(statusMap.get(p.getName()) != STATUS_LOSE) {
 				for(Player k: players) {
 					if(p != k){	
@@ -174,12 +163,8 @@ public class GameLogic implements SnakeInterface {
 								// Collision has occurred 
 								if(k_headPos.equals(p_headPos)) {
 									//  if Head on collision
-									System.out.println("Direct head on collision!");
 									compareSize(p,k);
 								} else {
-									// otherwise it is a side on collision
-									System.out.println("Not head on collision! Player " 
-											+ p.getName() + " dies.");
 									statusMap.put(p.getName(),STATUS_LOSE);
 								}
 							}
@@ -191,7 +176,6 @@ public class GameLogic implements SnakeInterface {
 								Point checkPos = new Point(p_headPos);
 								checkPos.translate(pDir.x, pDir.y);
 								if(checkPos.equals(k_headPos)){
-									System.out.println("Special case!");
 									compareSize(p,k);
 								}
 							}			
@@ -215,11 +199,9 @@ public class GameLogic implements SnakeInterface {
 			Random r = new Random();
 			switch(r.nextInt(2)) {
 			case 0:
-				System.out.println("P WINS LOL");
 				statusMap.put(k.getName(), STATUS_LOSE);
 				break;
 			case 1:
-				System.out.println("K WINS LOL");
 				statusMap.put(p.getName(), STATUS_LOSE);
 				break;
 			}
@@ -237,10 +219,8 @@ public class GameLogic implements SnakeInterface {
 	 */
 	private boolean compareDirections(Point p, Point k) {
 		if(p.y == (-1) * k.y){
-			System.out.println("Heading in opposing y directions!");
 			return true;
 		}else if(p.x == (-1) * k.x){
-			System.out.println("Heading in opposing x directions!");
 			return true;
 		}
 		return false;
@@ -255,7 +235,6 @@ public class GameLogic implements SnakeInterface {
 			while(iter.hasNext()){
 				Food item = iter.next();
 				if(item.getTile().getPoint().equals(headPos)) {
-					System.out.println("Food is ate!");
 					p.getSnake().growSnake(item.getGrowLevel());
 					iter.remove();
 				}

@@ -1,5 +1,7 @@
-package shared;
-
+package shared.controller;
+/*
+ * Interface for interpreting integers sent over the network that represent state
+ */
 public interface SnakeInterface {
 	
 	public static final int MOVE_NONE = 0;

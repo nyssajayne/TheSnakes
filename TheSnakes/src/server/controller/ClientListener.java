@@ -7,9 +7,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
 
-import shared.Food;
-import shared.Packet;
-import shared.Player;
+import shared.model.Food;
+import shared.model.Packet;
+import shared.model.Player;
 
 public class ClientListener implements Runnable {
 	

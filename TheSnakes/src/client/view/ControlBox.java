@@ -6,14 +6,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 
-import shared.SnakeInterface;
+import shared.controller.SnakeInterface;
 import client.controller.CreateListener;
 import client.controller.JoinListener;
 import client.controller.StoreInfoListener;
 
+@SuppressWarnings("serial")
 public class ControlBox extends JPanel implements SnakeInterface{
 	private ClientFrame cf;
 	private JLabel lbl_name = new JLabel("Enter Name(no spaces!):");
@@ -99,7 +99,5 @@ public class ControlBox extends JPanel implements SnakeInterface{
 	public JTextField getField_width() {
 		return field_width;
 	}
-	
-
 
 }

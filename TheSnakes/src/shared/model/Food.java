@@ -1,4 +1,4 @@
-package shared;
+package shared.model;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -25,6 +25,7 @@ public class Food implements Serializable {
 	public Food(int x, int y, int type) {
 		this(new Point(x,y),type);
 	}
+	
 	public Food(Point p, int type) {
 		this.type = type;
 		Color color;

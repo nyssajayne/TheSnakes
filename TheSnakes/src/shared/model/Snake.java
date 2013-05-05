@@ -1,4 +1,4 @@
-package shared;
+package shared.model;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -6,10 +6,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 public class Snake implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -1348350780452014999L;
 
 	private static final int START_SEGMENTS = 2;

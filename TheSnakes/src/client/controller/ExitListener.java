@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import shared.SnakeInterface;
+import shared.controller.SnakeInterface;
 
 import client.view.ClientFrame;
 

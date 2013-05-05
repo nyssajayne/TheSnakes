@@ -1,21 +1,16 @@
 package client.view;
 
 import java.awt.BorderLayout;
-import java.awt.KeyboardFocusManager;
-import java.awt.Rectangle;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+
 import javax.swing.JFrame;
 
-import shared.Packet;
 import client.controller.ExitListener;
 import client.controller.MoveListener;
 import client.model.SnakeGame;
 import client.model.SocketHandler;
 
 @SuppressWarnings("serial")
-public class ClientFrame extends JFrame implements shared.SnakeInterface
+public class ClientFrame extends JFrame implements shared.controller.SnakeInterface
 {
 	
 	/*
@@ -95,8 +90,7 @@ public class ClientFrame extends JFrame implements shared.SnakeInterface
 
 
 		public static void main(String args[]){
-			SnakeGame thread = new SnakeGame(new ClientFrame());
-			
+			new SnakeGame(new ClientFrame());
 		}
 
 

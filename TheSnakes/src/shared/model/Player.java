@@ -1,13 +1,10 @@
-package shared;
+package shared.model;
 
 import java.awt.Color;
 import java.io.Serializable;
 
 public class Player implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1081339949494210162L;
 	private String name;
 	private Snake snake;

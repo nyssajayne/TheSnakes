@@ -1,4 +1,5 @@
 package client.view;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -7,11 +8,12 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import shared.Food;
-import shared.Snake;
-import shared.Tile;
+import shared.model.Food;
+import shared.model.Snake;
+import shared.model.Tile;
 
 
+@SuppressWarnings("serial")
 public class Grid extends JPanel {
 	private static int TILE_LENGTH = 10;
 	private static int TILE_WIDTH = 10;
@@ -20,7 +22,6 @@ public class Grid extends JPanel {
 	private ArrayList<ArrayList<Tile>> tiles = new ArrayList<ArrayList<Tile>>();
 	private ArrayList<Snake> s = new ArrayList<Snake>();
 	int count = 0;
-	private boolean snakes;
 	public Grid(int length, int width){
 
 		this.length = length;
@@ -56,23 +57,7 @@ public class Grid extends JPanel {
 		}
 
 			}
-	
-//	public void drawSnake(Graphics g){
-//		
-//		System.out.println("Drawin snakes!");
-//	for(int i = 0;i < s.size();i++)
-//    for(int n = 0; n < 2; n++) {
-//    //	Color color = s.get(i).getSegments().getFirst().getFilled();
-//
-//           Point p = s.get(i).getSegments().get(n).getPoint();
-//           System.out.println(p.toString());
-//           
-//           g.setColor(Color.blue);
-//           g.fillRect(p.x*10 + 30, p.y*10+ 30, 10, 10);
-//       }
-//	snakes = false;
-//	}
-	
+
 	public void drawBoard(Graphics g){
 
 		int x = 30;

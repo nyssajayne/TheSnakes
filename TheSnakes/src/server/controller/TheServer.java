@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import server.model.GameLogic;
-import shared.Player;
-import shared.SnakeInterface;
+import shared.controller.SnakeInterface;
+import shared.model.Player;
 
 public class TheServer implements SnakeInterface, Runnable {
 	

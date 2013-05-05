@@ -1,4 +1,4 @@
-package shared;
+package shared.model;
 
 import java.awt.Point;
 import java.io.Serializable;
@@ -6,14 +6,13 @@ import java.util.List;
 
 
 public class Packet implements Serializable {
+	
 	private List<Player> players;
 	private List<Food> food;
 	private int gameStatus;
 	
 	private Point point;
-	/**
-	 * This is what will be sent.
-	 */
+
 	private static final long serialVersionUID = -5967953452268446936L;
 	public Packet(List<Player> snakes, List<Food> food, int gameStatus){
 		this.players = snakes;

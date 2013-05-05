@@ -1,14 +1,11 @@
 package client.model;
 
-import java.awt.Graphics;
-import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.io.IOException;
 
 import server.controller.TheServer;
-import shared.Packet;
-import shared.SnakeInterface;
-import client.controller.MoveListener;
+import shared.controller.SnakeInterface;
+import shared.model.Packet;
 import client.view.ClientFrame;
 
 public class SnakeGame extends Thread implements SnakeInterface{
@@ -16,8 +13,7 @@ public class SnakeGame extends Thread implements SnakeInterface{
 	private ClientFrame clientFrame;
 	private Packet info;
 	private int gameStatus = STATUS_WAIT;
-	private String playerName;
-	private int pId;
+	
 	public SnakeGame(ClientFrame clientFrame)
 	{
 		this.clientFrame = clientFrame;
@@ -31,7 +27,7 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			createGame();
 		}  
 			while(!clientFrame.isJoin()) {
-				//System.out.println("join me!");
+				System.out.println("join me!");
 			}
 			initGame();
 		
@@ -68,14 +64,6 @@ public class SnakeGame extends Thread implements SnakeInterface{
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
 				}
 				this.start();
-				//System.out.println("Snake 0: " + info.getPlayers().get(0).getSnake().getSegments().toString() + " " + info.getPlayers().get(0).getColor().toString() );
-
-//				for(int i = 0; i < info.getPlayers().size(); i++){
-//					if(playerName == info.getPlayers().get(i).getName())
-//						pId = i;
-//				}
-					//clientFrame.getSp().getLbl_curColour().setText(info.getPlayer(pId).getColor().toString());
-					
 			} catch (ClassNotFoundException e) {
 
 				e.printStackTrace();
@@ -94,18 +82,13 @@ public class SnakeGame extends Thread implements SnakeInterface{
 
 		System.out.println(gameStatus);
 		while(gameStatus != STATUS_LOSE && gameStatus != STATUS_WIN) {
-			//System.out.println("working! ");
-			//clientFrame.getSockHandler().getIn
 			pack = 	(Packet)clientFrame.getSockHandler().getIn().readObject();
-			//System.out.println("Players: " + pack.getPlayers().get(1).getSnake().getHeadPos().toString());
-			//System.out.println("Packet: " + pack);
 			for(int i=0; i<pack.getPlayers().size(); i++)
 			{
 				clientFrame.getGrid().addSnake(pack.getPlayers().get(i).getSnake().getSegments());
 			}
 			clientFrame.getGrid().addFood(pack.getFood());
 			clientFrame.repaint();
-			//clientFrame.getGrid().repaint();
 			gameStatus = pack.getGameStatus();
 			try{
 				Thread.sleep(75);
