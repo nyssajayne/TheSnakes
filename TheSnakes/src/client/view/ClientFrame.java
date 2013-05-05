@@ -1,8 +1,10 @@
 package client.view;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import client.controller.ExitListener;
 import client.controller.MoveListener;
@@ -19,30 +21,34 @@ public class ClientFrame extends JFrame implements shared.controller.SnakeInterf
 	 */
 		private boolean join = false;
 		private boolean create = false;
-		private int windowWidth = 1000;
-		private int windowHeight = 650;
+		private int windowWidth = 1250;
+		private int windowHeight = 500;
 		private SocketHandler sockHandler = new SocketHandler();
 		private Grid grid; //= new Grid(50, 50);
-		private String playerName = "none";
-		private ControlBox cb = new ControlBox(this);
-		private StatusPanel sp = new StatusPanel(this);
-
-
+		//private ControlBox cb = new ControlBox(this);
+		///private StatusPanel sp = new StatusPanel(this);
+		private RightSideBar rsb = new RightSideBar(this);
+		private LeftSideBar lsb = new LeftSideBar(this);
+		private JPanel empty1 = new JPanel();
+		private JPanel empty2= new JPanel();
+		
 		public ClientFrame() {
 			this.addWindowListener(new ExitListener(this));
-			this.setLayout(new BorderLayout());
+			this.setLayout(new GridLayout(1,3));
 	        this.setSize(windowWidth, windowHeight);
 	        this.setResizable(true);
 	        this.setLocationRelativeTo(null);
 	        
 
-	        this.add(cb,BorderLayout.SOUTH);
-	        this.add(sp, BorderLayout.EAST);
+	        this.add(lsb);
+	        this.add(empty1);
+	        this.add(empty2);
+		       this.lsb.getIp().getJoin().addKeyListener(new MoveListener(this));
 	        
 	        //grid.addKeyListener(new MoveListener(this));
 	        
-	        this.getCb().getBtn_join().addKeyListener(new MoveListener(this));
-	        this.getCb().getBtn_create().addKeyListener(new MoveListener(this));
+	        //this.getCb().getBtn_join().addKeyListener(new MoveListener(this));
+	       // this.getCb().getBtn_create().addKeyListener(new MoveListener(this));
 	        
 	        this.setVisible(true);
 	        // this enables double buffering
@@ -57,25 +63,6 @@ public class ClientFrame extends JFrame implements shared.controller.SnakeInterf
 
 		public SocketHandler getSockHandler() {
 			return sockHandler;
-		}
-		
-		public StatusPanel getSp() {
-			return sp;
-		}
-
-
-		public ControlBox getCb() {
-			return cb;
-		}
-
-
-		public String getPlayerName() {
-			return playerName;
-		}
-
-
-		public void setPlayerName(String playerName) {
-			this.playerName = playerName;
 		}
 		
 		
@@ -106,8 +93,21 @@ public class ClientFrame extends JFrame implements shared.controller.SnakeInterf
 		{
 			System.out.println("I'm setGrid, do I get called?");
 			grid = new Grid(length, width);
-	        this.add(grid,BorderLayout.CENTER);
-			this.setVisible(true);
+
+			this.remove(empty1);
+			this.remove(empty2);
+	        this.add(grid);
+	        this.add(rsb);
+	        this.setVisible(true);
 		}
 
+
+		public LeftSideBar getLSB() {
+			return lsb;
+		}
+
+
+		public StatusPanel getSp() {
+			return rsb.getSp();
+		}
 }

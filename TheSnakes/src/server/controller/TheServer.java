@@ -16,7 +16,7 @@ import shared.model.Player;
 
 public class TheServer implements SnakeInterface, Runnable {
 	
-	private final int PORT = 1985;
+	private int port = 1985;
 	
 	private List<Player> players = new ArrayList<Player>();
 	private List<Thread> clients = new ArrayList<Thread>();
@@ -30,13 +30,14 @@ public class TheServer implements SnakeInterface, Runnable {
 	
 	final private GameLogic gameLogic;
 	
-	public TheServer(int numPlayers, Point bounds)
+	public TheServer(int numPlayers, Point bounds, int port)
 	{
 		this.bounds = bounds;
 		gameLogic = new GameLogic(this.bounds);
 		this.numPlayers = numPlayers;
+		this.port = port;
 		try{
-			serverSocket = new ServerSocket(PORT);
+			serverSocket = new ServerSocket(port);
 			System.out.println("New Snake Server at " + new Date());
 		}
 		catch (IOException e)
@@ -172,7 +173,7 @@ public class TheServer implements SnakeInterface, Runnable {
 	
 	public static void main(String args[])
 	{
-		new TheServer(2,new Point(50,50)).run();
+		new TheServer(2,new Point(50,50),1985).run();
 	}
 
 }

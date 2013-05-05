@@ -3,19 +3,26 @@ package client.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import client.view.ControlBox;
+import client.view.LeftSideBarPackage.CreatePanel;
 
 public class CreateListener implements ActionListener {
-	private ControlBox cb;
-
+	private CreatePanel cp;
 	
-	public CreateListener(ControlBox cb) {
-		this.cb = cb;
+	public CreateListener(CreatePanel cp) {
+		this.cp = cp;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		cb.getClientFrame().setCreate(true);
+		cp.getClientFrame().getLSB().setPlayers(cp.getPlayers());
+		cp.getClientFrame().getLSB().setDimensions(Integer.parseInt(cp.getCbx_dimensions().getSelectedItem().toString()));
+		cp.getClientFrame().getLSB().setHostPort(Integer.parseInt(cp.getCbx_ports().getSelectedItem().toString()));
+
+		cp.setDisabled();
+		cp.getClientFrame().getLSB().getJp().setVisible(true);
+		cp.getClientFrame().setCreate(true);
+
+		//cb.getClientFrame().
 	}
 
 }

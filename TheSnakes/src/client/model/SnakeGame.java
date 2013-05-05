@@ -39,11 +39,10 @@ public class SnakeGame extends Thread implements SnakeInterface{
 
 			System.out.println("starting..");
 
-				Point p = new Point(Integer.parseInt(clientFrame.getCb().getField_len().getText()),Integer.parseInt(clientFrame.getCb().getField_width().getText()));
-				
-				CreateServer(clientFrame.getCb().getPlayers(),p);
+			Point p = new Point(clientFrame.getLSB().getDimensions(),clientFrame.getLSB().getDimensions());
+			
+			CreateServer(clientFrame.getLSB().getPlayers(),p,clientFrame.getLSB().getHostPort());
 				System.out.println("created");
-				initGame();
 	}
 
 	//TODO Connect to the host and get ready to start a game.
@@ -53,13 +52,17 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			
 			
 			
-			clientFrame.getSockHandler().initConnection("localhost");
+			if(clientFrame.getSockHandler().initConnection("localhost"))
+				System.out.println("Succeeded!");
+			else
+				System.out.println("Failed");
 			try {
 				Packet p = (Packet) clientFrame.getSockHandler().getIn().readObject();
 				Point point = p.getPoint();
 				clientFrame.setGrid(point.x, point.y);
-				clientFrame.getSockHandler().getOut().writeUTF(clientFrame.getCb().getPlayerName() + (clientFrame.getCb().getCbx_pos().getSelectedItem()));
-				clientFrame.getSockHandler().getOut().flush();
+				System.out.println(clientFrame.getLSB().getPName());
+				clientFrame.getSockHandler().getOut().writeUTF(clientFrame.getLSB().getPName() + (clientFrame.getLSB().getPosition()));
+				//clientFrame.getSockHandler().getOut().flush();
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
 				while(info.getGameStatus() != STATUS_PLAYING){
 				System.out.println("waiting..");
@@ -108,8 +111,8 @@ public class SnakeGame extends Thread implements SnakeInterface{
 
 	}
 
-	public void CreateServer(int players, Point bounds){
-		TheServer server = new TheServer(players, bounds);
+	public void CreateServer(int players, Point bounds,int port){
+		TheServer server = new TheServer(players, bounds, port);
 		new Thread(server).start();
 	}
 	public void run()
