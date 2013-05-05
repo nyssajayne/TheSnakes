@@ -80,7 +80,7 @@ public class GameLogic implements SnakeInterface {
 		return statusMap;
 	}
 	/*
-	 * Goes through each status and update the players accordinly
+	 * Goes through each status and update the players accordingly
 	 */
 	private void interpretStatus() {
 		
@@ -153,41 +153,45 @@ public class GameLogic implements SnakeInterface {
 	 * This checks for collisions with other players
 	 */
 	private void checkCollisions() {
-		// Loop throught all the players
+		// Loop through all the players
 		for(Player p: players) {
 			// get the head position
 			Point p_headPos = p.getSnake().getHeadPos();
 			// for each other player
-			for(Player k: players) {
-				if(p != k){	
-					Point kDir = k.getSnake().getDirection();
-					Point pDir = p.getSnake().getDirection();
-					// check each segment for collisions
-					Point k_headPos = k.getSnake().getHeadPos();
-					for(Tile t: k.getSnake().getSegments()) {
-						if(t.getPoint().equals(p_headPos)) {		
-							// Collision has occured 
-							if(k_headPos.equals(p_headPos)) {
-								//  if Head on collision
-								System.out.println("Direct head on collision!");
-								compareSize(p,k);
-							} else {
-								// otherwise it is a side on collision
-								System.out.println("Not head on collision! Player " 
-										+ p.getName() + " dies.");
-								statusMap.put(p.getName(),STATUS_LOSE);
+			if(statusMap.get(p.getName()) != STATUS_LOSE) {
+				for(Player k: players) {
+					if(p != k){	
+						Point kDir = k.getSnake().getDirection();
+						Point pDir = p.getSnake().getDirection();
+						// check each segment for collisions
+						Point k_headPos = k.getSnake().getHeadPos();
+						for(Tile t: k.getSnake().getSegments()) {
+							if(t.getPoint().equals(p_headPos)) {		
+								// Collision has occurred 
+								if(k_headPos.equals(p_headPos)) {
+									//  if Head on collision
+									System.out.println("Direct head on collision!");
+									compareSize(p,k);
+								} else {
+									// otherwise it is a side on collision
+									System.out.println("Not head on collision! Player " 
+											+ p.getName() + " dies.");
+									statusMap.put(p.getName(),STATUS_LOSE);
+								}
 							}
 						}
-					}
-					// check for special case of collision
-					if(compareDirections(pDir, kDir)){		
-						if(p_headPos.x == k_headPos.x || p_headPos.y == k_headPos.y) {
-							System.out.println(p_headPos.distance(k_headPos));
-							if(p_headPos.distance(k_headPos) == 1){
-								System.out.println("Special case!");
-								compareSize(p,k);
-							}
-						}			
+						// check for special case of collision
+						if(compareDirections(pDir, kDir)){		
+							if(p_headPos.x == k_headPos.x || p_headPos.y == k_headPos.y) {
+								System.out.println(p_headPos.distance(k_headPos));
+								Point checkPos = new Point(p_headPos);
+								checkPos.translate(pDir.x, pDir.y);
+								if(checkPos.equals(k_headPos)){
+									System.out.println("Special case!");
+									compareSize(p,k);
+								}
+							}			
+						}
 					}
 				}
 			}
@@ -195,7 +199,7 @@ public class GameLogic implements SnakeInterface {
 	}
 	/*
 	 * Compares the sizes of two snakes and 
-	 * will set the status of them accordinly
+	 * will set the status of them accordingly
 	 */
 	private void compareSize(Player p, Player k){
 		
@@ -219,7 +223,7 @@ public class GameLogic implements SnakeInterface {
 			// if p is greater than k, p wins
 			statusMap.put(k.getName(), STATUS_LOSE);		
 		} else {
-			// otherwsie k must be larger so k wins
+			// Otherwise k must be larger so k wins
 			statusMap.put(p.getName(), STATUS_LOSE);
 		}
 		
@@ -256,7 +260,7 @@ public class GameLogic implements SnakeInterface {
 	
 	/*
 	 * Spawns food at random locations on the board
-	 * Maxmium number at any one time is Food.MAX_FOOD 
+	 * Maximum number at any one time is Food.MAX_FOOD 
 	 */
 	private void spawnFood() {
 		for(int i = foodItems.size(); i < Food.MAX_FOOD ; i++){
