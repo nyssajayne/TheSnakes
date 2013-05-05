@@ -64,6 +64,14 @@ public class ClientListener implements Runnable {
 			   System.out.println(e.getStackTrace());
 		   }
 	   }
+	/*
+	 * Closes connection to client
+	 */
+	public void close() throws IOException {
+		out.close();
+		in.close();
+		socket.close();
+	}
 	
 	public DataInputStream getIn()
 	{

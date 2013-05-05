@@ -83,7 +83,10 @@ public class GameLogic implements SnakeInterface {
 	 * Goes through each status and update the players accordinly
 	 */
 	private void interpretStatus() {
-		for(Player p: players) {
+		
+		Iterator<Player> iter = players.iterator();
+		while(iter.hasNext()) {
+			Player p = iter.next();
 			String name = p.getName();
 			switch(statusMap.get(name)){
 				case MOVE_UP :
@@ -110,6 +113,13 @@ public class GameLogic implements SnakeInterface {
 					 * so that the server can tell any clients that they have 
 					 * lost before they are removed permanently 
 					 */
+					System.out.println("Player has lost! This should be called" +
+							"after the clientListeners are closed.");
+					statusMap.remove(p.getName());
+					iter.remove();
+					break;
+				case STATUS_WIN:
+					System.out.println("Player " + p.getName() + " has won!");
 					break;
 				
 			/*
@@ -136,28 +146,25 @@ public class GameLogic implements SnakeInterface {
 	private void moveSnakes() {
 		for(Player p : players) {
 			if(!p.getSnake().move()) {
-				System.out.println("Collision! " + p);
-				//statusMap.put(p.getName(),STATUS_LOSE);
+				statusMap.put(p.getName(),STATUS_LOSE);
 			}
-			
 		}
 	}
 	/*
 	 * This checks for collisions with other players
 	 */
 	private void checkCollisions() {
+		
 		for(Player p: players) {
 			Point headPos = p.getSnake().getHeadPos();
+			
 			for(Player k: players) {
 				if(p != k){
+					
 					for(Tile t: k.getSnake().getSegments()) {
-						if(t.getPoint().equals(headPos)){
-							//statusMap.put(p.getName(),STATUS_LOSE);
-							if(k.getSnake().getHeadPos().equals(headPos)){
-								
-							}
-						}
+					
 					}	
+					
 				}
 			}
 		}

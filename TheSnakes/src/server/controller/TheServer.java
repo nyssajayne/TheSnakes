@@ -114,11 +114,22 @@ public class TheServer implements SnakeInterface, Runnable {
 			gameLogic.step();
 			
 			// send info to clients
-			for(ClientListener client: clientRunnables) {
-				//System.out.println("Sending client info .... " + new Date());
-				//System.out.println(gameLogic.getPlayers());
-				client.sendInfo(gameLogic.getPlayers(), gameLogic.getFood(), statusMap.get(client.getPlayerName()));
+			Iterator<ClientListener> iter = clientRunnables.iterator();
+			while(iter.hasNext()) {
+				ClientListener client = iter.next();
+				int status = statusMap.get(client.getPlayerName());
+				client.sendInfo(gameLogic.getPlayers(), gameLogic.getFood(),status);
+				// remove them if they have lost
+				if(statusMap.get(client.getPlayerName()) == STATUS_LOSE){
+					try {
+						client.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					iter.remove();
+				}
 			}
+			
 			try {
 				Thread.sleep(75);
 			} catch (InterruptedException e) {
