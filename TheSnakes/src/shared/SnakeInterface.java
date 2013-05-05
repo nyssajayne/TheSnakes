@@ -4,9 +4,7 @@ public interface SnakeInterface {
 	
 	public static final int MOVE_NONE = 0;
 	public static final int MOVE_LEFT = 1;
-	public static final int MOVE_UP = 11;
 	public static final int MOVE_RIGHT = 2;
-	public static final int MOVE_DOWN = 22;
 	public static final int MOVE_FASTER = 3;
 	public static final int MOVE_SLOWER = 4;
 	public static final int MOVE_EXIT = 5;

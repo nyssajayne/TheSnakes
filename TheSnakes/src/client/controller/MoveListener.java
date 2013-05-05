@@ -26,7 +26,7 @@ public class MoveListener implements KeyListener, shared.SnakeInterface {
 			 		break;
 			 	case KeyEvent.VK_UP:
 			 		System.out.println("Go up!");
-			 		client.getSockHandler().sendMove(MOVE_UP);
+			 		client.getSockHandler().sendMove(MOVE_FASTER);
 			 		break;
 			 	case KeyEvent.VK_RIGHT:
 			 		System.out.println("Go right!");
@@ -34,7 +34,7 @@ public class MoveListener implements KeyListener, shared.SnakeInterface {
 			 		break;
 			 	case KeyEvent.VK_DOWN:
 			 		System.out.println("Go down!");
-			 		client.getSockHandler().sendMove(MOVE_DOWN);
+			 		client.getSockHandler().sendMove(MOVE_SLOWER);
 			 		break;
 			 }
 		 }catch(IOException ex){
