@@ -57,7 +57,6 @@ public class Snake implements Serializable {
 		 *  This checks for collisions for the snake to itself
 		 */
 		for(int i = segments.size() - 1 ; i >= 1; i--) {
-			System.out.println(segments.size()+ " i: " + i);
 			if(headpos.equals(segments.get(i).getPoint())) {
 				return false;
 			}
@@ -80,7 +79,7 @@ public class Snake implements Serializable {
 		}
 	}
 	
-	private void growSnake(int n) {
+	public void growSnake(int n) {
 		while(n > 0) {
 			// adds a new segment, growing it in the opposite direction of movement.
 			Point p = new Point(segments.getLast().getPoint());

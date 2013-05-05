@@ -3,6 +3,7 @@ package server.model;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -125,6 +126,7 @@ public class GameLogic implements SnakeInterface {
 		interpretStatus();
 		moveSnakes();
 		checkCollisions();
+		checkFood();
 		spawnFood();
 	}
 	/*
@@ -160,6 +162,23 @@ public class GameLogic implements SnakeInterface {
 			}
 		}
 	}
+	
+	private void checkFood() {
+		for(Player p: players) {
+			Point headPos = p.getSnake().getHeadPos();
+			Iterator<Food> iter = foodItems.iterator();
+			while(iter.hasNext()){
+				Food item = iter.next();
+				if(item.getTile().getPoint().equals(headPos)) {
+					System.out.println("Food is ate!");
+					p.getSnake().growSnake(item.getGrowLevel());
+					iter.remove();
+				}
+				
+			}
+		}
+	}
+	
 	/*
 	 * Spawns food at random locations on the board
 	 * Maxmium number at any one time is Food.MAX_FOOD 
@@ -172,7 +191,21 @@ public class GameLogic implements SnakeInterface {
 				x = r.nextInt(bounds.x);
 				y = r.nextInt(bounds.y);
 			}while(isTileOccupied(x,y));
-			Food food = new Food(x, y, Food.TYPE_APPLE);		
+			
+			int type = 0;
+			switch(r.nextInt(3)) {
+				case 0:
+					type = Food.TYPE_APPLE;
+					break;
+				case 1:
+					type = Food.TYPE_ORANGE;
+					break;
+				case 2:
+					type = Food.TYPE_BANANA;
+					break;
+			}
+			Food food = new Food(x, y,type);
+			
 			foodItems.add(food);
 		}
 	}

@@ -120,7 +120,7 @@ public class TheServer implements SnakeInterface, Runnable {
 				client.sendInfo(gameLogic.getPlayers(), gameLogic.getFood(), statusMap.get(client.getPlayerName()));
 			}
 			try {
-				Thread.sleep(50);
+				Thread.sleep(75);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

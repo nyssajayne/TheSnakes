@@ -10,14 +10,17 @@ public class Food implements Serializable {
 	
 	public static final int TYPE_ORANGE = 1;
 	public static final int TYPE_APPLE = 2;
+	public static final int TYPE_BANANA = 3;
 	
 	public static final int MAX_FOOD = 2;
 	
 	private static final Color APPLE_COLOR = Color.PINK;
 	private static final Color ORANGE_COLOR = Color.ORANGE;
+	private static final Color BANANA_COLOR = Color.YELLOW;
 
 	private Tile tile;
 	private int type;
+	private int grow_level;
 	
 	public Food(int x, int y, int type) {
 		this(new Point(x,y),type);
@@ -28,9 +31,15 @@ public class Food implements Serializable {
 		switch(type) {
 			case TYPE_ORANGE:
 				color = ORANGE_COLOR;
+				grow_level = 1;
 				break;
 			case TYPE_APPLE:
 				color = APPLE_COLOR;
+				grow_level = 2;
+				break;
+			case TYPE_BANANA:
+				color = BANANA_COLOR;
+				grow_level = 3;
 				break;
 			default:
 				color = Color.YELLOW;
@@ -41,6 +50,8 @@ public class Food implements Serializable {
 	}
 	
 	public String toString() { return "Pos: " + tile + " Type: " + type; }
+
+	public int getGrowLevel() { return grow_level; }
 	
 	public int getType() { return type; }
 	
