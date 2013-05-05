@@ -1,5 +1,6 @@
 package shared;
 
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,6 +9,8 @@ public class Packet implements Serializable {
 	private List<Player> players;
 	private List<Food> food;
 	private int gameStatus;
+	
+	private Point point;
 	/**
 	 * This is what will be sent.
 	 */
@@ -16,6 +19,11 @@ public class Packet implements Serializable {
 		this.players = snakes;
 		this.gameStatus = gameStatus;
 		this.food = food;
+	}
+	
+	public Packet(Point point)
+	{
+		this.point = point;
 	}
 	
 	public List<Player> getPlayers() {
@@ -35,6 +43,10 @@ public class Packet implements Serializable {
 	}
 	public void setGameStatus(int gameStatus) {
 		this.gameStatus = gameStatus;
+	}
+	public Point getPoint()
+	{
+		return point;
 	}
 	public String toString() {
 		return "Snakes: " + players + " gamestatus: " + gameStatus + " Food: " + food;
