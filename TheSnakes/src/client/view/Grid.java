@@ -1,12 +1,13 @@
 package client.view;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
+import shared.Food;
 import shared.Snake;
 import shared.Tile;
 
@@ -110,10 +111,17 @@ public class Grid extends JPanel {
 			x = piece.getX();
 			y = piece.getY();
 			tiles.get(x).get(y).setFilled(piece.getFilled());
-			this.repaint();
-		}
-		
+		}		
 	} 
+	
+	public void addFood(List<Food> foodItems){
+		for(Food f : foodItems) {
+			int x = f.getTile().getX();
+			int y = f.getTile().getY();
+			tiles.get(x).get(y).setFilled(f.getColor());
+		}
+	}
+	
 	public void clearSnakes(){
 		this.s.clear();
 	}

@@ -21,10 +21,11 @@ public class SnakeGame extends Thread implements SnakeInterface{
 	public SnakeGame(ClientFrame clientFrame)
 	{
 		this.clientFrame = clientFrame;
-
+		
 		while(!clientFrame.isCreate() && !clientFrame.isJoin()){
 			System.out.println("not Ready!!");
 		}
+		
 		if(clientFrame.isCreate()) {
 			System.out.println("creating..");
 			createGame();
@@ -93,10 +94,12 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			//clientFrame.getSockHandler().getIn
 			pack = 	(Packet)clientFrame.getSockHandler().getIn().readObject();
 			//System.out.println("Players: " + pack.getPlayers().get(1).getSnake().getHeadPos().toString());
+			//System.out.println("Packet: " + pack);
 			for(int i=0; i<pack.getPlayers().size(); i++)
 			{
 				clientFrame.getGrid().addSnake(pack.getPlayers().get(i).getSnake().getSegments());
 			}
+			clientFrame.getGrid().addFood(pack.getFood());
 			clientFrame.repaint();
 			//clientFrame.getGrid().repaint();
 			gameStatus = pack.getGameStatus();

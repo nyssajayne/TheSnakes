@@ -135,7 +135,7 @@ public class GameLogic implements SnakeInterface {
 		for(Player p : players) {
 			if(!p.getSnake().move()) {
 				System.out.println("Collision! " + p);
-				statusMap.put(p.getName(),STATUS_LOSE);
+				//statusMap.put(p.getName(),STATUS_LOSE);
 			}
 			
 		}
@@ -150,7 +150,7 @@ public class GameLogic implements SnakeInterface {
 				if(p != k){
 					for(Tile t: k.getSnake().getSegments()) {
 						if(t.getPoint().equals(headPos)){
-							statusMap.put(p.getName(),STATUS_LOSE);
+							//statusMap.put(p.getName(),STATUS_LOSE);
 							if(k.getSnake().getHeadPos().equals(headPos)){
 								
 							}

@@ -40,6 +40,8 @@ public class Food implements Serializable {
 		this.tile = new Tile(p,color);
 	}
 	
+	public String toString() { return "Pos: " + tile + " Type: " + type; }
+	
 	public int getType() { return type; }
 	
 	public Tile getTile() { return tile; }

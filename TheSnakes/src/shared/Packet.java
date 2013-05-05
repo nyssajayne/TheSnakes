@@ -15,6 +15,7 @@ public class Packet implements Serializable {
 	public Packet(List<Player> snakes, List<Food> food, int gameStatus){
 		this.players = snakes;
 		this.gameStatus = gameStatus;
+		this.food = food;
 	}
 	
 	public List<Player> getPlayers() {
@@ -36,7 +37,7 @@ public class Packet implements Serializable {
 		this.gameStatus = gameStatus;
 	}
 	public String toString() {
-		return "Snakes: " + players + " gamestatus: " + gameStatus;
+		return "Snakes: " + players + " gamestatus: " + gameStatus + " Food: " + food;
 	}
 	public String getScores(){
 		String scores = "";
