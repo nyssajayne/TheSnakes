@@ -3,6 +3,8 @@ package client.model;
 import java.awt.Point;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import server.controller.TheServer;
 import shared.controller.SnakeInterface;
 import shared.model.Packet;
@@ -97,6 +99,12 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			}
 		}
 		//TODO Do something when a game is over (win or lose)
+		if(gameStatus == STATUS_LOSE){
+			JOptionPane.showMessageDialog(clientFrame, "You have lost.");
+		}else if(gameStatus == STATUS_WIN){
+			JOptionPane.showMessageDialog(clientFrame, "You have won.");
+		}
+		
 
 	}
 

@@ -112,9 +112,17 @@ public class TheServer implements SnakeInterface, Runnable {
 		/*
 		 * TODO: need an end condition for this loop
 		 */
-		while(true) {
+		boolean gameOver = false;
+		while(!gameOver) {
 			// step the game forward one tick
 			gameLogic.step();
+			
+			if(clientRunnables.size() == 1){
+				// a player has won!
+				statusMap.put(clientRunnables.get(0).getPlayerName(),STATUS_WIN);
+				gameOver = true;
+			}
+				
 			
 			// send info to clients
 			Iterator<ClientListener> iter = clientRunnables.iterator();
@@ -139,6 +147,7 @@ public class TheServer implements SnakeInterface, Runnable {
 				e.printStackTrace();
 			}
 		}
+		
 	}
 	/*
 	 * This will set the status of the players, 
