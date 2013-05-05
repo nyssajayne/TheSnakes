@@ -27,7 +27,7 @@ public class ClientFrame extends JFrame implements shared.SnakeInterface
 		private int windowWidth = 1000;
 		private int windowHeight = 650;
 		private SocketHandler sockHandler = new SocketHandler();
-		private Grid grid = new Grid(50, 50);
+		private Grid grid; //= new Grid(50, 50);
 		private String playerName = "none";
 		private ControlBox cb = new ControlBox(this);
 		private StatusPanel sp = new StatusPanel(this);
@@ -40,7 +40,7 @@ public class ClientFrame extends JFrame implements shared.SnakeInterface
 	        this.setResizable(true);
 	        this.setLocationRelativeTo(null);
 	        
-	        this.add(grid,BorderLayout.CENTER);
+
 	        this.add(cb,BorderLayout.SOUTH);
 	        this.add(sp, BorderLayout.EAST);
 	        
@@ -105,6 +105,14 @@ public class ClientFrame extends JFrame implements shared.SnakeInterface
 		}
 		public void setJoin(Boolean b){
 			this.join = b;
+		}
+		
+		public void setGrid(int length, int width)
+		{
+			System.out.println("I'm setGrid, do I get called?");
+			grid = new Grid(length, width);
+	        this.add(grid,BorderLayout.CENTER);
+			this.setVisible(true);
 		}
 
 }

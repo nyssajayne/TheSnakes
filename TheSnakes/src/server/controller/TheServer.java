@@ -24,7 +24,7 @@ public class TheServer implements SnakeInterface, Runnable {
 	
 	private int numPlayers = 2;
 	private ServerSocket serverSocket;
-	private Point bounds = new Point(50,50);
+	private Point bounds;
 	
 	private Map<String,Integer> statusMap = new HashMap<String,Integer>();
 	
@@ -32,7 +32,7 @@ public class TheServer implements SnakeInterface, Runnable {
 	
 	public TheServer(int numPlayers, Point bounds)
 	{
-		//this.bounds = bounds;
+		this.bounds = bounds;
 		gameLogic = new GameLogic(this.bounds);
 		this.numPlayers = numPlayers;
 		try{
@@ -54,6 +54,9 @@ public class TheServer implements SnakeInterface, Runnable {
 				client = new ClientListener(this,serverSocket.accept());
 				clients.add(new Thread(client));
 				clientRunnables.add(client);
+				
+				//tell Client the bounds
+				client.sendBounds(bounds);
 				
 				//get position from client
 				String message = client.getIn().readUTF();

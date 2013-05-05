@@ -31,7 +31,7 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			createGame();
 		}  
 			while(!clientFrame.isJoin()) {
-				System.out.println("join me!");
+				//System.out.println("join me!");
 			}
 			initGame();
 		
@@ -41,9 +41,9 @@ public class SnakeGame extends Thread implements SnakeInterface{
 
 			System.out.println("starting..");
 
-				//Point p = new Point(Integer.parseInt(clientFrame.getCb().getField_len().getText()),Integer.parseInt(clientFrame.getCb().getField_width().getText()));
+				Point p = new Point(Integer.parseInt(clientFrame.getCb().getField_len().getText()),Integer.parseInt(clientFrame.getCb().getField_width().getText()));
 				
-				CreateServer(clientFrame.getCb().getPlayers(),null);
+				CreateServer(clientFrame.getCb().getPlayers(),p);
 				System.out.println("created");
 	}
 
@@ -52,10 +52,13 @@ public class SnakeGame extends Thread implements SnakeInterface{
 		try 
 		{
 			
-
+			
 			
 			clientFrame.getSockHandler().initConnection("localhost");
 			try {
+				Packet p = (Packet) clientFrame.getSockHandler().getIn().readObject();
+				Point point = p.getPoint();
+				clientFrame.setGrid(point.x, point.y);
 				clientFrame.getSockHandler().getOut().writeUTF(clientFrame.getCb().getPlayerName() + (clientFrame.getCb().getCbx_pos().getSelectedItem()));
 				clientFrame.getSockHandler().getOut().flush();
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();

@@ -1,5 +1,6 @@
 package server.controller;
 
+import java.awt.Point;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -64,6 +65,11 @@ public class ClientListener implements Runnable {
 			   System.out.println(e.getStackTrace());
 		   }
 	   }
+	
+	public void sendBounds(Point p)
+	{
+		sendPacket(new Packet(p));
+	}
 	/*
 	 * Closes connection to client
 	 */
