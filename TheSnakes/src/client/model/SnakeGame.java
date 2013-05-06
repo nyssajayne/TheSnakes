@@ -66,7 +66,6 @@ public class SnakeGame extends Thread implements SnakeInterface{
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
 				while(info.getGameStatus() != STATUS_PLAYING){
 					System.out.println("waiting..");
-					System.out.println(info.getGameStatus());
 					info = (Packet) clientFrame.getSockHandler().getIn().readObject();
 					if(info.getGameStatus()==MOVE_EXIT)
 						this.close();
