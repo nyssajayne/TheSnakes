@@ -31,22 +31,13 @@ public class ExitListener implements WindowListener, SnakeInterface{
 	}
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		int confirm = JOptionPane.showOptionDialog(null, "Are You Sure to Close Application?", "Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		int confirm = JOptionPane.showOptionDialog(cf, "Are You Sure to Close Application?", "Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         if (confirm == 0) {
         	if(cf.isJoin()) {
         		try {
-					cf.getSockHandler().sendMove(STATUS_LOSE);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        		try {
-        			cf.getSockHandler().getOut().close();
-        			cf.getSockHandler().getIn().close();
-        			cf.getSockHandler().getSocket().close();
-        		} catch (IOException e) {
-        			// TODO Auto-generated catch block
-        			e.printStackTrace();
+        			cf.getSockHandler().sendMove(MOVE_EXIT);
+        		} catch (IOException e1) {
+        			e1.printStackTrace();
         		}
         	}
         	

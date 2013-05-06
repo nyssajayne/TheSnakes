@@ -65,8 +65,11 @@ public class SnakeGame extends Thread implements SnakeInterface{
 				//clientFrame.getSockHandler().getOut().flush();
 				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
 				while(info.getGameStatus() != STATUS_PLAYING){
-				System.out.println("waiting..");
-				info = (Packet) clientFrame.getSockHandler().getIn().readObject();
+					System.out.println("waiting..");
+					System.out.println(info.getGameStatus());
+					info = (Packet) clientFrame.getSockHandler().getIn().readObject();
+					if(info.getGameStatus()==MOVE_EXIT)
+						this.close();
 				}
 				this.start();
 			} catch (ClassNotFoundException e) {
@@ -125,6 +128,18 @@ public class SnakeGame extends Thread implements SnakeInterface{
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void close()
+	{
+		try {
+			clientFrame.getSockHandler().getOut().close();
+			clientFrame.getSockHandler().getIn().close();
+			clientFrame.getSockHandler().getSocket().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
