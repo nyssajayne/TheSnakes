@@ -100,8 +100,8 @@ public class GameLogic implements SnakeInterface {
 					statusMap.put(name, MOVE_NONE);
 					break;
 				case MOVE_SLOWER:
-					statusMap.put(name, MOVE_NONE);
 					s.slowDown();
+					statusMap.put(name, MOVE_NONE);
 					break;
 				case STATUS_LOSE:
 					/*
@@ -110,6 +110,10 @@ public class GameLogic implements SnakeInterface {
 					 * lost before they are removed permanently 
 					 */
 					statusMap.remove(p.getName());
+					iter.remove();
+					break;
+				case MOVE_EXIT:
+					// this is reached when the user exits the game
 					iter.remove();
 					break;
 				case STATUS_WIN:
@@ -123,9 +127,9 @@ public class GameLogic implements SnakeInterface {
 	 */
 	public void step() {
 		interpretStatus();
-		moveSnakes();
 		checkCollisions();
 		checkFood();
+		moveSnakes();
 		spawnFood();
 	}
 	/*
@@ -133,52 +137,54 @@ public class GameLogic implements SnakeInterface {
 	 * Checks for collisions of the snakes with themselves
 	 */
 	private void moveSnakes() {
-		for(Player p : players) {		
-			if(!p.getSnake().move()) {
-				statusMap.put(p.getName(),STATUS_LOSE);
-			}		
+		for(Player p : players) {
+			if(statusMap.get(p.getName()) != STATUS_LOSE){
+				if(!p.getSnake().move()) {
+					statusMap.put(p.getName(),STATUS_LOSE);
+				}
+			}
 		}
 	}
 	/*
-	 * This checks for collisions with other players
+	 * This checks for collisions with other players.
+	 * This needs to be called BEFORE the snakes are moved as this is 
+	 * predictive collision detection
 	 */
 	private void checkCollisions() {
-		// Loop through all the players
+		
 		for(Player p: players) {
-			// get the head position
 			Point p_headPos = p.getSnake().getHeadPos();
+			Point pDir = p.getSnake().getDirection();
+			
+			Point p_new_pos = new Point(p_headPos);
+			p_new_pos.translate(pDir.x,pDir.y);
 			/*
-			 * Only check for collisions on the current snake if it hasn't lost
-			 * this stops double checking in a collision 
+			 * If the current player has already lost, don't bother doing anything.
+			 * This prevents doubling up of collision detection 
+			 * this player will still be checked by other players to 
+			 * see if a collision has happened.
 			 */
 			if(statusMap.get(p.getName()) != STATUS_LOSE) {
 				for(Player k: players) {
-					if(p != k){	
-						Point kDir = k.getSnake().getDirection();
-						Point pDir = p.getSnake().getDirection();
-						// check each segment for collisions
+					if(p != k){					
 						Point k_headPos = k.getSnake().getHeadPos();
-						for(Tile t: k.getSnake().getSegments()) {
-							if(t.getPoint().equals(p_headPos)) {		
-								// Collision has occurred 
-								if(k_headPos.equals(p_headPos)) {
-									//  if Head on collision
-									compareSize(p,k);
-								} else {
-									statusMap.put(p.getName(),STATUS_LOSE);
-								}
+						Point kDir = k.getSnake().getDirection();
+						
+						Point k_new_pos = new Point(k_headPos);
+						k_new_pos.translate(kDir.x,kDir.y);
+						
+						if(k_new_pos.equals(p_new_pos)) {
+							compareSize(p,k);
+						} else{
+							for(Tile t : k.getSnake().getSegments()) {
+								if(t.getPoint().equals(p_new_pos)){
+									if(p_new_pos.equals(k_headPos) && compareDirections(pDir, kDir)) {
+										compareSize(p,k);
+									} else {
+										statusMap.put(p.getName(), STATUS_LOSE);
+									}
+								}		
 							}
-						}
-						// check for special case of collision
-						if(compareDirections(pDir, kDir)){		
-							if(p_headPos.x == k_headPos.x || p_headPos.y == k_headPos.y) {
-								System.out.println(p_headPos.distance(k_headPos));
-								Point checkPos = new Point(p_headPos);
-								checkPos.translate(pDir.x, pDir.y);
-								if(checkPos.equals(k_headPos)){
-									compareSize(p,k);
-								}
-							}			
 						}
 					}
 				}
@@ -216,6 +222,7 @@ public class GameLogic implements SnakeInterface {
 	}
 	/*
 	 * Compares the directions of two points (treated as velocity vectors)
+	 * returns true if p and k are both heading towards eachother 
 	 */
 	private boolean compareDirections(Point p, Point k) {
 		if(p.y == (-1) * k.y){
@@ -243,6 +250,8 @@ public class GameLogic implements SnakeInterface {
 		}
 	}
 	
+	
+	
 	/*
 	 * Spawns food at random locations on the board
 	 * Maximum number at any one time is Food.MAX_FOOD 
@@ -268,7 +277,7 @@ public class GameLogic implements SnakeInterface {
 					type = Food.TYPE_BANANA;
 					break;
 			}
-			Food food = new Food(x, y,type);
+			Food food = new Food(x,y,type);
 			
 			foodItems.add(food);
 		}
@@ -280,7 +289,7 @@ public class GameLogic implements SnakeInterface {
 	private boolean isTileOccupied(int x, int y) {
 		for(Player p : players){
 			for(Tile t : p.getSnake().getSegments()) {
-				if(t.equals(new Point(x,y))){
+				if(t.getPoint().equals(new Point(x,y))){
 					return true;
 				}
 			}

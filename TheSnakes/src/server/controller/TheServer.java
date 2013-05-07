@@ -16,8 +16,6 @@ import shared.model.Player;
 
 public class TheServer implements SnakeInterface, Runnable {
 	
-	private int port = 1985;
-	
 	private List<Player> players = new ArrayList<Player>();
 	private List<Thread> clients = new ArrayList<Thread>();
 	private List<ClientListener> clientRunnables = new ArrayList<ClientListener>();
@@ -35,7 +33,6 @@ public class TheServer implements SnakeInterface, Runnable {
 		this.bounds = bounds;
 		gameLogic = new GameLogic(this.bounds);
 		this.numPlayers = numPlayers;
-		this.port = port;
 		try{
 			serverSocket = new ServerSocket(port);
 			System.out.println("New Snake Server at " + new Date());
@@ -132,7 +129,8 @@ public class TheServer implements SnakeInterface, Runnable {
 				int status = statusMap.get(client.getPlayerName());
 				client.sendInfo(gameLogic.getPlayers(), gameLogic.getFood(),status);
 				// remove them if they have lost
-				if(statusMap.get(client.getPlayerName()) == STATUS_LOSE){
+				if(statusMap.get(client.getPlayerName()) == STATUS_LOSE || 
+						statusMap.get(client.getPlayerName()) == MOVE_EXIT){
 					try {
 						client.close();
 					} catch (IOException e) {
@@ -170,7 +168,9 @@ public class TheServer implements SnakeInterface, Runnable {
 		
 		return status;
 	}
-	
+	/*
+	 * Main method only used for testing!
+	 */
 	public static void main(String args[])
 	{
 		new TheServer(2,new Point(50,50),1985).run();
