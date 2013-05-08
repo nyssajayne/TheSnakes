@@ -91,7 +91,6 @@ public class ClientFrame extends JFrame implements shared.controller.SnakeInterf
 		
 		public void setGrid(int length, int width)
 		{
-			System.out.println("I'm setGrid, do I get called?");
 			grid = new Grid(length, width);
 
 			this.remove(empty1);

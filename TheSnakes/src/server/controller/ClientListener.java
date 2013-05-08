@@ -49,7 +49,7 @@ public class ClientListener implements Runnable {
 		}
 		catch(IOException e)
 		{
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -62,7 +62,7 @@ public class ClientListener implements Runnable {
 			   out.writeObject(p1);
 			   out.flush();
 		   }catch(Exception e){
-			   System.out.println(e.getStackTrace());
+			   e.printStackTrace();
 		   }
 	   }
 	

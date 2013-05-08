@@ -39,7 +39,7 @@ public class TheServer implements SnakeInterface, Runnable {
 		}
 		catch (IOException e)
 		{
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	@Override
@@ -50,6 +50,7 @@ public class TheServer implements SnakeInterface, Runnable {
 			ClientListener client;
 			try {				
 				client = new ClientListener(this,serverSocket.accept());
+				System.out.println("New Contestant: ");
 				clients.add(new Thread(client));
 				clientRunnables.add(client);
 				
@@ -78,7 +79,6 @@ public class TheServer implements SnakeInterface, Runnable {
 
 				
 				statusMap.put(playerName, status);
-				System.out.println("New Contestant: ");
 				client.sendInfo(gameLogic.getPlayers(),null, status);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -96,10 +96,8 @@ public class TheServer implements SnakeInterface, Runnable {
 			Iterator<Thread> c1 = clients.iterator();
 		while(c1.hasNext() ) {	
 			c1.next().start();
-			System.out.println("Weeeee!");
 		}
 		}catch(IllegalThreadStateException e){
-			System.out.println("He's dead jim!");
 			e.printStackTrace();
 		}
 		
@@ -175,5 +173,4 @@ public class TheServer implements SnakeInterface, Runnable {
 	{
 		new TheServer(2,new Point(50,50),1985).run();
 	}
-
 }
