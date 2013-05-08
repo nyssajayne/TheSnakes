@@ -52,7 +52,7 @@ public class SnakeGame extends Thread implements SnakeInterface{
 			
 			
 			
-			if(clientFrame.getSockHandler().initConnection("localhost"))
+			if(clientFrame.getSockHandler().initConnection(clientFrame.getLSB().getIp_address(), clientFrame.getLSB().getJoinPort()))
 				System.out.println("Succeeded!");
 			else
 				System.out.println("Failed");

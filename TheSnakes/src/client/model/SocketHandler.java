@@ -15,9 +15,9 @@ public class SocketHandler {
 		
 	}
 	
-	public boolean initConnection(String ip) throws UnknownHostException, 
+	public boolean initConnection(String ip, int port) throws UnknownHostException, 
 	IOException {
-		socket = new Socket(ip, 1985);
+		socket = new Socket(ip, port);
 		in = new ObjectInputStream(socket.getInputStream());
 		out = new DataOutputStream(socket.getOutputStream());
 		
