@@ -25,7 +25,7 @@ public interface SnakeInterface {
 	public static final int BOT_RIGHT = 43;
 	
 	public static final Integer POSITIONS[] = {TOP_LEFT, TOP_RIGHT, BOT_LEFT, BOT_RIGHT}; 
-	public static final Integer PORTS[] = { 1985, 2000,2115, 2220};
+	public static final Integer PORTS[] = { 19850, 2000,2115, 2220};
 	public static final Integer GRID_SIZES[] = {35, 50, 75};
 
 }
